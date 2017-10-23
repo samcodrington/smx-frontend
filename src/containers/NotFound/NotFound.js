@@ -3,21 +3,41 @@
 
 import React, { Component } from 'react';
 
-import TestApi from '../../api/test-api.js'
+import UserApi from '../../api/UserApi.js'
 
 class NotFound extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      userData: props.name
+    };
+    console.log(props);
+  }
+
+  componentDidMount() {
+    var self = this;
+    const resp = UserApi
+      .get('api')
+      .then((response) => {
+        console.log(response.results[0].gender);
+        self.setState({
+          userData: response.results[0].gender
+        });
+      })
+      .catch((response) => {
+        console.log(response);
+        return response;
+      });
+  }
 
   render() {
-    var ApiInstance = new TestApi
-    var foo = ApiInstance.getText();
-
     return (
       <div className='NotFound'>
         <h1>
           404 <small>Not Found :(</small>
         </h1>
 
-        <p> {foo} </p>
+        <p> {this.state.userData} </p>
       </div>
     );
   }

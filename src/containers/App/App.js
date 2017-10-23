@@ -12,7 +12,9 @@ class App extends Component {
     return (
       <Switch>
         <Route exact path="/" component={About} />
-        <Route exact path="/404" component={NotFound} />
+        <Route exact path="/404" render={(props) => (
+          <NotFound {...props} name="TEST" />
+        )}/>
       </Switch>
     );
   }
