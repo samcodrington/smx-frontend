@@ -9,7 +9,7 @@ class NotFound extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      userData: props.name
+      userData: ''
     };
     console.log(props);
   }
@@ -19,7 +19,7 @@ class NotFound extends Component {
     const resp = UserApi
       .get('api')
       .then((response) => {
-        console.log(response.results[0].gender);
+        console.log(response.results[0]);
         self.setState({
           userData: response.results[0].gender
         });
@@ -36,7 +36,6 @@ class NotFound extends Component {
         <h1>
           404 <small>Not Found :(</small>
         </h1>
-
         <p> {this.state.userData} </p>
       </div>
     );
