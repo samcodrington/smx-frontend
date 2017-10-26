@@ -6,7 +6,11 @@ import React, { Component } from 'react';
 class SignUp extends Component {
   constructor(props) {
     super(props);
-    this.state = {value: ''};
+    this.state = {
+      username: '',
+      password: '',
+      confirm: ''
+    };
 
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
@@ -14,11 +18,14 @@ class SignUp extends Component {
 
 
   handleChange(event) {
-    this.setState({value: event.target.value});
+    const target = event.target;
+    const name = target.name;
+    const value = target.value;
+    this.setState({[name]: value});
   }
 
   handleSubmit(event) {
-    alert('You\'ve created an account! Name: ' + this.state.value);
+    alert('You\'ve created an account! Name: ' + this.state.username);
     event.preventDefault();
   }
 
@@ -27,7 +34,15 @@ class SignUp extends Component {
       <form onSubmit={this.handleSubmit}>
         <label>
           Username:
-          <input type='text' value={this.state.value} onChange={this.handleChange} />
+          <input name='username' type='text' value={this.state.username} onChange={this.handleChange} />
+        </label>
+        <label>
+          Password:
+          <input name='password' type='password' value={this.state.password} onChange={this.handleChange} />
+        </label>
+        <label>
+          Confirm Password:
+          <input name='confirm' type='password' value={this.state.confirm} onChange={this.handleChange} />
         </label>
         <input type='submit' value='Submit' />
       </form>
