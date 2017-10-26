@@ -18,7 +18,7 @@ const request = function(options) {
   const onError = function(error) {
     console.error('Request Failed', error.config);
 
-    if(error.resonse) {
+    if(error.response) {
       console.error('Status: ', error.response.status);
       console.error('Data: ', error.response.data);
       console.error('Headers: ', error.response.headers);

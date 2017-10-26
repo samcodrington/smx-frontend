@@ -3,6 +3,8 @@
 
 import React, { Component } from 'react';
 
+import UserApi from '../../api/UserApi';
+
 class SignUp extends Component {
   constructor(props) {
     super(props);
@@ -24,15 +26,29 @@ class SignUp extends Component {
   }
 
   handleSubmit(event) {
-
+    event.preventDefault();
     if(this.state.password !== this.state.confirm) {
       alert('Passwords do not match!');
     } else if(this.state.password.length < 8) {
       alert('Password must be longer than 8 characters!');
     } else {
-      alert('You\'ve created an account! Name: ' + this.state.username);
+      const user = {
+        username: this.state.username,
+        password: this.state.password
+      };
+      const response = UserApi
+        .createUser(
+          user
+        )
+        .then((response) => {
+          alert('You\'ve created an account! Name: ' + this.state.username);
+          event.preventDefault();
+        })
+        .catch((response) => {
+          alert('Something went wrong: ' + response.status);
+        }
+      );
     }
-    event.preventDefault();
   }
 
   render() {
