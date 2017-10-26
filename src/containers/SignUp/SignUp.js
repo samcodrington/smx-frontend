@@ -16,7 +16,6 @@ class SignUp extends Component {
     this.handleSubmit = this.handleSubmit.bind(this);
   }
 
-
   handleChange(event) {
     const target = event.target;
     const name = target.name;
@@ -25,7 +24,14 @@ class SignUp extends Component {
   }
 
   handleSubmit(event) {
-    alert('You\'ve created an account! Name: ' + this.state.username);
+
+    if(this.state.password !== this.state.confirm) {
+      alert('Passwords do not match!');
+    } else if(this.state.password.length < 8) {
+      alert('Password must be longer than 8 characters!');
+    } else {
+      alert('You\'ve created an account! Name: ' + this.state.username);
+    }
     event.preventDefault();
   }
 
