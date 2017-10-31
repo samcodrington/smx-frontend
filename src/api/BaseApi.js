@@ -26,7 +26,6 @@ const request = function(options) {
     else {
       console.error('Error Message: ', error.message);
     }
-
     return Promise.reject(error.response || error.message);
   }
 
