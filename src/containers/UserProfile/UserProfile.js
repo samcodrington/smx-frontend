@@ -18,7 +18,7 @@ class UserProfile extends Component {
   componentDidMount() {
     var self = this;
     const resp = UserApi
-      .get('api')
+      .getUserById('api')
       .then((response) => {
         console.log(response.results[0]);
         var result = response.results[0];
