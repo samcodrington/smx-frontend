@@ -3,7 +3,7 @@
 
 import axios from 'axios';
 
-const api_url = "localhost:3000/";
+const api_url = "http://localhost:3001/";
 
 const client = axios.create({
   baseURL: api_url
@@ -35,4 +35,3 @@ const request = function(options) {
 }
 
 export default request;
-

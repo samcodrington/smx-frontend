@@ -14,7 +14,10 @@ function createUser(user) {
     return request({
       method: 'POST',
       url: '/users/create',
-      body: user
+      body: user,
+      headers: {
+        'Access-Control-Allow-Origin': '*'
+      }
     });
   }
 
