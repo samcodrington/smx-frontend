@@ -13,7 +13,7 @@ function  getUserById(id) {
 function createUser(user) {
     return request({
       method: 'POST',
-      url: '/create_user',
+      url: '/users/create',
       body: user
     });
   }

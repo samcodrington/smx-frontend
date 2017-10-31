@@ -3,7 +3,7 @@
 
 import axios from 'axios';
 
-const api_url = "https://randomuser.me/";
+const api_url = "localhost:3001/";
 
 const client = axios.create({
   baseURL: api_url
