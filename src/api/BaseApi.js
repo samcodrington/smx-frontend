@@ -35,4 +35,3 @@ const request = function(options) {
 }
 
 export default request;
-
