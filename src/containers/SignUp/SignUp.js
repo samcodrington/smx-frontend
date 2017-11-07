@@ -53,6 +53,8 @@ class SignUp extends Component {
 
   render() {
     return(
+      <div>
+      <h1>Sign Up</h1>
       <form onSubmit={this.handleSubmit}>
         <label>
           Username: 
@@ -71,6 +73,7 @@ class SignUp extends Component {
         <br/>
         <input type='submit' value='Submit' />
       </form>
+      </div>
     );
   }
 

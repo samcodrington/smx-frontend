@@ -21,7 +21,7 @@ function createUser(user) {
 function signIn(user) {
     return request({
       method: 'POST',
-      url: '/users/sing_in',
+      url: '/users/sign_in',
       body: user
     });
 }
