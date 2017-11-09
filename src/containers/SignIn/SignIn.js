@@ -1,9 +1,25 @@
- // SignIn.js
-
+// SignIn.js
 
 import React, { Component } from 'react';
 
+import { withStyles } from 'material-ui/styles';
+import Button from 'material-ui/Button';
+import Paper from 'material-ui/Paper';
+import Typography from 'material-ui/Typography';
+import Grid from 'material-ui/Grid';
+import Input, { InputLabel } from 'material-ui/Input';
+import { FormControl, FormHelperText } from 'material-ui/Form';
+
 import UserApi from '../../api/UserApi';
+
+const style = {
+  paper: {
+    textAlign: 'center'
+  },
+  input: {
+    marginTop: 30
+  }
+}
 
 class SignIn extends Component {
   constructor(props) {
@@ -53,24 +69,34 @@ class SignIn extends Component {
   render() {
     return(
       <div>
-        <h1>Sign In</h1>
-        <form onSubmit={this.handleSubmit}>
-          <label>
-            Username: 
-            <input name='username' type='text' value={this.state.username} onChange={this.handleChange} />
-          </label>
-          <br/>
-          <label>
-            Password: 
-            <input name='password' type='password' value={this.state.password} onChange={this.handleChange} />
-          </label>
-          <br/>
-          <input type='submit' value='Submit' />
-        </form>
+        <Paper elevation={2} style={style.paper}>
+          <Grid container spacing={8}>
+            <Grid item xs={12}>
+              <Typography type={'display1'} >Sign In</Typography>
+            </Grid>
+
+            <Grid item xs={12}>
+              <FormControl >
+                <InputLabel>Username</InputLabel>
+                <Input name='username' value={ this.state.username } type='text' onChange={ this.handleChange }/>
+              </FormControl>
+            </Grid>
+
+            <Grid item xs={12}>
+              <FormControl >
+                <InputLabel>Password</InputLabel>
+                <Input name='password' value={ this.state.password } type='password' onChange={ this.handleChange }/>
+              </FormControl>
+            </Grid>
+
+            <Grid item xs={12}>
+              <Button raised color='primary'>Submit</Button>
+            </Grid>
+          </Grid>
+        </Paper>
       </div>
     );
   }
-
 }
 
 export default SignIn;
