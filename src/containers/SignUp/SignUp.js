@@ -45,6 +45,7 @@ class SignUp extends Component {
           event.preventDefault();
         })
         .catch((response) => {
+          console.log(response);
           alert('Something went wrong: ' + response.status);
         }
       );
@@ -57,17 +58,17 @@ class SignUp extends Component {
       <h1>Sign Up</h1>
       <form onSubmit={this.handleSubmit}>
         <label>
-          Username: 
+          Username:
           <input name='username' type='text' value={this.state.username} onChange={this.handleChange} />
         </label>
         <br/>
         <label>
-          Password: 
+          Password:
           <input name='password' type='password' value={this.state.password} onChange={this.handleChange} />
         </label>
         <br/>
         <label>
-          Confirm Password: 
+          Confirm Password:
           <input name='confirm' type='password' value={this.state.confirm} onChange={this.handleChange} />
         </label>
         <br/>
