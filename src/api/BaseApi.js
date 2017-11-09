@@ -3,7 +3,7 @@
 
 import axios from 'axios';
 
-const api_url = "https://randomuser.me/";
+const api_url = "http://localhost:3001/";
 
 const client = axios.create({
   baseURL: api_url
@@ -18,7 +18,7 @@ const request = function(options) {
   const onError = function(error) {
     console.error('Request Failed', error.config);
 
-    if(error.resonse) {
+    if(error.response) {
       console.error('Status: ', error.response.status);
       console.error('Data: ', error.response.data);
       console.error('Headers: ', error.response.headers);
@@ -26,7 +26,6 @@ const request = function(options) {
     else {
       console.error('Error Message: ', error.message);
     }
-
     return Promise.reject(error.response || error.message);
   }
 
