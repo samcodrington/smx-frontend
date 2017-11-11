@@ -8,7 +8,6 @@ import { MuiThemeProvider, createMuiTheme } from 'material-ui/styles';
 import 'normalize.css';
 import './assets/css/index.css';
 
-
 import App from './containers/App/App';
 
 // allows for UI customization
