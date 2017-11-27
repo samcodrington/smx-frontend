@@ -14,9 +14,10 @@ function createUser(user) {
     return request({
       method: 'POST',
       url: '/users/create',
-      body: user,
+      data: user,
       headers: {
-        'Access-Control-Allow-Origin': '*'
+        'Access-Control-Allow-Origin': '*',
+        'Content-Type': 'application/x-www-form-urlencoded'
       }
     });
   }
@@ -25,7 +26,11 @@ function signIn(user) {
     return request({
       method: 'POST',
       url: '/users/sign_in',
-      body: user
+      data: user
+      headers: {
+        'Access-Control-Allow-Origin': '*',
+        'Content-Type': 'application/x-www-form-urlencoded'
+      }
     });
 }
 

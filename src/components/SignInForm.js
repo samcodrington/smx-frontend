@@ -91,7 +91,7 @@ class SignInForm extends Component {
             </Grid>
 
             <Grid item xs={12}>
-              <Button raised color='primary' style={ style.button }>Submit</Button>
+              <Button raised color='primary' style={ style.button } onClick={ this.handleSubmit}>Submit</Button>
             </Grid>
           </Grid>
         </Paper>
