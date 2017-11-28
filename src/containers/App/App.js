@@ -12,6 +12,7 @@ import NotFound from '../NotFound/NotFound';
 import UserProfile from '../UserProfile/UserProfile';
 import SignUp from '../SignUp/SignUp';
 import SignIn from '../SignIn/SignIn';
+import Search from '../Search/Search';
 import Navbar from '../../components/Navbar'
 
 class App extends Component {
@@ -60,6 +61,7 @@ class App extends Component {
                 <Route exact path="/user" component={UserProfile} />
                 <Route exact path='/sign-up' component={SignUp} />
                 <Route exact path='/about' component={About} />
+                <Route exact path='/search' component={Search} />
                 <Route exact path="*" component={NotFound} />
               </Switch>
             </Grid>
