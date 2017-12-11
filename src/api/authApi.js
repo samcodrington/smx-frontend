@@ -7,7 +7,7 @@ function  login(user, pass) {
       method: 'POST',
       url: '/auth/login',
       body: {username: user, password: pass}
-    });
+    }); //storing cookies here
   }
 
 function logout(){

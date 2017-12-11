@@ -44,6 +44,7 @@ class SignInForm extends Component {
   }
 
   handleSubmit(event) {
+    console.log("Signin attempt!");
     event.preventDefault();
     if(this.state.username === '' || this.state.password === '') {
       alert('Must have username and password');
@@ -91,7 +92,7 @@ class SignInForm extends Component {
             </Grid>
 
             <Grid item xs={12}>
-              <Button raised color='primary' style={ style.button }>Submit</Button>
+              <Button raised color='primary' style={ style.button } type = 'submit' onClick = {this.handleSubmit} >Submit</Button>
             </Grid>
           </Grid>
         </Paper>
