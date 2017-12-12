@@ -7,8 +7,6 @@ import TextField from 'material-ui/TextField';
 import Grid from 'material-ui/Grid';
 import Button from 'material-ui/Button';
 
-import TextbookApi from '../api/TextbookApi';
-
 
 //Add const style object (if needed)
 const style = {
@@ -25,76 +23,38 @@ const style = {
 class SearchBar extends Component {
   constructor(props) {
     super(props);
-    this.state = {
-      searchField: '',
-      textbookResults: []
-    };
 
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
   }
 
   handleSubmit(event) {
-    event.preventDefault();
-    if(this.state.searchField === '') {
-      alert('No text entered!');
-    } else {
-      const searchString = this.state.searchField;
-      const response = TextbookApi
-        .searchTextbook(
-          searchString
-        )
-        .then((response) => {
-          alert(JSON.stringify(response));
-          this.setState({
-          textbookResults: response,
-        });
-          event.preventDefault();
-        })
-        .catch((response) => {
-          alert('Something went wrong: ' + response.status);
-        }
-      );
-    }
+    this.props.handleSubmit(event);
   }
 
   handleChange(event) {
-    this.setState({
-      searchField: event.target.value,
-    });
+    this.props.handleChange(event);
   }
 
   render() {
-    var title;
-    var namesList = this.state.textbookResults.map(function(textbook){
-      title = textbook.title;
-      return <Grid container spacing={8} alignContent={'center'} alignItems={'center'} justify={'center'}>
-        <Grid item xs={12} md={6}>
-          {title}
-        </Grid>
-      </Grid>;
-    });
     return(
       <div>
         <Grid container spacing={8}>
-          <Grid item xs={12}>
+          <Grid item xs={12} s={3} md={3} lg={3} xl={3}>{/* TextField */}
             <TextField
-              value={ this.state.searchField }
+              value={ this.props.searchField }
               onChange={ this.handleChange }
+              fullWidth={true}
             />
           </Grid>
-          <Grid item xs={12}>
+          <Grid item xs={12} s={3} md={3} lg={3} xl={3}>{/* Submit Button */}
             <Button raised color='primary' style={ style.button } onClick={ this.handleSubmit}>Submit</Button>
           </Grid>
-        </Grid>
-        <Grid container spacing={8}>
-          {namesList}
         </Grid>
       </div>
     );
   }
-
-}
+};
 
 
 export default SearchBar;
