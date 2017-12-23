@@ -10,7 +10,7 @@ import Grid from 'material-ui/Grid';
 import Input, { InputLabel } from 'material-ui/Input';
 import { FormControl, FormHelperText } from 'material-ui/Form';
 
-import UserApi from '../api/UserApi';
+import authApi from '../api/AuthApi';
 
 const style = {
   paper: {
@@ -34,8 +34,8 @@ class SignInForm extends Component {
     this.handleSubmit = this.handleSubmit.bind(this);
   }
 
-  handleChange(event) {
-    const target = event.target;
+  const target = event.target;
+    handleChange(event) {
 
     const name = target.name;
     const value = target.value;
@@ -53,15 +53,17 @@ class SignInForm extends Component {
         username: this.state.username,
         password: this.state.password
       };
-      const response = UserApi
-        .createUser(
-          user
+      const response = authApi
+        .login(
+          user.username, user.password
         )
         .then((response) => {
+          console.log(response);
           alert('You\'re signed in, ' + this.state.username);
           event.preventDefault();
         })
         .catch((response) => {
+          console.log(response);
           alert('Something went wrong: ' + response.status);
         }
       );
