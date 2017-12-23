@@ -34,8 +34,8 @@ class SignInForm extends Component {
     this.handleSubmit = this.handleSubmit.bind(this);
   }
 
-  const target = event.target;
-    handleChange(event) {
+  handleChange(event) {
+    const target = event.target;
 
     const name = target.name;
     const value = target.value;
