@@ -8,7 +8,7 @@ function  login(user, pass) {
       url: '/auth/login',
       body: {username: user, password: pass},
       headers: {
-        'Access-Control-Allow-Origin': '*',
+        //'Access-Control-Allow-Origin': '*',
         'Content-Type':'application/x-www-form-urlencoded'
       }
     }); //storing cookies here?
