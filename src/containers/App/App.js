@@ -45,7 +45,7 @@ class App extends Component {
           height: 'calc(100% - 64px)',
           marginTop: 64,
         },
-        overflow: 'hidden'
+        overflow: 'hidden'//remove internal scrollbar
       }
     }
     return (
