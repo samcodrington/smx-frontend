@@ -8,6 +8,7 @@ import ResultsBox from '../../components/ResultsBox';
 import { withTheme } from 'material-ui/styles';
 
 import TextbookApi from '../../api/TextbookApi';
+import Typography from 'material-ui/Typography';
 
 class Search extends Component {
   constructor(props) {
@@ -43,6 +44,7 @@ class Search extends Component {
             this.setState({
             textbookResults: [],
             });
+            alert("No matching results.");//current default message when no results returned
           }
         })
         .catch((response) => {
@@ -61,6 +63,7 @@ class Search extends Component {
   render() {
     const classes = {
       root: {
+        //backgroundColor: theme.palette.background.default,
         width: '100%',
         height: '100%',
         overflow: 'hidden',
@@ -68,9 +71,7 @@ class Search extends Component {
     }
     return (
       <div className='Search' style={ classes.root }>
-        <h1>
-          Search
-        </h1>
+      <Typography type={'display1'}>Search</Typography>
         <Grid container alignContent={'center'} alignItems={'center'} justify={'center'}>
           <Grid item xs={12} s={12} md={12} lg={12} xl={12} >{/*use full width for all screen sizes*/}
             <SearchBar

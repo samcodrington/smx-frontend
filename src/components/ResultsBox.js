@@ -5,15 +5,20 @@ import React, { Component } from 'react';
 //Import Material-ui components
 import GridList from 'material-ui/GridList';
 import GridTile from 'material-ui/GridList';
-import IconButton from 'material-ui/IconButton';
-import Star from 'material-ui-icons/Star';
-import Grid from 'material-ui/Grid';
+
+import Paper from 'material-ui/Paper';
+import Typography from 'material-ui/Typography';
 
 const styles = {
+  paper: {
+    textAlign: 'left',
+    margin: '12px'
+  },
   gridTile : {
     margin: '2px',
-    width: '100%',
-  },
+    width: '100%'//,
+    //backgroundColor: 'red'
+  }
 };
 
 class ResultsBox extends Component {
@@ -22,6 +27,7 @@ class ResultsBox extends Component {
 
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
+    this.onClick = this.onClick.bind(this);
   }
 
   handleSubmit(event) {
@@ -30,24 +36,32 @@ class ResultsBox extends Component {
   handleChange(event) {
   }
 
+  onClick(event) {
+
+
+  }
+
   render() {
     //code for dynamically rendering object
     //add properties of textbook
-    var title;
+    //var title, price, associatedprogram;
     var results = this.props.results.map(function(textbook){
       //map textbook properties to variables
-      title = textbook.title;
-      return <GridTile
-              style={styles.gridTile}
-            >
-            <h1>{title}</h1>
-      </GridTile>
+      //title = textbook.title;
+      //price = textbook.price;
+      //associatedprogram = textbook.associatedprogram;
+      return <Paper elevation={2} style={styles.paper}>
+                <Typography type={'title'} style={styles.heading}>{textbook.title}</Typography>
+                <Typography type={'subheading'} style={styles.heading}>${textbook.price}|{textbook.associatedprogram}</Typography>
+             </Paper>
+      //return <GridTile style={styles.gridTile}>
+      //          <Paper elevation={2} style={styles.paper}/>
+      //      </GridTile>
     });
     return(
       <div>
         <GridList xs={12} md={12} lg={12} xl={12}
           cols = {1}/*one result spans width of page*/
-          cellHeight={'auto'}
           >
           {results}{/*dynamically render textbook results*/}
         </GridList>

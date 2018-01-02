@@ -45,7 +45,7 @@ class App extends Component {
           height: 'calc(100% - 64px)',
           marginTop: 64,
         },
-        overflow: 'scroll'
+        overflow: 'hidden'
       }
     }
     return (
