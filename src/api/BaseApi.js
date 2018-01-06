@@ -3,7 +3,7 @@
 
 import axios from 'axios';
 
-const api_url = process.env.backendUrl || "http://localhost:3001/";
+const api_url = process.env.REACT_APP_BACKEND_URL || "http://localhost:3001/";
 
 const client = axios.create({
   baseURL: api_url
