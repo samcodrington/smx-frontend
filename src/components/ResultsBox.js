@@ -7,6 +7,7 @@ import GridList from 'material-ui/GridList';
 import GridTile from 'material-ui/GridList';
 
 import Paper from 'material-ui/Paper';
+import Card, {CardActions} from 'material-ui/Card';
 import Typography from 'material-ui/Typography';
 
 const styles = {
@@ -27,7 +28,7 @@ class ResultsBox extends Component {
 
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
-    this.onClick = this.onClick.bind(this);
+    this.handleClick = this.handleClick.bind(this);
   }
 
   handleSubmit(event) {
@@ -36,9 +37,9 @@ class ResultsBox extends Component {
   handleChange(event) {
   }
 
-  onClick(event) {
-
-
+  handleClick(textbook) {
+    alert(textbook.title)
+    //generate results page here
   }
 
   render() {
@@ -50,14 +51,15 @@ class ResultsBox extends Component {
       //title = textbook.title;
       //price = textbook.price;
       //associatedprogram = textbook.associatedprogram;
-      return <Paper elevation={2} style={styles.paper}>
-                <Typography type={'title'} style={styles.heading}>{textbook.title}</Typography>
-                <Typography type={'subheading'} style={styles.heading}>${textbook.price}|{textbook.associatedprogram}</Typography>
-             </Paper>
+      return <Card className={5} elevation={2} style={styles.paper} onClick={() => this.handleClick(textbook)}>
+                 <Typography type={'title'} style={styles.heading}>{textbook.title}</Typography>
+                 <Typography type={'subheading'} style={styles.heading}>{textbook.author}|{textbook.associatedprogram}</Typography>
+              </Card>
+
       //return <GridTile style={styles.gridTile}>
       //          <Paper elevation={2} style={styles.paper}/>
       //      </GridTile>
-    });
+    }.bind(this));//bind function so onClick is visible
     return(
       <div>
         <GridList xs={12} md={12} lg={12} xl={12}
