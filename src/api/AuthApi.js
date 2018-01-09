@@ -1,18 +1,23 @@
-// UserApi.js
+// AuthApi.js
 
 import request from './BaseApi';
 
 function login(user, pass) {
-    return request({
-      method: 'POST',
-      url: '/auth/login',
-      body: {username: user, password: pass},
-      headers: {
-        //'Access-Control-Allow-Origin': '*',        
-        'Content-Type':'application/x-www-form-urlencoded'
-      }
-    }); //storing cookies here?
-  }
+  //Prepare data to be sent via www-form-urlencoded rather than JSON
+  var params = new URLSearchParams();
+  params.append('username', user);
+  params.append('password', pass);
+  
+  return request({
+    method: 'POST',
+    url: '/auth/login',
+    headers: {
+      'Content-Type':'application/x-www-form-urlencoded' //'Access-Control-Allow-Origin': '*'
+    },
+    data: params,
+    responseType: 'json',
+  });
+}
 
 function logout(){
     return request({
