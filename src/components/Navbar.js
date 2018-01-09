@@ -16,10 +16,14 @@ const style = {
     marginLeft: -12,
     marginRight: 20
   },
-  flexButton: {
+  loginButton: {
     position: 'absolute',
     right: '10px'
-  } 
+  },
+  postButton: {
+    position: 'absolute',
+    right: '100px'
+  }
 }
 
 class Navbar extends Component {
@@ -48,21 +52,20 @@ class Navbar extends Component {
           <Toolbar >
             <Drawer open={ this.state.open } onRequestClose={ this.handleDrawerClose }>
               <div>
-                <IconButton color="contrast" aria-label="Menu"  style={ style.menuButton }> 
+                <IconButton color="contrast" aria-label="Menu"  style={ style.menuButton }>
                   <MenuIcon />
                 </IconButton>
               </div>
             </Drawer>
-            <IconButton color="contrast" aria-label="Menu"  style={ style.menuButton }> 
+            <IconButton color="contrast" aria-label="Menu"  style={ style.menuButton }>
               <MenuIcon />
             </IconButton>
 
             <Typography color="inherit" type="title">
               Toolbar
             </Typography>
-
-            <Button color="contrast" style={ style.flexButton } onClick={ this.handleDrawerOpen }>Login</Button>
-
+            <Button color="contrast" style={ style.postButton }><Link to="/PostTextbook" style={{ textDecoration: 'none', color: 'white' }}>POST</Link></Button>
+            <Button color="contrast" style={ style.loginButton } onClick={ this.handleDrawerOpen }>LOGIN</Button>
           </Toolbar>
         </AppBar>
       </div>

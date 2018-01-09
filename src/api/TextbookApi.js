@@ -16,6 +16,19 @@ function searchTextbook(searchField) {
     });
   }
 
-  const UserApi = { searchTextbook };
+  function postTextbook(textbook) {
+      return request({
+        method: 'POST',
+        url: '/textbooks/post',
+        data: textbook,
+        headers: {
+          'Access-Control-Allow-Origin': '*',
+          'Content-Type': 'application/x-www-form-urlencoded'
+        }
+      });
+    }
+
+
+  const UserApi = { searchTextbook, postTextbook };
 
   export default UserApi;
