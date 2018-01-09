@@ -19,31 +19,6 @@ class SignIn extends Component {
             <SignInForm />
           </Grid>
         </Grid>
-        <Grid container spacing={8} alignContent={'center'} alignItems={'center'} justify={'center'}>
-          <Grid item xs={12} md={6}>
-            <SignInForm />
-          </Grid>
-        </Grid>
-        <Grid container spacing={8} alignContent={'center'} alignItems={'center'} justify={'center'}>
-          <Grid item xs={12} md={6}>
-            <SignInForm />
-          </Grid>
-        </Grid>
-        <Grid container spacing={8} alignContent={'center'} alignItems={'center'} justify={'center'}>
-          <Grid item xs={12} md={6}>
-            <SignInForm />
-          </Grid>
-        </Grid>
-        <Grid container spacing={8} alignContent={'center'} alignItems={'center'} justify={'center'}>
-          <Grid item xs={12} md={6}>
-            <SignInForm />
-          </Grid>
-        </Grid>
-        <Grid container spacing={8} alignContent={'center'} alignItems={'center'} justify={'center'}>
-          <Grid item xs={12} md={6}>
-            <SignInForm />
-          </Grid>
-        </Grid>
       </div>
     );
   }
