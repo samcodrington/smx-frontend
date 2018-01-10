@@ -10,7 +10,6 @@ function searchTextbook(searchField) {
       url: '/textbooks/search',
       headers: {
         'Access-Control-Allow-Origin': '*',
-        'Content-Type': 'application/x-www-form-urlencoded',
         'searchField': searchField
       }
     });
@@ -20,10 +19,9 @@ function searchTextbook(searchField) {
       return request({
         method: 'POST',
         url: '/textbooks/post',
-        data: textbook,
+        data: {textbook},
         headers: {
-          'Access-Control-Allow-Origin': '*',
-          'Content-Type': 'application/x-www-form-urlencoded'
+          'Access-Control-Allow-Origin': '*'
         }
       });
     }

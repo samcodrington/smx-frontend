@@ -40,7 +40,11 @@ class PostTextbook extends Component {
   handleSubmit(event) {
     //alert(JSON.stringify(this.state));
     const textbook = {
-      title: this.state.title
+      title: this.state.title,
+      publisher: this.state.publisher,
+      author: this.state.author,
+      course: this.state.course,
+      price: this.state.price
     }
     event.preventDefault();
     const response = TextbookApi
