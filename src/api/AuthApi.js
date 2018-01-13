@@ -37,6 +37,6 @@ function logout(){
 }
 
 
-const UserApi = { login, verify, logout };
+const AuthApi = { login, verify, logout };
 
-export default UserApi;
+export default AuthApi;
