@@ -3,7 +3,7 @@ import React, { Component } from 'react';
 import { withTheme } from 'material-ui/styles';
 import Radio, { RadioGroup } from 'material-ui/Radio';
 import { FormLabel, FormControl, FormControlLabel, FormHelperText } from 'material-ui/Form';
-import Input, { InputLabel } from 'material-ui/Input';
+import Input, { InputLabel, InputAdornment } from 'material-ui/Input';
 import Paper from 'material-ui/Paper';
 import TextField from 'material-ui/TextField';
 import Grid from 'material-ui/Grid';
@@ -11,11 +11,20 @@ import Button from 'material-ui/Button';
 
 const style = {
   paper: {
-    textAlign: 'center',
+    textAlign: 'right',
     padding: 20
   },
   button: {
     marginTop: 10
+  },
+  left: {
+    textAlign: 'left'
+  },
+  right: {
+    textAlign: 'right'
+  },
+  center: {
+    textAlign: 'center'
   }
 }
 
@@ -25,7 +34,7 @@ class TextbookForm extends Component {
     this.state = { priceType: '', priceValue: ''};
 
     this.handleChange = this.handleChange.bind(this);
-    this.handlePriceSelection = this.handlePriceSelection.bind(this);
+    this.handleChangeTextField = this.handleChangeTextField.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
   }
 
@@ -33,12 +42,11 @@ class TextbookForm extends Component {
   handleChange(event){
     this.props.handleChange(event);
   }
+  handleChangeTextField(event){
+    this.props.handleChangeTextField(event);
+  }
   handleSubmit(event){
     this.props.handleSubmit(event);
-  }
-  //local handle price selection form, and set price prop value
-  handlePriceSelection = (event, selectionValue) => {
-    this.props.handlePriceSelection(selectionValue);
   }
 
   render() {
@@ -55,12 +63,13 @@ class TextbookForm extends Component {
       <Paper elevation={2} style={style.paper}>
         <Grid container spacing={8}>
 
-        <Grid item xs={12} md={6}>
+        <Grid item xs={6} s={6} md={6} style={style.right}>
 
           <Grid item xs={12} md={12}>
-            <FormControl >
+            <FormControl  required={true} error={this.props.nameError}>
               <InputLabel>Title</InputLabel>
               <Input name='title' value={ this.props.title } type='text' onChange={ this.handleChange }/>
+              {this.props.nameError && <FormHelperText id="name-error-text">Please Enter a title</FormHelperText>}
             </FormControl>
           </Grid>
 
@@ -73,12 +82,13 @@ class TextbookForm extends Component {
 
         </Grid>
 
-        <Grid item xs={12} md={6}>
+        <Grid item xs={6} s={6} md={6} style={style.left}>
 
           <Grid item xs={12} md={12}>
-            <FormControl >
+            <FormControl  required={true} error={this.props.authorError}>
               <InputLabel>Author</InputLabel>
               <Input name='author' value={ this.props.author } type='text' onChange={ this.handleChange }/>
+              {this.props.authorError && <FormHelperText id="name-error-text">Please Enter an author</FormHelperText>}
             </FormControl>
           </Grid>
 
@@ -91,44 +101,32 @@ class TextbookForm extends Component {
 
         </Grid>
 
-          <Grid item xs={12} md={12}>
+        <Grid item xs={12} style={style.center}>
 
-            <Grid item xs={6} md={6} lg={6}>
-              <FormControl component="fieldset" required className={classes.formControl}>
-                <FormLabel component="legend">Price</FormLabel>
-                <RadioGroup
-                  aria-label="priceSelection"
-                  name="priceSelection"
-                  className={classes.group}
-                  value={this.props.priceType}
-                  onChange={this.handlePriceSelection}
-                  >
-                  <FormControlLabel value="SelectPrice" control={<Radio />} label="$"/>
-                  <FormControlLabel value="Free" control={<Radio />} label="Free" />
-                  <FormControlLabel value="PleaseContact" control={<Radio />} label="Please Contact" />
-                </RadioGroup>
-                </FormControl>
-            </Grid>
-
-            <Grid item xs ={6} md={6} lg={6}>
-              <Input name='priceValue' value={ this.props.priceValue } type='text' onChange={ this.handleChange }/>
-            </Grid>
+            <FormControl  required={true} error={this.props.priceError}>
+              <InputLabel>Price</InputLabel>
+              <Input
+              name='price'
+              value={ this.props.price }
+              type='text'
+              onChange={ this.handleChange }
+              startAdornment={<InputAdornment position="start">$</InputAdornment>}
+              />
+            {this.props.priceError && <FormHelperText id="name-error-text">Please Enter a number</FormHelperText>}
+            </FormControl>
 
           </Grid>
 
-          <Grid item xs={12} md={6}>
-            <FormControl >
+          <Grid item xs={12} style={style.center}>
               <TextField
-                id="multiline-static"
+                id="description"
                 label="Description"
                 multiline
-                rows="4"
-                defaultValue=""
+                rowsMax="4"
                 className={classes.textField}
-                margin="normal"
+                onChange={ this.handleChangeTextField }
                 value={this.props.description}
               />
-            </FormControl>
           </Grid>
 
           <Grid item xs={12}>

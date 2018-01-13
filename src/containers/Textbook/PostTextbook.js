@@ -22,34 +22,58 @@ class PostTextbook extends Component {
       author: '',
       course: '',
       price: '',
-      priceType: '',
-      priceValue: '',
-      tags: ''
+      description: '',
+      nameError: false,
+      authorError: false,
+      priceError: false
     };
 
     this.handleSelection = this.handleSelection.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleChange = this.handleChange.bind(this);
-    this.handlePriceSelection = this.handlePriceSelection.bind(this);
+    this.handleChangeTextField = this.handleChangeTextField.bind(this);
   }
 
   handleChange(event){
     this.setState({[event.target.name]: event.target.value})
   }
+  handleChangeTextField(event){
+    this.setState({[event.target.id]: event.target.value})
+  }
 
   handleSubmit(event) {
-    //alert(JSON.stringify(this.state));
+    var dontSend=false
+    event.preventDefault();
+    //do some basic error checking on entered textbook
+    if (this.state.title==""){
+      this.setState({nameError: true})
+      dontSend=true
+    } else {this.setState({nameError: false})}
+    if (this.state.author==""){
+      this.setState({authorError: true})
+      dontSend=true
+    } else {this.setState({authorError: false})}
+    if (isNaN(this.state.price) || this.state.price==""){
+      this.setState({priceError: true})
+      dontSend=true
+    } else {this.setState({priceError: false})}
+    if (!dontSend){
+      this.sendTextbook();
+      }
+  }
+
+  sendTextbook(){
     const textbook = {
       title: this.state.title,
       publisher: this.state.publisher,
       author: this.state.author,
       course: this.state.course,
-      price: this.state.price
+      price: this.state.price,
+      tags: this.state.description
     }
-    event.preventDefault();
     const response = TextbookApi
     .postTextbook(textbook)
-    .then((response) => {alert(response)})
+    .then((response) => {alert("You Successfully posted a textbook")})
     .catch((response) => {
         alert('Something went wrong: ' + response.status);
     });
@@ -59,21 +83,6 @@ class PostTextbook extends Component {
     this.setState({
     selectionValue: value
     });
-  }
-
-  handlePriceSelection(selectionValue){
-    this.setState({
-    priceType: selectionValue
-    });
-  if (selectionValue==="SelectPrice"){
-    this.state.price = this.state.priceValue;
-  }
-  else if(selectionValue==="Free"){
-    this.state.price = "0";
-  }
-  else {
-    this.state.price = "Please Contact";
-  }
   }
 
   render() {
@@ -88,11 +97,12 @@ class PostTextbook extends Component {
           author = {this.state.author}
           course = {this.state.course}
           price = {this.state.price}
-          description = {this.state.tags}
-          priceValue = {this.state.priceValue}
-          priceType = {this.state.priceType}
-          handlePriceSelection = {this.handlePriceSelection}
+          description = {this.state.description}
+          nameError = {this.state.nameError}
+          authorError = {this.state.authorError}
+          priceError = {this.state.priceError}
           handleChange = {this.handleChange}
+          handleChangeTextField = {this.handleChangeTextField}
           handleSubmit = {this.handleSubmit}
         />;
       }
