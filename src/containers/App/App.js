@@ -16,7 +16,53 @@ import Search from '../Search/Search';
 import Navbar from '../../components/Navbar'
 import PostTextbook from '../Textbook/PostTextbook'
 
+import AuthApi from '../../api/AuthApi';
 class App extends Component {
+  constructor(props){
+    super(props);
+    this.state = {
+        isLoggedIn: false,
+        user: null
+    };
+  }
+
+  
+  
+  //callbacks for authentiation
+  checkLoginStatus = () => {
+    AuthApi.verify()
+    .then((response) => {
+      if (this.state.isLoggedIn == false)
+        this.changeLoginStatus(true);
+    })
+    .catch((error) => {
+      if (this.state.isLoggedIn == true)
+        this.changeLoginStatus(false);
+    });
+  }
+  
+  changeLoginStatus = (login) =>{
+    this.setState({isLoggedIn: login});
+  }
+  
+  addUserInfo = (u) => {
+    console.log("User: ");
+    console.debug(u);
+    this.setState({
+      user: {
+        _id: u._id,
+        username: u.username,
+        nameFirst: u.nameFirst,
+        nameLast: u.nameLast,
+        email: u.email,
+        school: u.school
+      }
+    })
+  }
+  
+  
+ 
+
   render() {
     const { theme } = this.props;
 
@@ -52,6 +98,7 @@ class App extends Component {
       }
     }
     return (
+
       <div>
         <Grid item xs={12}>
           <Navbar style={ classes.navBar }/>
@@ -63,7 +110,22 @@ class App extends Component {
                 <Switch>
                   <Route exact path="/" component={SignUp} />
                   <Route exact path="/user" component={UserProfile} />
-                  <Route exact path='/sign-in' component={SignIn} />
+                  <Route exact path="/sign-in" 
+                    render = {
+                      props => {
+                        if (this.state.isLoggedIn == false)
+                          return <SignIn
+                            changeLoginStatus = {this.changeLoginStatus}
+                            addUserInfo = {this.addUserInfo}
+                          />
+                        else
+                          return <UserProfile
+                            user = {this.state.user}
+                          />
+                      }
+                    } 
+                  />
+
                   <Route exact path='/about' component={About} />
                   <Route exact path='/search' component={Search} />
                   <Route exaxt path='/PostTextbook' component={PostTextbook} />

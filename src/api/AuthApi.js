@@ -19,6 +19,16 @@ function login(user, pass) {
   });
 }
 
+function verify(){
+  return request({
+    method: 'GET',
+    url: '/auth/',
+    headers: {
+      'Content-Type':'application/x-www-form-urlencoded' //'Access-Control-Allow-Origin': '*'
+    },
+    responseType: 'json'
+  });
+}
 function logout(){
     return request({
         method: 'POST',
@@ -27,6 +37,6 @@ function logout(){
 }
 
 
-const UserApi = { login, logout };
+const AuthApi = { login, verify, logout };
 
-export default UserApi;
+export default AuthApi;
