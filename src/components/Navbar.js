@@ -46,14 +46,14 @@ class Navbar extends Component {
       <div>
         <AppBar style={ this.props.style }>
           <Toolbar >
-            <Drawer open={ this.state.open } onRequestClose={ this.handleDrawerClose }>
+            <Drawer open={ this.state.open } onKeyDown={ this.handleDrawerClose } onClick={ this.handleDrawerClose }>
               <div>
                 <IconButton color="contrast" aria-label="Menu"  style={ style.menuButton }> 
                   <MenuIcon />
                 </IconButton>
               </div>
             </Drawer>
-            <IconButton color="contrast" aria-label="Menu"  style={ style.menuButton }> 
+            <IconButton color="contrast" aria-label="Menu" onClick={ this.handleDrawerOpen } style={ style.menuButton }> 
               <MenuIcon />
             </IconButton>
 
@@ -61,7 +61,10 @@ class Navbar extends Component {
               Toolbar
             </Typography>
 
-            <Button color="contrast" style={ style.flexButton } onClick={ this.handleDrawerOpen }>Login</Button>
+          
+            <Button color="contrast" style={ style.flexButton } component={Link} to="/sign-in">
+              Login
+            </Button>
 
           </Toolbar>
         </AppBar>
