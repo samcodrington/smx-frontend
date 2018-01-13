@@ -57,9 +57,9 @@ class App extends Component {
           <div style={ classes.appFrame }>
             <Grid item xs={12} style={ classes.content }>
               <Switch>
-                <Route exact path="/" component={SignIn} />
+                <Route exact path="/" component={SignUp} />
                 <Route exact path="/user" component={UserProfile} />
-                <Route exact path='/sign-up' component={SignUp} />
+                <Route exact path='/sign-in' component={SignIn} />
                 <Route exact path='/about' component={About} />
                 <Route exact path='/search' component={Search} />
                 <Route exact path="*" component={NotFound} />
