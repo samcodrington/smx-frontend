@@ -27,7 +27,7 @@ function verify(){
       'Content-Type':'application/x-www-form-urlencoded' //'Access-Control-Allow-Origin': '*'
     },
     responseType: 'json'
-  })
+  });
 }
 function logout(){
     return request({
@@ -37,6 +37,6 @@ function logout(){
 }
 
 
-const UserApi = { login, logout };
+const UserApi = { login, verify, logout };
 
 export default UserApi;
