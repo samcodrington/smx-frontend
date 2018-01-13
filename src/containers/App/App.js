@@ -12,9 +12,17 @@ import NotFound from '../NotFound/NotFound';
 import UserProfile from '../UserProfile/UserProfile';
 import SignUp from '../SignUp/SignUp';
 import SignIn from '../SignIn/SignIn';
-import Navbar from '../../components/Navbar'
+import Navbar from '../../components/Navbar';
+import AccountPage from '../../components/AccountPage';
 
 class App extends Component {
+  constructor(props){
+    super(props) {
+      this.state = {
+        isLoggedIn: false
+      };
+    }
+  }
   render() {
     const { theme } = this.props;
 
@@ -57,7 +65,7 @@ class App extends Component {
             <Grid item xs={12} style={ classes.content }>
               <Switch>
                 <Route exact path="/" component={SignIn} />
-                <Route exact path="/user" component={UserProfile} />
+                <Route exact path="/user" component={AccountPage} />
                 <Route exact path='/sign-up' component={SignUp} />
                 <Route exact path='/about' component={About} />
                 <Route exact path="*" component={NotFound} />
