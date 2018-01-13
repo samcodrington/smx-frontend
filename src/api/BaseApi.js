@@ -3,7 +3,7 @@
 
 import axios from 'axios';
 
-const api_url = "http://localhost:3001/";
+const api_url = process.env.REACT_APP_BACKEND_URL || "http://localhost:3001/";
 
 const client = axios.create({
   baseURL: api_url
@@ -17,6 +17,7 @@ const request = function(options) {
 
   const onError = function(error) {
     console.error('Request Failed', error.config);
+    console.error('backend unavailable at: ', api_url)
 
     if(error.response) {
       console.error('Status: ', error.response.status);
@@ -35,4 +36,3 @@ const request = function(options) {
 }
 
 export default request;
-

@@ -12,8 +12,9 @@ import NotFound from '../NotFound/NotFound';
 import UserProfile from '../UserProfile/UserProfile';
 import SignUp from '../SignUp/SignUp';
 import SignIn from '../SignIn/SignIn';
-import Navbar from '../../components/Navbar';
-import AccountPage from '../../components/AccountPage';
+import Search from '../Search/Search';
+import Navbar from '../../components/Navbar'
+import PostTextbook from '../Textbook/PostTextbook'
 
 import AuthApi from '../../api/AuthApi';
 class App extends Component {
@@ -70,16 +71,18 @@ class App extends Component {
         width: '100%',
         height: '100%',
         overflow: 'hidden',
+        position: 'fixed',
         backgroundColor: theme.palette.background.default
       },
       appFrame: {
-        position: 'relative',
+        position: 'absolute',
         display: 'flex',
         width: '100%',
         height: '100%',
       },
       navBar: {
-        zIndex: 2
+        zIndex: 2,
+        position: 'fixed'
       },
       content: {
         backgroundColor: theme.palette.background.default,
@@ -91,41 +94,47 @@ class App extends Component {
           height: 'calc(100% - 64px)',
           marginTop: 64,
         },
-        overflow: 'scroll'
+        overflow: 'scroll' //remove internal scrollbar
       }
     }
     return (
-      <div style={ classes.root }>
-        <Grid container spacing={8}>
-          <Grid item xs={12}>
-            <Navbar style={ classes.navBar }/>
-          </Grid>
-          <div style={ classes.appFrame }>
-            <Grid item xs={12} style={ classes.content }>
-              <Switch>
-                <Route exact path="/" 
-                  render = {
-                    props => {
-                      if (this.state.isLoggedIn == false)
-                        return <SignIn
-                          changeLoginStatus = {this.changeLoginStatus}
-                          addUserInfo = {this.addUserInfo}
-                        />
-                      else
-                        return <UserProfile
-                          user = {this.state.user}
-                        />
-                    }
-                  } 
-                />
-                <Route exact path="/user" component={AccountPage} />
-                <Route exact path='/sign-up' component={SignUp} />
-                <Route exact path='/about' component={About} />
-                <Route exact path="*" component={NotFound} />
-              </Switch>
-            </Grid>
-          </div>
+
+      <div>
+        <Grid item xs={12}>
+          <Navbar style={ classes.navBar }/>
         </Grid>
+        <div style={ classes.root }>
+          <Grid container spacing={8}>
+            <div style={ classes.appFrame }>
+              <Grid item xs={12} style={ classes.content }>
+                <Switch>
+                  <Route exact path="/" component={SignUp} />
+                  <Route exact path="/user" component={UserProfile} />
+                  <Route exact path="/sign-in" 
+                    render = {
+                      props => {
+                        if (this.state.isLoggedIn == false)
+                          return <SignIn
+                            changeLoginStatus = {this.changeLoginStatus}
+                            addUserInfo = {this.addUserInfo}
+                          />
+                        else
+                          return <UserProfile
+                            user = {this.state.user}
+                          />
+                      }
+                    } 
+                  />
+
+                  <Route exact path='/about' component={About} />
+                  <Route exact path='/search' component={Search} />
+                  <Route exaxt path='/PostTextbook' component={PostTextbook} />
+                  <Route exact path="*" component={NotFound} />
+                </Switch>
+              </Grid>
+            </div>
+          </Grid>
+        </div>
       </div>
     );
   }
