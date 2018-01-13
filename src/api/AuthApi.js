@@ -19,6 +19,16 @@ function login(user, pass) {
   });
 }
 
+function verify(){
+  return request({
+    method: 'GET',
+    url: '/auth/',
+    headers: {
+      'Content-Type':'application/x-www-form-urlencoded' //'Access-Control-Allow-Origin': '*'
+    },
+    responseType: 'json'
+  })
+}
 function logout(){
     return request({
         method: 'POST',
