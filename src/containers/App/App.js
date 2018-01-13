@@ -12,6 +12,7 @@ import NotFound from '../NotFound/NotFound';
 import UserProfile from '../UserProfile/UserProfile';
 import SignUp from '../SignUp/SignUp';
 import SignIn from '../SignIn/SignIn';
+import Search from '../Search/Search';
 import Navbar from '../../components/Navbar'
 
 class App extends Component {
@@ -44,7 +45,7 @@ class App extends Component {
           height: 'calc(100% - 64px)',
           marginTop: 64,
         },
-        overflow: 'scroll'
+        overflow: 'hidden'//remove internal scrollbar
       }
     }
     return (
@@ -56,10 +57,11 @@ class App extends Component {
           <div style={ classes.appFrame }>
             <Grid item xs={12} style={ classes.content }>
               <Switch>
-                <Route exact path="/" component={SignIn} />
+                <Route exact path="/" component={SignUp} />
                 <Route exact path="/user" component={UserProfile} />
-                <Route exact path='/sign-up' component={SignUp} />
+                <Route exact path='/sign-in' component={SignIn} />
                 <Route exact path='/about' component={About} />
+                <Route exact path='/search' component={Search} />
                 <Route exact path="*" component={NotFound} />
               </Switch>
             </Grid>
