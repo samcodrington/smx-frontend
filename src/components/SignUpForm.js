@@ -1,4 +1,4 @@
-// SignInForm.js
+// SignUpForm.js
 
 import React, { Component } from 'react';
 
@@ -10,7 +10,7 @@ import Grid from 'material-ui/Grid';
 import Input, { InputLabel } from 'material-ui/Input';
 import { FormControl, FormHelperText } from 'material-ui/Form';
 
-import authApi from '../api/AuthApi';
+import UserApi from '../api/UserApi';
 
 const style = {
   paper: {
@@ -27,7 +27,8 @@ class SignInForm extends Component {
     super(props);
     this.state = {
       username: '',
-      password: ''
+      password: '',
+      confirm: ''
     };
 
     this.handleChange = this.handleChange.bind(this);
@@ -36,30 +37,28 @@ class SignInForm extends Component {
 
   handleChange(event) {
     const target = event.target;
-
     const name = target.name;
     const value = target.value;
-
     this.setState({[name]: value});
   }
 
   handleSubmit(event) {
-    console.log("Signin attempt!");
     event.preventDefault();
-    if(this.state.username === '' || this.state.password === '') {
-      alert('Must have username and password');
+    if(this.state.password !== this.state.confirm) {
+      alert('Passwords do not match!');
+    } else if(this.state.password.length < 8) {
+      alert('Password must be longer than 8 characters!');
     } else {
       const user = {
         username: this.state.username,
         password: this.state.password
       };
-      const response = authApi
-        .login(
-          user.username, user.password
+      const response = UserApi
+        .createUser(
+          user
         )
         .then((response) => {
-          console.log(response);
-          alert('You\'re signed in, ' + this.state.username);
+          alert('You\'ve created an account! Name: ' + this.state.username);
           event.preventDefault();
         })
         .catch((response) => {
@@ -76,7 +75,7 @@ class SignInForm extends Component {
         <Paper elevation={2} style={style.paper}>
           <Grid container spacing={8}>
             <Grid item xs={12}>
-              <Typography type={'display1'} style={style.heading}>Sign In</Typography>
+              <Typography type={'display1'} style={style.heading}>Sign Up</Typography>
             </Grid>
 
             <Grid item xs={12}>
@@ -90,6 +89,13 @@ class SignInForm extends Component {
               <FormControl >
                 <InputLabel>Password</InputLabel>
                 <Input name='password' value={ this.state.password } type='password' onChange={ this.handleChange }/>
+              </FormControl>
+            </Grid>
+
+            <Grid item xs={12}>
+              <FormControl >
+                <InputLabel>Confirm Password</InputLabel>
+                <Input name='confirm' value={ this.state.confirm } type='password' onChange={ this.handleChange }/>
               </FormControl>
             </Grid>
 
