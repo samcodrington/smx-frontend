@@ -17,12 +17,18 @@ import AccountPage from '../../components/AccountPage';
 
 class App extends Component {
   constructor(props){
-    super(props) {
-      this.state = {
+    super(props);
+    this.state = {
         isLoggedIn: false
-      };
-    }
+    };
   }
+
+  //callback for authentiation
+  changeLoginStatus = (login) =>{
+    this.setState({isLoggedIn: login});
+    //TODO make loginStatus function more explicit maybe
+  }
+
   render() {
     const { theme } = this.props;
 
@@ -64,11 +70,16 @@ class App extends Component {
           <div style={ classes.appFrame }>
             <Grid item xs={12} style={ classes.content }>
               <Switch>
-                <Route exact path="/" component={SignIn} />
+                <Route exact path="/" 
+                  render = {
+                    props => <SignIn 
+                      changeLoginStatus = {this.changeLoginStatus}/>
+                  } 
+                />
                 <Route exact path="/user" component={AccountPage} />
                 <Route exact path='/sign-up' component={SignUp} />
                 <Route exact path='/about' component={About} />
-                <Route exact path="*" component={NotFound} />
+                <Route exact path="*" compone2nt={NotFound} />
               </Switch>
             </Grid>
           </div>
