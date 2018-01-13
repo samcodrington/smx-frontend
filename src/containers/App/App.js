@@ -14,6 +14,7 @@ import SignUp from '../SignUp/SignUp';
 import SignIn from '../SignIn/SignIn';
 import Search from '../Search/Search';
 import Navbar from '../../components/Navbar'
+import PostTextbook from '../Textbook/PostTextbook'
 
 class App extends Component {
   render() {
@@ -65,6 +66,7 @@ class App extends Component {
                   <Route exact path='/sign-in' component={SignIn} />
                   <Route exact path='/about' component={About} />
                   <Route exact path='/search' component={Search} />
+                  <Route exaxt path='/PostTextbook' component={PostTextbook} />
                   <Route exact path="*" component={NotFound} />
                 </Switch>
               </Grid>

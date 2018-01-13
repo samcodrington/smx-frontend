@@ -16,10 +16,14 @@ const style = {
     marginLeft: -12,
     marginRight: 20
   },
-  flexButton: {
+  loginButton: {
     position: 'absolute',
     right: '10px'
-  } 
+  },
+  postButton: {
+    position: 'absolute',
+    right: '100px'
+  }
 }
 
 class Navbar extends Component {
@@ -48,7 +52,7 @@ class Navbar extends Component {
           <Toolbar >
             <Drawer open={ this.state.open } onKeyDown={ this.handleDrawerClose } onClick={ this.handleDrawerClose }>
               <div>
-                <IconButton color="contrast" aria-label="Menu"  style={ style.menuButton }> 
+                <IconButton color="contrast" aria-label="Menu"  style={ style.menuButton }>
                   <MenuIcon />
                 </IconButton>
               </div>
@@ -59,13 +63,10 @@ class Navbar extends Component {
 
             <Typography color="inherit" type="title">
               Toolbar
-            </Typography>
-
-          
+            </Typography>          
             <Button color="contrast" style={ style.flexButton } component={Link} to="/sign-in">
               Login
             </Button>
-
           </Toolbar>
         </AppBar>
       </div>

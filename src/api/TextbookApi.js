@@ -10,12 +10,23 @@ function searchTextbook(searchField) {
       url: '/textbooks/search',
       headers: {
         'Access-Control-Allow-Origin': '*',
-        'Content-Type': 'application/x-www-form-urlencoded',
         'searchField': searchField
       }
     });
   }
 
-  const UserApi = { searchTextbook };
+  function postTextbook(textbook) {
+      return request({
+        method: 'POST',
+        url: '/textbooks/post',
+        data: {textbook},
+        headers: {
+          'Access-Control-Allow-Origin': '*'
+        }
+      });
+    }
+
+
+  const UserApi = { searchTextbook, postTextbook };
 
   export default UserApi;
