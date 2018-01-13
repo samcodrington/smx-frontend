@@ -10,7 +10,7 @@ import Grid from 'material-ui/Grid';
 import Input, { InputLabel } from 'material-ui/Input';
 import { FormControl, FormHelperText } from 'material-ui/Form';
 
-import UserApi from '../api/UserApi';
+import authApi from '../api/AuthApi';
 
 const style = {
   paper: {
@@ -44,6 +44,7 @@ class SignInForm extends Component {
   }
 
   handleSubmit(event) {
+    console.log("Signin attempt!");
     event.preventDefault();
     if(this.state.username === '' || this.state.password === '') {
       alert('Must have username and password');
@@ -52,15 +53,17 @@ class SignInForm extends Component {
         username: this.state.username,
         password: this.state.password
       };
-      const response = UserApi
-        .createUser(
-          user
+      const response = authApi
+        .login(
+          user.username, user.password
         )
         .then((response) => {
+          console.log(response);
           alert('You\'re signed in, ' + this.state.username);
           event.preventDefault();
         })
         .catch((response) => {
+          console.log(response);
           alert('Something went wrong: ' + response.status);
         }
       );
@@ -91,7 +94,7 @@ class SignInForm extends Component {
             </Grid>
 
             <Grid item xs={12}>
-              <Button raised color='primary' style={ style.button } onClick={ this.handleSubmit}>Submit</Button>
+              <Button raised color='primary' style={ style.button } type = 'submit' onClick = {this.handleSubmit} >Submit</Button>
             </Grid>
           </Grid>
         </Paper>
