@@ -75,7 +75,7 @@ class SignInForm extends Component {
         <Paper elevation={2} style={style.paper}>
           <Grid container spacing={8}>
             <Grid item xs={12}>
-              <Typography type={'display1'} style={style.heading}>Sign In</Typography>
+              <Typography type={'display1'} style={style.heading}>Sign Up</Typography>
             </Grid>
 
             <Grid item xs={12}>
