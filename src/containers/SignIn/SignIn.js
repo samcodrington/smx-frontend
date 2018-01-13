@@ -9,6 +9,7 @@ import SignInForm from '../../components/SignInForm';
 class SignIn extends Component {
   constructor(props) {
     super(props);
+    this.changeLoginStatus = this.props.changeLoginStatus.bind(this);
   }
 
   render() {
@@ -16,7 +17,7 @@ class SignIn extends Component {
       <div>
         <Grid container spacing={8} alignContent={'center'} alignItems={'center'} justify={'center'}>
           <Grid item xs={12} md={6}>
-            <SignInForm />
+            <SignInForm changeLoginStatus = {this.changeLoginStatus} />
           </Grid>
         </Grid>
       </div>

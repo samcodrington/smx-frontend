@@ -15,6 +15,7 @@ import SignIn from '../SignIn/SignIn';
 import Navbar from '../../components/Navbar';
 import AccountPage from '../../components/AccountPage';
 
+import AuthApi from '../../api/AuthApi';
 class App extends Component {
   constructor(props){
     super(props);
@@ -23,11 +24,26 @@ class App extends Component {
     };
   }
 
-  //callback for authentiation
+  
+  
+  //callbacks for authentiation
+  checkLoginStatus = () => {
+    AuthApi.verify()
+    .then((response) => {
+      if (this.state.isLoggedIn == false)
+        this.changeLoginStatus(true);
+    })
+    .catch((error) => {
+      if (this.state.isLoggedIn == true)
+        this.changeLoginStatus(false);
+    });
+  }
+  
   changeLoginStatus = (login) =>{
     this.setState({isLoggedIn: login});
-    //TODO make loginStatus function more explicit maybe
   }
+  
+ 
 
   render() {
     const { theme } = this.props;
@@ -72,14 +88,18 @@ class App extends Component {
               <Switch>
                 <Route exact path="/" 
                   render = {
-                    props => <SignIn 
-                      changeLoginStatus = {this.changeLoginStatus}/>
+                    props => {
+                      if (this.state.isLoggedIn == false)
+                        return <SignIn changeLoginStatus = {this.changeLoginStatus}/>
+                      else
+                        return <UserProfile/>
+                    }
                   } 
                 />
                 <Route exact path="/user" component={AccountPage} />
                 <Route exact path='/sign-up' component={SignUp} />
                 <Route exact path='/about' component={About} />
-                <Route exact path="*" compone2nt={NotFound} />
+                <Route exact path="*" component={NotFound} />
               </Switch>
             </Grid>
           </div>
