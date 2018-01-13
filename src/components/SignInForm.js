@@ -30,7 +30,7 @@ class SignInForm extends Component {
       password: ''
     };
     this.changeLoginStatus = this.props.changeLoginStatus.bind(this);
-    
+    this.addUserInfo = this.props.addUserInfo.bind(this);
 
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
@@ -62,11 +62,10 @@ class SignInForm extends Component {
           user.username, user.password
         )
         .then((response) => {
-          console.log(response);
           //alert('You\'re signed in, ' + this.state.username);
           event.preventDefault();
-          //Calling this function triggers a component change
-          this.changeLoginStatus(true);      
+          this.addUserInfo(response);
+          this.changeLoginStatus(true);  //triggers a component change from app.js
         })
         .catch((response) => {
           console.log(response);

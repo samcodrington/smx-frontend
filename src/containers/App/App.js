@@ -20,7 +20,8 @@ class App extends Component {
   constructor(props){
     super(props);
     this.state = {
-        isLoggedIn: false
+        isLoggedIn: false,
+        user: null
     };
   }
 
@@ -42,6 +43,22 @@ class App extends Component {
   changeLoginStatus = (login) =>{
     this.setState({isLoggedIn: login});
   }
+  
+  addUserInfo = (u) => {
+    console.log("User: ");
+    console.debug(u);
+    this.setState({
+      user: {
+        _id: u._id,
+        username: u.username,
+        nameFirst: u.nameFirst,
+        nameLast: u.nameLast,
+        email: u.email,
+        school: u.school
+      }
+    })
+  }
+  
   
  
 
@@ -90,9 +107,14 @@ class App extends Component {
                   render = {
                     props => {
                       if (this.state.isLoggedIn == false)
-                        return <SignIn changeLoginStatus = {this.changeLoginStatus}/>
+                        return <SignIn
+                          changeLoginStatus = {this.changeLoginStatus}
+                          addUserInfo = {this.addUserInfo}
+                        />
                       else
-                        return <UserProfile/>
+                        return <UserProfile
+                          user = {this.state.user}
+                        />
                     }
                   } 
                 />
