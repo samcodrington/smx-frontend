@@ -32,11 +32,15 @@ class Navbar extends Component {
     super(props);
     this.state = {
       open: false,
-      searching: false
+      // not needed
+      isSearching: false
     };
 
     this.handleDrawerOpen = this.handleDrawerOpen.bind(this);
     this.handleDrawerClose = this.handleDrawerClose.bind(this);
+
+    // not needed
+    this.handleSearchOpen = this.handleSearchOpen.bind(this);
   }
 
   handleDrawerOpen(event) {
@@ -44,11 +48,17 @@ class Navbar extends Component {
   }
 
   handleDrawerClose(event) {
-    this.setState({ open: false })
+    this.setState({ open: false });
+  }
+
+  // not needed
+  handleSearchOpen(event) {
+    alert("hello");
+    this.setState({ searching: true});
   }
 
   render() {  
-    var isSearching = this.state.searching;
+    var isSearching = this.state.isSearching;
 
     return(
       <div>
@@ -68,7 +78,7 @@ class Navbar extends Component {
               Toolbar
             </Typography>
 
-            <SearchBar isSearching={ isSearching } style={style.flexButton} />
+            <SearchBar style={style.flexButton} />
           </Toolbar>
         </AppBar>
       </div>
