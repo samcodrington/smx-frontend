@@ -23,7 +23,6 @@ class App extends Component {
       root: {
         width: '100%',
         height: '100%',
-        overflow: 'hidden',
         position: 'fixed',
         backgroundColor: theme.palette.background.default
       },
@@ -40,6 +39,7 @@ class App extends Component {
       content: {
         backgroundColor: theme.palette.background.default,
         width: '100%',
+        position: 'relative',
         padding: theme.spacing.unit * 3,
         height: 'calc(100% - 56px)',
         marginTop: 56,
