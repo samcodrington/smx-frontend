@@ -64,7 +64,7 @@ class App extends Component {
                   <Route exact path="/user" component={UserProfile} />
                   <Route exact path='/sign-in' component={SignIn} />
                   <Route exact path='/about' component={About} />
-                  <Route exact path='/search' component={Search} />
+                  <Route exact path='/search/:query' component={Search} />
                   <Route exact path="*" component={NotFound} />
                 </Switch>
               </Grid>

@@ -2,6 +2,7 @@
 
 // React
 import React, { Component } from 'react';
+import { Redirect } from 'react-router';
 
 // APIs
 import TextbookApi from '../api/TextbookApi';
@@ -37,13 +38,15 @@ class SearchBar extends Component {
     super(props);
     this.state = {
       searchText: "",
-      isSearching: false
+      isSearching: false,
+      redirect: false
     }
 
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleSearchOpen = this.handleSearchOpen.bind(this);
     this.handleSearchClose = this.handleSearchClose.bind(this);
+    this.handleKeyboardEnter = this.handleKeyboardEnter.bind(this);
   }
 
   handleChange(event) {
@@ -61,61 +64,42 @@ class SearchBar extends Component {
     this.setState({ isSearching: false});
   }
 
+  handleKeyboardEnter(event) {
+    if(event.keyCode == 13)
+    {
+      this.handleSubmit(event);
+      return false; // returning false will prevent the event from bubbling up.
+    }
+    else
+    {
+      return true;
+    }
+  }
+
   handleSubmit(event) {
     event.preventDefault();
 
     if(this.state.searchText === '') {
       alert('No text entered!');
     } else {
-      const searchString = this.state.searchText;
-      const response = TextbookApi
-        .searchTextbook(
-          searchString
-        )
-        .then((response) => {
-          if (response!='-1'){//check if their are results
-          alert(JSON.stringify(response));
-          var initialUpper, initialUpperDisabled;
-          if (response.length<10){
-            initialUpper = response.length;
-            initialUpperDisabled = true
-          }
-          else {
-            initialUpper = 10
-            initialUpperDisabled = false
-          }
-          this.setState({
-          textbookResults: response,
-          renderLower: 0,
-          renderUpper: initialUpper,
-          disablePrevButton: true,
-          disableNextButton: initialUpperDisabled
-          });
-          event.preventDefault();
-          }
-          else {//set textbookResults object to blank
-            this.setState({
-            textbookResults: [],
-            });
-            alert("No matching results.");//current default message when no results returned
-          }
-        })
-        .catch((response) => {
-          alert('Something went wrong: ' + response.status);
-        }
-      );
+      this.setState({
+      isSearching: false,
+      redirect: true});
     }
-
-    this.setState({ isSearching: false});
   }
 
   render() {
+    if(this.state.redirect === true) {
+      this.setState({redirect: false});
+      const query = this.state.searchText;
+      const url = "/search/" + query
+      return(<Redirect push to={url} />);
 
-    if(this.state.isSearching === true) {
+    } else if(this.state.isSearching === true) {
       return(
         <div style={ style.searchBar }>
           <Paper elevation={2} style={ style.paper }>
-            <Input name='search' value={ this.state.searchText } type='text' onChange={ this.handleChange } style={ style.textField }
+            <Input name='search' value={ this.state.searchText } type='text' onKeyDown={this.handleKeyboardEnter} onChange={ this.handleChange } style={ style.textField }
             startAdornment={
               <InputAdornment position="end">
                 <IconButton

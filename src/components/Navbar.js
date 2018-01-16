@@ -31,16 +31,11 @@ class Navbar extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      open: false,
-      // not needed
-      isSearching: false
+      open: false
     };
 
     this.handleDrawerOpen = this.handleDrawerOpen.bind(this);
     this.handleDrawerClose = this.handleDrawerClose.bind(this);
-
-    // not needed
-    this.handleSearchOpen = this.handleSearchOpen.bind(this);
   }
 
   handleDrawerOpen(event) {
@@ -49,12 +44,6 @@ class Navbar extends Component {
 
   handleDrawerClose(event) {
     this.setState({ open: false });
-  }
-
-  // not needed
-  handleSearchOpen(event) {
-    alert("hello");
-    this.setState({ searching: true});
   }
 
   render() {  
