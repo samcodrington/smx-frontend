@@ -21,14 +21,14 @@ class Search extends Component {
       disablePrevButton: true,
       disableNextButton: false
     };
-
-    this.handleChange = this.handleChange.bind(this);
+    
     this.handleSubmit = this.handleSubmit.bind(this);
-    this.changeShownResults = this.changeShownResults.bind(this);
+    //this.changeShownResults = this.changeShownResults.bind(this);
   }
 
   //function iterates through results according to the prop resultsPerPage
   //goForward 'true' indicates to increment results, 'false' to decrement
+  /*
   changeShownResults(goForward){
     var lowerIndex, upperIndex
     var disablePrev = false
@@ -63,50 +63,27 @@ class Search extends Component {
         disableNextButton: disableNext
     });
   }
+  */
 
-  handleSubmit(event) {
-    event.preventDefault();
-    if(this.state.searchField === '') {
-      alert('No text entered!');
-    } else {
-      const searchString = this.state.searchField;
-      const response = TextbookApi
-        .searchTextbook(
-          searchString
-        )
-        .then((response) => {
-          if (response!='-1'){//check if their are results
+  handleSubmit(query) {
+    const searchString = query;
+    const response = TextbookApi.searchTextbook(
+        searchString
+      ).then((response) => {
+        //check if their are results
+        if (response!='-1'){
           alert(JSON.stringify(response));
-          var initialUpper, initialUpperDisabled;
-          if (response.length<10){
-            initialUpper = response.length;
-            initialUpperDisabled = true
-          }
-          else {
-            initialUpper = 10
-            initialUpperDisabled = false
-          }
-          this.setState({
-          textbookResults: response,
-          renderLower: 0,
-          renderUpper: initialUpper,
-          disablePrevButton: true,
-          disableNextButton: initialUpperDisabled
-          });
-          event.preventDefault();
-          }
-          else {//set textbookResults object to blank
-            this.setState({
-            textbookResults: [],
-            });
-            alert("No matching results.");//current default message when no results returned
-          }
-        })
-        .catch((response) => {
-          alert('Something went wrong: ' + response.status);
         }
-      );
-    }
+        //set textbookResults object to blank
+        else {
+          this.setState({
+          textbookResults: [],
+          });
+          alert("No matching results.");//current default message when no results returned
+        }
+      }).catch((response) => {
+          alert('Something went wrong: ' + response.status);
+    });
   }
 
   handleChange(event) {
@@ -116,9 +93,12 @@ class Search extends Component {
   }
 
   render() {
+    var query = this.props.match.params.query;
+    var test = this.handleSubmit(query);
+
     return (
       <div className='Search'>
-      <Typography type={'display1'}>Search</Typography>
+      <Typography type={'display1'}>Results for "{query}"</Typography>
         <Grid container alignContent={'center'} alignItems={'center'} justify={'center'}>
           <Grid item xs={12} s={12} md={12} lg={12} xl={12} >{/*use full width for all screen sizes*/}
             <SearchBar
