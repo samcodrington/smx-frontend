@@ -106,8 +106,22 @@ class PostTextbook extends Component {
           handleSubmit = {this.handleSubmit}
         />;
       }
+      
       else {
-        //add <Collection form
+        switchFormRender = <CollectionForm
+          title = {this.state.title}
+          publisher = {this.state.publisher}
+          author = {this.state.author}
+          course = {this.state.course}
+          price = {this.state.price}
+          description = {this.state.description}
+          nameError = {this.state.nameError}
+          authorError = {this.state.authorError}
+          priceError = {this.state.priceError}
+          handleChange = {this.handleChange}
+          handleChangeTextField = {this.handleChangeTextField}
+          handleSubmit = {this.handleSubmit}
+        />;
       }
     const classes = {
       root: {
