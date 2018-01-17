@@ -4,11 +4,43 @@ import Autosuggest from 'react-autosuggest';
 import match from 'autosuggest-highlight/match';
 import parse from 'autosuggest-highlight/parse';
 import TextField from 'material-ui/TextField';
+import Input, { InputLabel, InputAdornment } from 'material-ui/Input';
 import Paper from 'material-ui/Paper';
 import { MenuItem } from 'material-ui/Menu';
 import { withStyles } from 'material-ui/styles';
 
 const suggestions = [
+  { label: 'ARTH' },
+  { label: 'COCA' },
+  { label: 'MDVL' },
+  { label: 'BCHM' },
+  { label: 'BIMA' },
+  { label: 'BIOL' },
+  { label: 'BIPS' },
+  { label: 'BTEC' },
+  { label: 'EBIO' },
+  { label: 'CHEM' },
+  { label: 'CLAS' },
+  { label: 'CLST' },
+  { label: 'GREK' },
+  { label: 'LATN' },
+  { label: 'COGS' },
+  { label: 'COMA' },
+  { label: 'COMP' },
+  { label: 'CSCI' },
+  { label: 'SODE' },
+  { label: 'DRAM' },
+  { label: 'MUSC' },
+  { label: 'MUTH' },
+  { label: 'STSC' },
+  { label: 'APEC' },
+  { label: 'ECON' },
+  { label: 'PPEC' },
+  { label: 'ENGL' },
+];
+
+//test suggestion list
+const suggestionsTest = [
   { label: 'APSC 100' },
   { label: 'APSC 111' },
   { label: 'APSC 112' },
@@ -85,11 +117,13 @@ const suggestions = [
   { label: 'SOFT 423' }
 ];
 
+//compare function for JS sort() method.
+//sorts objects on label param alphanumerically
 function sortSuggestions(a,b) {
   if (a.label < b.label){
     return -1;
   }
-  if (a.label > b.lable){
+  if (a.label > b.label){
     return 1;
   }
   return 0;
@@ -100,13 +134,13 @@ function renderInput(inputProps) {
 
   return (
     <TextField
-      autoFocus={autoFocus}
       className={classes.textField}
+      label = {'Course'}
       value={value}
       inputRef={ref}
       InputProps={{
         classes: {
-          input: classes.input,
+          //input: classes.input,
         },
         ...other,
       }}
@@ -151,7 +185,7 @@ function getSuggestionValue(suggestion) {
   return suggestion.label;
 }
 
-function getSuggestions(value) {
+function getSuggestions(value, numberOf) {
   const inputValue = value.trim().toLowerCase();
   const inputLength = inputValue.length;
   let count = 0;
@@ -160,7 +194,7 @@ function getSuggestions(value) {
     ? []
     : suggestions.sort(sortSuggestions).filter(suggestion => {
         const keep =
-          count < 5 && suggestion.label.toLowerCase().slice(0, inputLength) === inputValue;
+          count < numberOf && suggestion.label.toLowerCase().slice(0, inputLength) === inputValue;
 
         if (keep) {
           count += 1;
@@ -174,14 +208,13 @@ const styles = theme => ({
   container: {
     flexGrow: 1,
     position: 'relative',
-    height: 200,
+    zIndex: 1                 //overlay component
   },
   suggestionsContainerOpen: {
     position: 'absolute',
     marginTop: theme.spacing.unit,
     marginBottom: theme.spacing.unit * 3,
     left: 0,
-    right: 0,
   },
   suggestion: {
     display: 'block',
@@ -192,11 +225,11 @@ const styles = theme => ({
     listStyleType: 'none',
   },
   textField: {
-    width: '100%',
+    //width: '100%',
   },
 });
 
-class IntegrationAutosuggest extends React.Component {
+class Autosuggestlist extends React.Component {
   state = {
     value: '',
     suggestions: [],
@@ -204,7 +237,7 @@ class IntegrationAutosuggest extends React.Component {
 
   handleSuggestionsFetchRequested = ({ value }) => {
     this.setState({
-      suggestions: getSuggestions(value),
+      suggestions: getSuggestions(value, this.props.renderNumber | 3),
     });
   };
 
@@ -239,9 +272,8 @@ class IntegrationAutosuggest extends React.Component {
         getSuggestionValue={getSuggestionValue}
         renderSuggestion={renderSuggestion}
         inputProps={{
-          autoFocus: true,
           classes,
-          placeholder: 'Search a country (start with a)',
+          placeholder: '',
           value: this.state.value,
           onChange: this.handleChange,
         }}
@@ -250,8 +282,8 @@ class IntegrationAutosuggest extends React.Component {
   }
 }
 
-IntegrationAutosuggest.propTypes = {
+Autosuggestlist.propTypes = {
   classes: PropTypes.object.isRequired,
 };
 
-export default withStyles(styles)(IntegrationAutosuggest);
+export default withStyles(styles)(Autosuggestlist);
