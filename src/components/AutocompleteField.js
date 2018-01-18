@@ -36,85 +36,7 @@ const suggestions = [
   { label: 'APEC' },
   { label: 'ECON' },
   { label: 'PPEC' },
-  { label: 'ENGL' },
-];
-
-//test suggestion list
-const suggestionsTest = [
-  { label: 'APSC 100' },
-  { label: 'APSC 111' },
-  { label: 'APSC 112' },
-  { label: 'APSC 131' },
-  { label: 'APSC 132' },
-  { label: 'APSC 142' },
-  { label: 'APSC 151' },
-  { label: 'APSC 161' },
-  { label: 'APSC 171' },
-  { label: 'APSC 172' },
-  { label: 'APSC 174' },
-  { label: 'ELEC 221' },
-  { label: 'ELEC 252' },
-  { label: 'ELEC 270' },
-  { label: 'ELEC 271' },
-  { label: 'ELEC 274' },
-  { label: 'ELEC 278' },
-  { label: 'ELEC 280' },
-  { label: 'ELEC 299' },
-  { label: 'CMPE 212' },
-  { label: 'MTHE 235' },
-  { label: 'APSC 200' },
-  { label: 'APSC 293' },
-  { label: 'CMPE 365' },
-  { label: 'CMPE 380' },
-  { label: 'ELEC 326' },
-  { label: 'ELEC 371' },
-  { label: 'ELEC 373' },
-  { label: 'ELEC 374' },
-  { label: 'ELEC 377' },
-  { label: 'ELEC 390' },
-  { label: 'APSC 221' },
-  { label: 'CMPE 223' },
-  { label: 'CMPE 320' },
-  { label: 'ELEC 498' },
-  { label: 'ELEC 273' },
-  { label: 'ELEC 323' },
-  { label: 'ELEC 324' },
-  { label: 'ELEC 344' },
-  { label: 'ELEC 353' },
-  { label: 'ELEC 408' },
-  { label: 'ELEC 409' },
-  { label: 'ELEC 421' },
-  { label: 'ELEC 422' },
-  { label: 'ELEC 431' },
-  { label: 'ELEC 443' },
-  { label: 'ELEC 444' },
-  { label: 'ELEC 448' },
-  { label: 'ELEC 451' },
-  { label: 'ELEC 461' },
-  { label: 'ELEC 464' },
-  { label: 'ELEC 470' },
-  { label: 'ELEC 474' },
-  { label: 'ELEC 478' },
-  { label: 'ELEC 497' },
-  { label: 'ENPH 336' },
-  { label: 'CHEE 400' },
-  { label: 'CMPE 327' },
-  { label: 'CMPE 434' },
-  { label: 'CMPE 452' },
-  { label: 'CMPE 457' },
-  { label: 'CMPE 458' },
-  { label: 'SOFT 437' },
-  { label: 'CMPE 204' },
-  { label: 'CMPE 322' },
-  { label: 'CMPE 325' },
-  { label: 'CMPE 326' },
-  { label: 'CMPE 332' },
-  { label: 'CMPE 333' },
-  { label: 'CMPE 422' },
-  { label: 'CMPE 425' },
-  { label: 'CMPE 432' },
-  { label: 'CMPE 454' },
-  { label: 'SOFT 423' }
+  { label: 'ENGL' }
 ];
 
 //compare function for JS sort() method.
@@ -130,13 +52,14 @@ function sortSuggestions(a,b) {
 }
 
 function renderInput(inputProps) {
-  const { classes, autoFocus, value, ref, ...other } = inputProps;
+  const { classes, autoFocus, course, ref, ...other } = inputProps;
 
   return (
     <TextField
       className={classes.textField}
       label = {'Course'}
-      value={value}
+      name = {'course'}
+      value={course}
       inputRef={ref}
       InputProps={{
         classes: {
@@ -215,6 +138,7 @@ const styles = theme => ({
     marginTop: theme.spacing.unit,
     marginBottom: theme.spacing.unit * 3,
     left: 0,
+    right: 'relative'   //container opens to longest suggestion string
   },
   suggestion: {
     display: 'block',
@@ -231,7 +155,7 @@ const styles = theme => ({
 
 class Autosuggestlist extends React.Component {
   state = {
-    value: '',
+    //value: '',
     suggestions: [],
   };
 
@@ -248,9 +172,7 @@ class Autosuggestlist extends React.Component {
   };
 
   handleChange = (event, { newValue }) => {
-    this.setState({
-      value: newValue,
-    });
+      this.props.handleChangeAutoSuggest(newValue);
   };
 
   render() {
@@ -274,7 +196,7 @@ class Autosuggestlist extends React.Component {
         inputProps={{
           classes,
           placeholder: '',
-          value: this.state.value,
+          value: this.props.course,
           onChange: this.handleChange,
         }}
       />

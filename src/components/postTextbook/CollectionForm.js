@@ -38,11 +38,16 @@ class TextbookForm extends Component {
     this.handleChange = this.handleChange.bind(this);
     this.handleChangeTextField = this.handleChangeTextField.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
+    this.handleChangeAutoSuggest = this.handleChangeAutoSuggest.bind(this);
   }
 
   //local change handler (for non-default behaviour)
   handleChange(event){
     this.props.handleChange(event);
+  }
+  //Needs custom method as event object doesn't contain suggestion value
+  handleChangeAutoSuggest(newValue){
+    this.props.handleChangeAutoSuggest(newValue);
   }
   handleChangeTextField(event){
     this.props.handleChangeTextField(event);
@@ -95,7 +100,7 @@ class TextbookForm extends Component {
           </Grid>
 
           <Grid item xs={12} md={12}>
-            <Autosuggestlist autocomplete={'on'}  renderNumber={4}/>
+            <Autosuggestlist autocomplete={'on'}  renderNumber={3} course={this.props.course} handleChangeAutoSuggest={this.handleChangeAutoSuggest}/>
           </Grid>
         </Grid>
 

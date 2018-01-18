@@ -32,10 +32,14 @@ class PostTextbook extends Component {
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleChange = this.handleChange.bind(this);
     this.handleChangeTextField = this.handleChangeTextField.bind(this);
+    this.handleChangeAutoSuggest = this.handleChangeAutoSuggest.bind(this);
   }
 
   handleChange(event){
     this.setState({[event.target.name]: event.target.value})
+  }
+  handleChangeAutoSuggest(newValue){
+    this.setState({course: newValue})
   }
   handleChangeTextField(event){
     this.setState({[event.target.id]: event.target.value})
@@ -106,7 +110,7 @@ class PostTextbook extends Component {
           handleSubmit = {this.handleSubmit}
         />;
       }
-      
+
       else {
         switchFormRender = <CollectionForm
           title = {this.state.title}
@@ -119,6 +123,7 @@ class PostTextbook extends Component {
           authorError = {this.state.authorError}
           priceError = {this.state.priceError}
           handleChange = {this.handleChange}
+          handleChangeAutoSuggest = {this.handleChangeAutoSuggest}
           handleChangeTextField = {this.handleChangeTextField}
           handleSubmit = {this.handleSubmit}
         />;
