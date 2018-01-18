@@ -26,8 +26,8 @@ class App extends Component {
     };
   }
 
-  
-  
+
+
   //callbacks for authentiation
   checkLoginStatus = () => {
     AuthApi.verify()
@@ -40,11 +40,11 @@ class App extends Component {
         this.changeLoginStatus(false);
     });
   }
-  
+
   changeLoginStatus = (login) =>{
     this.setState({isLoggedIn: login});
   }
-  
+
   addUserInfo = (u) => {
     console.log("User: ");
     console.debug(u);
@@ -59,9 +59,9 @@ class App extends Component {
       }
     })
   }
-  
-  
- 
+
+
+
 
   render() {
     const { theme } = this.props;
@@ -110,7 +110,7 @@ class App extends Component {
                 <Switch>
                   <Route exact path="/" component={SignUp} />
                   <Route exact path="/user" component={UserProfile} />
-                  <Route exact path="/sign-in" 
+                  <Route exact path="/sign-in"
                     render = {
                       props => {
                         if (this.state.isLoggedIn == false)
@@ -123,12 +123,19 @@ class App extends Component {
                             user = {this.state.user}
                           />
                       }
-                    } 
+                    }
                   />
 
                   <Route exact path='/about' component={About} />
                   <Route exact path='/search' component={Search} />
-                  <Route exaxt path='/PostTextbook' component={PostTextbook} />
+                  <Route exact path='/PostTextbook'
+                    render = {
+                      props => {
+                        return <PostTextbook
+                        />
+                      }
+                    }
+                  />
                   <Route exact path="*" component={NotFound} />
                 </Switch>
               </Grid>

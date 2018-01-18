@@ -46,6 +46,7 @@ class PostTextbook extends Component {
   }
 
   handleSubmit(event) {
+    alert(this.props.user);
     var dontSend=false
     event.preventDefault();
     //do some basic error checking on entered textbook
