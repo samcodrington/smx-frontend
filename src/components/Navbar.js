@@ -67,6 +67,9 @@ class Navbar extends Component {
             <Button color="contrast" style={ style.flexButton } component={Link} to="/sign-in">
               Login
             </Button>
+            <Button color="contrast" style={ style.flexButton } component={Link} to="/PostTextbook">
+              Post Textbook
+            </Button>
           </Toolbar>
         </AppBar>
       </div>
