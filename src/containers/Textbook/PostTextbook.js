@@ -15,6 +15,7 @@ import TextbookForm from '../../components/postTextbook/TextbookForm';
 class PostTextbook extends Component {
   constructor(props) {
     super(props);
+    console.log(props.user);
     this.state = {
       selectionValue: '',
       title: '',
