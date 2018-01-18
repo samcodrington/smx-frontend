@@ -30,7 +30,7 @@ class CategoryForm extends Component {
     return (
       <div className='categoryForm' style={ classes.root }>
       <FormControl component="fieldset" required className={classes.formControl}>
-                <FormLabel component="legend">Select Category</FormLabel>
+                <FormLabel component="legend">What are you looking to sell?</FormLabel>
                 <RadioGroup
                   aria-label="textbookSelection"
                   name="textbookSelection"
