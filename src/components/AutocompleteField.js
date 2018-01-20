@@ -63,7 +63,7 @@ function renderInput(inputProps) {
       inputRef={ref}
       InputProps={{
         classes: {
-          //input: classes.input,
+          input: classes.input,
         },
         ...other,
       }}
@@ -130,8 +130,11 @@ function getSuggestions(value, numberOf) {
 const styles = theme => ({
   container: {
     flexGrow: 1,
+    width: '60px',          //abolsute size of 4 characters
+    marginRight: '10px',
     position: 'relative',
-    zIndex: 1                 //overlay component
+    zIndex: 1,               //overlay component
+    display: 'inline-block' //render component on same line
   },
   suggestionsContainerOpen: {
     position: 'absolute',
@@ -149,7 +152,7 @@ const styles = theme => ({
     listStyleType: 'none',
   },
   textField: {
-    //width: '100%',
+    //width: '50%',
   },
 });
 
