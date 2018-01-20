@@ -30,11 +30,19 @@ class Navbar extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      open: false
+      open: false,
+      isLoggedIn: this.props.isLoggedIn //
     };
+    this.triggerLogout = this.props.triggerLogout.bind(this);
 
     this.handleDrawerOpen = this.handleDrawerOpen.bind(this);
     this.handleDrawerClose = this.handleDrawerClose.bind(this);
+    this.handleClick = this.handleClick.bind(this);
+  }
+  componentWillReceiveProps(nextProps){
+    //Update isLoggedIn if it changes
+    if (nextProps.isLoggedIn != this.props.isLoggedIn)
+      this.setState({isLoggedIn: nextProps.isLoggedIn});
   }
 
   handleDrawerOpen(event) {
@@ -45,7 +53,28 @@ class Navbar extends Component {
     this.setState({ open: false })
   }
 
+  handleClick(event){
+    this.triggerLogout();
+  }
+
+
   render() {
+    //Define Login/Logout Button
+    let isLoggedIn = this.state.isLoggedIn;
+    let logInOutButton = null;
+    if (isLoggedIn){
+      logInOutButton = 
+        <Button color="contrast" style={ style.flexButton } onClick = {this.handleClick} >
+          Logout 
+        </Button>
+    } else {
+      logInOutButton = 
+        <Button color="contrast" style={ style.flexButton } component={Link} to="/sign-in">
+          Login
+        </Button>
+    }
+
+
     return(
       <div>
         <AppBar style={ this.props.style }>
@@ -60,13 +89,11 @@ class Navbar extends Component {
             <IconButton color="contrast" aria-label="Menu" onClick={ this.handleDrawerOpen } style={ style.menuButton }> 
               <MenuIcon />
             </IconButton>
-
+            {logInOutButton}
             <Typography color="inherit" type="title">
               Toolbar
-            </Typography>          
-            <Button color="contrast" style={ style.flexButton } component={Link} to="/sign-in">
-              Login
-            </Button>
+            </Typography>   
+            
           </Toolbar>
         </AppBar>
       </div>

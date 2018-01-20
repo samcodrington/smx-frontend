@@ -2,28 +2,39 @@
 // UserProfile.js
 
 import React, { Component } from 'react';
+import { Route } from 'react-router-dom';
+import Button from 'material-ui/Button';
 
-import UserApi from '../../api/UserApi.js'
 
+import UserInfo from '../../components/Userinfo.js';
 class UserProfile extends Component {
   constructor(props) {
     super(props);
-    console.log(props);
+    this.state = {
+      user: this.props.user
+    }
   }
 
   componentDidMount() {
-   
+    
+  }
+
+  handleEditProfile(){
+
   }
 
   render() {
+    let userInfo = {
+      nameFirst: this.state.user.nameFirst,
+      nameLast: this.state.user.nameLast,
+      email: this.state.user.email,
+      school: this.state.user.school
+    }
     return (
-      <div className='UserProfile'>
-        <h1>
-          Welcome to the User Profile Page
-        </h1>
-        <p> {this.props.user._id
-          } 
-        </p>
+      <div className='UserInfo'>
+        <h1> User Profile </h1>
+        <UserInfo user = {userInfo}/>
+        <Button type = 'submit' onClick = {this.handleEditProfile}> Edit Info </Button>
       </div>
     );
   }
