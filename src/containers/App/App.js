@@ -101,7 +101,7 @@ class App extends Component {
 
       <div>
         <Grid item xs={12}>
-          <Navbar style={ classes.navBar }/>
+          <Navbar style={ classes.navBar } isLoggedIn = {this.state.isLoggedIn}/>
         </Grid>
         <div style={ classes.root }>
           <Grid container spacing={8}>
