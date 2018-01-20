@@ -99,9 +99,21 @@ class TextbookForm extends Component {
             </FormControl>
           </Grid>
 
-          <Grid item xs={12} md={12}>
+          <Grid container spacing={8}>
+
+          <Grid item xs={12} md={12} style={style.left}>
             <Autosuggestlist autocomplete={'on'}  renderNumber={3} course={this.props.course} handleChangeAutoSuggest={this.handleChangeAutoSuggest}/>
           </Grid>
+
+          <Grid item xs={12} md={12} style={style.left}>
+            <FormControl >
+              <InputLabel>Publisher</InputLabel>
+              <Input name='publisher' value={ this.props.publisher } type='text' onChange={ this.handleChange }/>
+            </FormControl>
+          </Grid>
+
+          </Grid>
+
         </Grid>
 
         <Grid item xs={12} style={style.center}>
