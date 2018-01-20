@@ -2,7 +2,7 @@
 import React, { Component } from 'react';
 import { withTheme } from 'material-ui/styles';
 import Radio, { RadioGroup } from 'material-ui/Radio';
-import { FormLabel, FormControl, FormControlLabel, FormHelperText } from 'material-ui/Form';
+import { FormLabel, FormGroup, FormControl, FormControlLabel, FormHelperText } from 'material-ui/Form';
 import Input, { InputLabel, InputAdornment } from 'material-ui/Input';
 import Paper from 'material-ui/Paper';
 import TextField from 'material-ui/TextField';
@@ -20,13 +20,16 @@ const style = {
     marginTop: 10
   },
   left: {
-    textAlign: 'left'
+    textAlign: 'left',
   },
   right: {
     textAlign: 'right'
   },
   center: {
     textAlign: 'center'
+  },
+  fifty: {
+    width: '50%'
   }
 }
 
@@ -99,9 +102,14 @@ class TextbookForm extends Component {
             </FormControl>
           </Grid>
 
-          <Grid item xs={12} md={12}>
+          <Grid item xs={12} md={12} style={style.left}>
             <Autosuggestlist autocomplete={'on'}  renderNumber={3} course={this.props.course} handleChangeAutoSuggest={this.handleChangeAutoSuggest}/>
+            <FormControl >
+              <InputLabel>Number</InputLabel>
+              <Input name='number'  style={{width: '60px'}} value={ this.props.number } type='text' onChange={ this.handleChange }/>
+            </FormControl>
           </Grid>
+
         </Grid>
 
         <Grid item xs={12} style={style.center}>

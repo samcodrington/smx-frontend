@@ -22,6 +22,7 @@ class PostTextbook extends Component {
       publisher: '',
       author: '',
       course: '',
+      number: '',
       price: '',
       description: '',
       nameError: false,
@@ -119,6 +120,7 @@ class PostTextbook extends Component {
           publisher = {this.state.publisher}
           author = {this.state.author}
           course = {this.state.course}
+          number = {this.state.number}
           price = {this.state.price}
           description = {this.state.description}
           nameError = {this.state.nameError}

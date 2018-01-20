@@ -9,35 +9,7 @@ import Paper from 'material-ui/Paper';
 import { MenuItem } from 'material-ui/Menu';
 import { withStyles } from 'material-ui/styles';
 
-const suggestions = [
-  { label: 'ARTH' },
-  { label: 'COCA' },
-  { label: 'MDVL' },
-  { label: 'BCHM' },
-  { label: 'BIMA' },
-  { label: 'BIOL' },
-  { label: 'BIPS' },
-  { label: 'BTEC' },
-  { label: 'EBIO' },
-  { label: 'CHEM' },
-  { label: 'CLAS' },
-  { label: 'CLST' },
-  { label: 'GREK' },
-  { label: 'LATN' },
-  { label: 'COGS' },
-  { label: 'COMA' },
-  { label: 'COMP' },
-  { label: 'CSCI' },
-  { label: 'SODE' },
-  { label: 'DRAM' },
-  { label: 'MUSC' },
-  { label: 'MUTH' },
-  { label: 'STSC' },
-  { label: 'APEC' },
-  { label: 'ECON' },
-  { label: 'PPEC' },
-  { label: 'ENGL' }
-];
+import suggestions from '../data/CourseCodes.js';
 
 //compare function for JS sort() method.
 //sorts objects on label param alphanumerically
@@ -63,7 +35,7 @@ function renderInput(inputProps) {
       inputRef={ref}
       InputProps={{
         classes: {
-          //input: classes.input,
+          input: classes.input,
         },
         ...other,
       }}
@@ -130,8 +102,11 @@ function getSuggestions(value, numberOf) {
 const styles = theme => ({
   container: {
     flexGrow: 1,
+    width: '60px',          //abolsute size of 4 characters
+    marginRight: '10px',
     position: 'relative',
-    zIndex: 1                 //overlay component
+    zIndex: 1,               //overlay component
+    display: 'inline-block' //render component on same line
   },
   suggestionsContainerOpen: {
     position: 'absolute',
@@ -149,7 +124,7 @@ const styles = theme => ({
     listStyleType: 'none',
   },
   textField: {
-    //width: '100%',
+    //width: '50%',
   },
 });
 

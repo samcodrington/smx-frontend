@@ -2,7 +2,7 @@
 // App.js
 
 import React, { Component } from 'react';
-import { Switch, Route } from 'react-router-dom';
+import { Switch, Route, Redirect } from 'react-router-dom';
 
 import { withTheme } from 'material-ui/styles';
 import Grid from 'material-ui/Grid';
@@ -46,8 +46,7 @@ class App extends Component {
   }
 
   addUserInfo = (u) => {
-    console.log("User: ");
-    console.debug(u);
+    console.debug('User: ', u);
     this.setState({
       user: {
         _id: u._id,
@@ -55,12 +54,23 @@ class App extends Component {
         nameFirst: u.nameFirst,
         nameLast: u.nameLast,
         email: u.email,
-        school: u.school
+        school: u.school,
+        postedtextbooks: u.postedtextbooks,
+        savedtextbooks: u.savedtextbooks
       }
     })
   }
 
-
+  triggerLogout = () => {
+    //alert("Logout Triggered");
+    AuthApi.logout().then((response)=>{
+      this.changeLoginStatus(false);
+    }).catch((response)=>{
+      console.log(response);
+      //TODO handle bad logout
+      alert('Something went wrong: ' + response.status);
+    });
+  }
 
 
   render() {
@@ -98,10 +108,12 @@ class App extends Component {
       }
     }
     return (
-
       <div>
         <Grid item xs={12}>
-          <Navbar style={ classes.navBar }/>
+          <Navbar style={ classes.navBar } 
+            isLoggedIn = {this.state.isLoggedIn}
+            triggerLogout = {this.triggerLogout}
+          />
         </Grid>
         <div style={ classes.root }>
           <Grid container spacing={8}>
@@ -109,22 +121,29 @@ class App extends Component {
               <Grid item xs={12} style={ classes.content }>
                 <Switch>
                   <Route exact path="/" component={SignUp} />
-                  <Route exact path="/user" component={UserProfile} />
                   <Route exact path="/sign-in"
                     render = {
                       props => {
-                        if (this.state.isLoggedIn == false)
+                        if (this.state.isLoggedIn == false){
                           return <SignIn
                             changeLoginStatus = {this.changeLoginStatus}
                             addUserInfo = {this.addUserInfo}
-                          />
+                          />} 
                         else
-                          return <UserProfile
-                            user = {this.state.user}
-                          />
-                      }
+                          return <Redirect to = "/user"/>
+                        }
                     }
                   />
+                  <Route exact path='/user' render = {
+                    () => {
+                      if (this.state.isLoggedIn)
+                        return <UserProfile user = {this.state.user} />
+                      else {
+                        alert ('Cannot Access Priveleged URL, Please Sign In');
+                        return <Redirect to = "/sign-in"/>
+                      }
+                    }
+                  }/>
 
                   <Route exact path='/about' component={About} />
                   <Route exact path='/search' component={Search} />
