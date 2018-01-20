@@ -24,7 +24,6 @@ class UserProfile extends Component {
   }
 
   render() {
-    
     let userInfo = {
       nameFirst: this.state.user.nameFirst,
       nameLast: this.state.user.nameLast,
