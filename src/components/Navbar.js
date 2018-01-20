@@ -33,9 +33,11 @@ class Navbar extends Component {
       open: false,
       isLoggedIn: this.props.isLoggedIn //
     };
+    this.triggerLogout = this.props.triggerLogout.bind(this);
 
     this.handleDrawerOpen = this.handleDrawerOpen.bind(this);
     this.handleDrawerClose = this.handleDrawerClose.bind(this);
+    this.handleClick = this.handleClick.bind(this);
   }
   componentWillReceiveProps(nextProps){
     //Update isLoggedIn if it changes
@@ -50,9 +52,11 @@ class Navbar extends Component {
   handleDrawerClose(event) {
     this.setState({ open: false })
   }
-  handleLogOut(){
 
+  handleClick(event){
+    this.triggerLogout();
   }
+
 
   render() {
     //Define Login/Logout Button
@@ -60,7 +64,7 @@ class Navbar extends Component {
     let logInOutButton = null;
     if (isLoggedIn){
       logInOutButton = 
-        <Button color="contrast" style={ style.flexButton } type = "submit" onClick = {this.handleLogout} >
+        <Button color="contrast" style={ style.flexButton } onClick = {this.handleClick} >
           Logout 
         </Button>
     } else {

@@ -46,8 +46,7 @@ class App extends Component {
   }
 
   addUserInfo = (u) => {
-    console.log("User: ");
-    console.debug(u);
+    console.debug('User: ', u);
     this.setState({
       user: {
         _id: u._id,
@@ -55,12 +54,23 @@ class App extends Component {
         nameFirst: u.nameFirst,
         nameLast: u.nameLast,
         email: u.email,
-        school: u.school
+        school: u.school,
+        postedtextbooks: u.postedtextbooks,
+        savedtextbooks: u.savedtextbooks
       }
     })
   }
 
-
+  triggerLogout = () => {
+    //alert("Logout Triggered");
+    AuthApi.logout().then((response)=>{
+      this.changeLoginStatus(false);
+    }).catch((response)=>{
+      console.log(response);
+      //TODO handle bad logout
+      alert('Something went wrong: ' + response.status);
+    });
+  }
 
 
   render() {
@@ -98,10 +108,12 @@ class App extends Component {
       }
     }
     return (
-
       <div>
         <Grid item xs={12}>
-          <Navbar style={ classes.navBar } isLoggedIn = {this.state.isLoggedIn}/>
+          <Navbar style={ classes.navBar } 
+            isLoggedIn = {this.state.isLoggedIn}
+            triggerLogout = {this.triggerLogout}
+          />
         </Grid>
         <div style={ classes.root }>
           <Grid container spacing={8}>
