@@ -15,12 +15,14 @@ import TextbookForm from '../../components/postTextbook/TextbookForm';
 class PostTextbook extends Component {
   constructor(props) {
     super(props);
+    console.log(props.user);
     this.state = {
       selectionValue: '',
       title: '',
       publisher: '',
       author: '',
       course: '',
+      number: '',
       price: '',
       description: '',
       nameError: false,
@@ -32,16 +34,21 @@ class PostTextbook extends Component {
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleChange = this.handleChange.bind(this);
     this.handleChangeTextField = this.handleChangeTextField.bind(this);
+    this.handleChangeAutoSuggest = this.handleChangeAutoSuggest.bind(this);
   }
 
   handleChange(event){
     this.setState({[event.target.name]: event.target.value})
+  }
+  handleChangeAutoSuggest(newValue){
+    this.setState({course: newValue})
   }
   handleChangeTextField(event){
     this.setState({[event.target.id]: event.target.value})
   }
 
   handleSubmit(event) {
+    alert(this.props.user);
     var dontSend=false
     event.preventDefault();
     //do some basic error checking on entered textbook
@@ -106,8 +113,24 @@ class PostTextbook extends Component {
           handleSubmit = {this.handleSubmit}
         />;
       }
+
       else {
-        //add <Collection form
+        switchFormRender = <CollectionForm
+          title = {this.state.title}
+          publisher = {this.state.publisher}
+          author = {this.state.author}
+          course = {this.state.course}
+          number = {this.state.number}
+          price = {this.state.price}
+          description = {this.state.description}
+          nameError = {this.state.nameError}
+          authorError = {this.state.authorError}
+          priceError = {this.state.priceError}
+          handleChange = {this.handleChange}
+          handleChangeAutoSuggest = {this.handleChangeAutoSuggest}
+          handleChangeTextField = {this.handleChangeTextField}
+          handleSubmit = {this.handleSubmit}
+        />;
       }
     const classes = {
       root: {

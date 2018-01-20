@@ -6,12 +6,15 @@ import axios from 'axios';
 const api_url = process.env.REACT_APP_BACKEND_URL || "http://localhost:3001/";
 
 const client = axios.create({
-  baseURL: api_url
+  baseURL: api_url,
 });
 
 const request = function(options) {
   const onSuccess = function(response) {
     console.debug('Request Successful', response);
+    
+    //Fetch any cookie data returned by server
+    
     return response.data;
   }
 

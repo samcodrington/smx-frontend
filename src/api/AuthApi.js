@@ -32,7 +32,8 @@ function verify(){
 function logout(){
     return request({
         method: 'POST',
-        url: '/auth/logout'
+        url: '/auth/logout',
+        withCredentials: true        
     });
 }
 
