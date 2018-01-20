@@ -151,6 +151,7 @@ class App extends Component {
                     render = {
                       props => {
                         return <PostTextbook
+                          user = {this.state.user}
                         />
                       }
                     }

@@ -92,8 +92,8 @@ class Navbar extends Component {
             {logInOutButton}
             <Typography color="inherit" type="title">
               Toolbar
-            </Typography>   
-            
+
+            </Typography>  
           </Toolbar>
         </AppBar>
       </div>
