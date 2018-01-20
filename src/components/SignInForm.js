@@ -63,7 +63,6 @@ class SignInForm extends Component {
         )
         .then((response) => {
           //alert('You\'re signed in, ' + this.state.username);
-          event.preventDefault();
           this.addUserInfo(response);
           this.changeLoginStatus(true);  //triggers a component change from app.js
         })
