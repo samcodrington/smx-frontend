@@ -9,35 +9,7 @@ import Paper from 'material-ui/Paper';
 import { MenuItem } from 'material-ui/Menu';
 import { withStyles } from 'material-ui/styles';
 
-const suggestions = [
-  { label: 'ARTH' },
-  { label: 'COCA' },
-  { label: 'MDVL' },
-  { label: 'BCHM' },
-  { label: 'BIMA' },
-  { label: 'BIOL' },
-  { label: 'BIPS' },
-  { label: 'BTEC' },
-  { label: 'EBIO' },
-  { label: 'CHEM' },
-  { label: 'CLAS' },
-  { label: 'CLST' },
-  { label: 'GREK' },
-  { label: 'LATN' },
-  { label: 'COGS' },
-  { label: 'COMA' },
-  { label: 'COMP' },
-  { label: 'CSCI' },
-  { label: 'SODE' },
-  { label: 'DRAM' },
-  { label: 'MUSC' },
-  { label: 'MUTH' },
-  { label: 'STSC' },
-  { label: 'APEC' },
-  { label: 'ECON' },
-  { label: 'PPEC' },
-  { label: 'ENGL' }
-];
+import suggestions from '../data/CourseCodes.js';
 
 //compare function for JS sort() method.
 //sorts objects on label param alphanumerically
