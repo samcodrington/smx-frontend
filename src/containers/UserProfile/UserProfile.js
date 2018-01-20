@@ -2,9 +2,9 @@
 // UserProfile.js
 
 import React, { Component } from 'react';
+import { Route } from 'react-router-dom';
 
-import UserApi from '../../api/UserApi.js'
-
+import UserInfo from '../../components/Userinfo.js';
 class UserProfile extends Component {
   constructor(props) {
     super(props);
@@ -12,18 +12,13 @@ class UserProfile extends Component {
   }
 
   componentDidMount() {
-   
+  
   }
 
   render() {
     return (
-      <div className='UserProfile'>
-        <h1>
-          Welcome to the User Profile Page
-        </h1>
-        <p> {this.props.user._id
-          } 
-        </p>
+      <div className='UserInfo'>
+        <UserInfo />
       </div>
     );
   }

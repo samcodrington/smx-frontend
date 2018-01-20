@@ -2,7 +2,7 @@
 // App.js
 
 import React, { Component } from 'react';
-import { Switch, Route } from 'react-router-dom';
+import { Switch, Route, Redirect } from 'react-router-dom';
 
 import { withTheme } from 'material-ui/styles';
 import Grid from 'material-ui/Grid';
@@ -109,22 +109,29 @@ class App extends Component {
               <Grid item xs={12} style={ classes.content }>
                 <Switch>
                   <Route exact path="/" component={SignUp} />
-                  <Route exact path="/user" component={UserProfile} />
                   <Route exact path="/sign-in"
                     render = {
                       props => {
-                        if (this.state.isLoggedIn == false)
+                        if (this.state.isLoggedIn == false){
                           return <SignIn
                             changeLoginStatus = {this.changeLoginStatus}
                             addUserInfo = {this.addUserInfo}
-                          />
+                          />} 
                         else
-                          return <UserProfile
-                            user = {this.state.user}
-                          />
-                      }
+                          return <Redirect to = "/user"/>
+                        }
                     }
                   />
+                  <Route exact path='/user' render = {
+                    () => {
+                      if (this.state.isLoggedIn)
+                        return <UserProfile user = {this.state.user} />
+                      else {
+                        alert ('Cannot Access Priveleged URL, Please Sign In');
+                        return <Redirect to = "/sign-in"/>
+                      }
+                    }
+                  }/>
 
                   <Route exact path='/about' component={About} />
                   <Route exact path='/search' component={Search} />
