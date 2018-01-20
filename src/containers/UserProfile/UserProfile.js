@@ -20,14 +20,21 @@ class UserProfile extends Component {
   }
 
   handleEditProfile(){
-    
+
   }
 
   render() {
+    
+    let userInfo = {
+      nameFirst: this.state.user.nameFirst,
+      nameLast: this.state.user.nameLast,
+      email: this.state.user.email,
+      school: this.state.user.school
+    }
     return (
       <div className='UserInfo'>
         <h1> User Profile </h1>
-        <UserInfo user = {this.state.user}/>
+        <UserInfo user = {userInfo}/>
         <Button type = 'submit' onClick = {this.handleEditProfile}> Edit Info </Button>
       </div>
     );
