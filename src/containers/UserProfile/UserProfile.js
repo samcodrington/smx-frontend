@@ -10,7 +10,6 @@ import UserInfo from '../../components/Userinfo.js';
 class UserProfile extends Component {
   constructor(props) {
     super(props);
-    console.log(props);
     this.state = {
       user: this.props.user
     }

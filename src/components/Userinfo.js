@@ -3,7 +3,6 @@ import React, { Component } from 'react';
 class UserInfo extends Component{
     constructor(props){
         super(props);
-        console.log(props);
         this.state = {
             nameFirst : props.user.nameFirst,
             nameLast : props.user.nameLast,
