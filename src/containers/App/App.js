@@ -22,7 +22,8 @@ class App extends Component {
     super(props);
     this.state = {
         isLoggedIn: false,
-        user: null
+        user: null,
+        loggingOut: false
     };
   }
 
@@ -43,6 +44,8 @@ class App extends Component {
 
   changeLoginStatus = (login) =>{
     this.setState({isLoggedIn: login});
+    if (!login)
+      this.setState({user:null});
   }
 
   addUserInfo = (u) => {
@@ -64,7 +67,10 @@ class App extends Component {
   triggerLogout = () => {
     //alert("Logout Triggered");
     AuthApi.logout().then((response)=>{
+      this.setState({loggingOut: true});
       this.changeLoginStatus(false);
+      //TODO clear cookie
+
     }).catch((response)=>{
       console.log(response);
       //TODO handle bad logout
@@ -139,7 +145,9 @@ class App extends Component {
                       if (this.state.isLoggedIn)
                         return <UserProfile user = {this.state.user} />
                       else {
-                        alert ('Cannot Access Priveleged URL, Please Sign In');
+                        if (!this.state.loggingOut)
+                          alert ('Cannot Access Priveleged URL, Please Sign In');
+                        else this.setState({loggingOut: false});
                         return <Redirect to = "/sign-in"/>
                       }
                     }
