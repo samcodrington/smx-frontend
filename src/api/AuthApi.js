@@ -16,6 +16,7 @@ function login(user, pass) {
     },
     data: params,
     responseType: 'json',
+    withCredentials: true
   });
 }
 
@@ -26,14 +27,15 @@ function verify(){
     headers: {
       'Content-Type':'application/x-www-form-urlencoded' //'Access-Control-Allow-Origin': '*'
     },
-    responseType: 'json'
+    responseType: 'json',
+    withCredentials: true
   });
 }
 function logout(){
     return request({
         method: 'POST',
         url: '/auth/logout',
-        withCredentials: true        
+        withCredentials: true     
     });
 }
 
