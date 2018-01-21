@@ -77,6 +77,10 @@ class App extends Component {
       alert('Something went wrong: ' + response.status);
     });
   }
+  componentDidMount(){
+    if (this.state.isLoggedIn)
+      AuthApi.verify();
+  }
 
 
   render() {
