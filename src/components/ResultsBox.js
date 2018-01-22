@@ -119,5 +119,4 @@ class ResultsBox extends Component {
 // });
 
 
-
 export default ResultsBox;
