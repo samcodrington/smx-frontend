@@ -139,7 +139,7 @@ class Search extends Component {
       <div className='Search'>
         <Grid container>
           <Grid item sm={12} md={12} lg={12} xl={12}>
-            <Typography type={'display1'}>Results for "{query}"</Typography>
+            <Typography type={'display1'}>{lengthBooks} results for "{query}"</Typography>
           </Grid>
           {bookList}
         </Grid>

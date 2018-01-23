@@ -40,13 +40,13 @@ class Textbook extends Component {
 				<Card style={ style.card }>
 					<CardHeader 
 						title={this.props.title}
-						subheader="September 14, 2016"
+						subheader={this.props.author}
 						noWrap
 					/>
 	        <CardMedia 
 	        	style={ style.media }
 	          image={logo}
-	          title="Contemplative Reptile"
+	          title="Cover Art"
 	        />
 	        <CardActions>
 	        	<Button dense color="primary">
