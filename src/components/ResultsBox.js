@@ -44,6 +44,7 @@ class ResultsBox extends Component {
     this.handleClick = this.handleClick.bind(this);
     this.changeShownResults = this.changeShownResults.bind(this);
     this.filter = this.filter.bind(this);
+
   }
 
   handleSubmit(event) {
@@ -55,6 +56,7 @@ class ResultsBox extends Component {
   handleClick(textbook) {
     alert(textbook.title)
     //generate results page here
+
   }
 
   changeShownResults(goForward){
@@ -91,6 +93,7 @@ class ResultsBox extends Component {
                   </Typography>
                 </ExpansionPanelDetails>
             </ExpansionPanel>
+
     }.bind(this));//bind function so onClick is visible
     return(
       <div>

@@ -16,17 +16,30 @@ function login(user, pass) {
     },
     data: params,
     responseType: 'json',
+    withCredentials: true
   });
 }
 
+function verify(){
+  return request({
+    method: 'GET',
+    url: '/auth/',
+    headers: {
+      'Content-Type':'application/x-www-form-urlencoded' //'Access-Control-Allow-Origin': '*'
+    },
+    responseType: 'json',
+    withCredentials: true
+  });
+}
 function logout(){
     return request({
         method: 'POST',
-        url: '/auth/logout'
+        url: '/auth/logout',
+        withCredentials: true     
     });
 }
 
 
-const UserApi = { login, logout };
+const AuthApi = { login, verify, logout };
 
-export default UserApi;
+export default AuthApi;

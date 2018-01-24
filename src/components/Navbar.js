@@ -21,21 +21,30 @@ const style = {
     marginLeft: -12,
     marginRight: 20
   },
-  flexButton: {
+  loginButton: {
     position: 'absolute',
     right: '10px',
   } 
+
 }
 
 class Navbar extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      open: false
+      open: false,
+      isLoggedIn: this.props.isLoggedIn //
     };
+    this.triggerLogout = this.props.triggerLogout.bind(this);
 
     this.handleDrawerOpen = this.handleDrawerOpen.bind(this);
     this.handleDrawerClose = this.handleDrawerClose.bind(this);
+    this.handleClick = this.handleClick.bind(this);
+  }
+  componentWillReceiveProps(nextProps){
+    //Update isLoggedIn if it changes
+    if (nextProps.isLoggedIn != this.props.isLoggedIn)
+      this.setState({isLoggedIn: nextProps.isLoggedIn});
   }
 
   handleDrawerOpen(event) {
@@ -46,8 +55,29 @@ class Navbar extends Component {
     this.setState({ open: false });
   }
 
-  render() {  
+
+  handleClick(event){
+    this.triggerLogout();
+  }
+
+
+  render() {
     var isSearching = this.state.isSearching;
+    
+    //Define Login/Logout Button
+    let isLoggedIn = this.state.isLoggedIn;
+    let logInOutButton = null;
+    if (isLoggedIn){
+      logInOutButton = 
+        <Button color="contrast" style={ style.flexButton } onClick = {this.handleClick} >
+          Logout 
+        </Button>
+    } else {
+      logInOutButton = 
+        <Button color="contrast" style={ style.flexButton } component={Link} to="/sign-in">
+          Login
+        </Button>
+    }
 
     return(
       <div>
@@ -56,18 +86,23 @@ class Navbar extends Component {
             <Drawer open={ this.state.open } onKeyDown={ this.handleDrawerClose } onClick={ this.handleDrawerClose }>
               <div>
                 <NavBarList />
+                <IconButton color="contrast" aria-label="Menu"  style={ style.menuButton }>
+                  <MenuIcon />
+                </IconButton>
               </div>
             </Drawer>
 
             <IconButton color="contrast" aria-label="Menu" onClick={ this.handleDrawerOpen } style={ style.menuButton }> 
               <MenuIcon />
             </IconButton>
-
+            {logInOutButton}
             <Typography color="inherit" type="title">
               Toolbar
+
             </Typography>
 
             <SearchBar style={style.flexButton} />
+
           </Toolbar>
         </AppBar>
       </div>
@@ -82,3 +117,4 @@ class Navbar extends Component {
 //</IconButton>
 
 export default Navbar;
+

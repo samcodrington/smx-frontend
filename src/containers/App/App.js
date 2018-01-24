@@ -2,7 +2,7 @@
 // App.js
 
 import React, { Component } from 'react';
-import { Switch, Route } from 'react-router-dom';
+import { Switch, Route, Redirect } from 'react-router-dom';
 
 import { withTheme } from 'material-ui/styles';
 import Grid from 'material-ui/Grid';
@@ -14,8 +14,65 @@ import SignUp from '../SignUp/SignUp';
 import SignIn from '../SignIn/SignIn';
 import Search from '../Search/Search';
 import Navbar from '../../components/Navbar'
+import PostTextbook from '../Textbook/PostTextbook'
 
+import AuthApi from '../../api/AuthApi';
 class App extends Component {
+  constructor(props){
+    super(props);
+    this.state = {
+        isLoggedIn: false,
+        user: null
+    };
+  }
+
+
+
+  //callbacks for authentiation
+  checkLoginStatus = () => {
+    AuthApi.verify()
+    .then((response) => {
+      if (this.state.isLoggedIn == false)
+        this.changeLoginStatus(true);
+    })
+    .catch((error) => {
+      if (this.state.isLoggedIn == true)
+        this.changeLoginStatus(false);
+    });
+  }
+
+  changeLoginStatus = (login) =>{
+    this.setState({isLoggedIn: login});
+  }
+
+  addUserInfo = (u) => {
+    console.debug('User: ', u);
+    this.setState({
+      user: {
+        _id: u._id,
+        username: u.username,
+        nameFirst: u.nameFirst,
+        nameLast: u.nameLast,
+        email: u.email,
+        school: u.school,
+        postedtextbooks: u.postedtextbooks,
+        savedtextbooks: u.savedtextbooks
+      }
+    })
+  }
+
+  triggerLogout = () => {
+    //alert("Logout Triggered");
+    AuthApi.logout().then((response)=>{
+      this.changeLoginStatus(false);
+    }).catch((response)=>{
+      console.log(response);
+      //TODO handle bad logout
+      alert('Something went wrong: ' + response.status);
+    });
+  }
+
+
   render() {
     const { theme } = this.props;
 
@@ -53,7 +110,10 @@ class App extends Component {
     return (
       <div>
         <Grid item xs={12}>
-          <Navbar style={ classes.navBar }/>
+          <Navbar style={ classes.navBar } 
+            isLoggedIn = {this.state.isLoggedIn}
+            triggerLogout = {this.triggerLogout}
+          />
         </Grid>
         <div style={ classes.root }>
           <Grid container spacing={8}>
@@ -61,10 +121,41 @@ class App extends Component {
               <Grid item xs={12} style={ classes.content }>
                 <Switch>
                   <Route exact path="/" component={SignUp} />
-                  <Route exact path="/user" component={UserProfile} />
-                  <Route exact path='/sign-in' component={SignIn} />
+                  <Route exact path="/sign-in"
+                    render = {
+                      props => {
+                        if (this.state.isLoggedIn == false){
+                          return <SignIn
+                            changeLoginStatus = {this.changeLoginStatus}
+                            addUserInfo = {this.addUserInfo}
+                          />} 
+                        else
+                          return <Redirect to = "/user"/>
+                        }
+                    }
+                  />
+                  <Route exact path='/user' render = {
+                    () => {
+                      if (this.state.isLoggedIn)
+                        return <UserProfile user = {this.state.user} />
+                      else {
+                        alert ('Cannot Access Priveleged URL, Please Sign In');
+                        return <Redirect to = "/sign-in"/>
+                      }
+                    }
+                  }/>
+
                   <Route exact path='/about' component={About} />
                   <Route exact path='/search/:query' component={Search} />
+                  <Route exact path='/PostTextbook'
+                    render = {
+                      props => {
+                        return <PostTextbook
+                          user = {this.state.user}
+                        />
+                      }
+                    }
+                  />
                   <Route exact path="*" component={NotFound} />
                 </Switch>
               </Grid>

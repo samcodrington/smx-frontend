@@ -29,10 +29,14 @@ class SignInForm extends Component {
       username: '',
       password: ''
     };
+    this.changeLoginStatus = this.props.changeLoginStatus.bind(this);
+    this.addUserInfo = this.props.addUserInfo.bind(this);
 
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
-  }
+  };
+
+  
 
   handleChange(event) {
     const target = event.target;
@@ -58,9 +62,10 @@ class SignInForm extends Component {
           user.username, user.password
         )
         .then((response) => {
-          console.log(response);
-          alert('You\'re signed in, ' + this.state.username);
-          event.preventDefault();
+          //alert('You\'re signed in, ' + this.state.username);
+          console.log("Headers: " + JSON.stringify(response.headers));
+          this.addUserInfo(response);
+          this.changeLoginStatus(true);  //triggers a component change from app.js
         })
         .catch((response) => {
           console.log(response);
