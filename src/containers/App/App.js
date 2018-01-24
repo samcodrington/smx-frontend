@@ -15,6 +15,7 @@ import SignIn from '../SignIn/SignIn';
 import Search from '../Search/Search';
 import Navbar from '../../components/Navbar'
 import PostTextbook from '../Textbook/PostTextbook'
+import Settings from '../Settings/Settings'
 
 import AuthApi from '../../api/AuthApi';
 class App extends Component {
@@ -120,7 +121,7 @@ class App extends Component {
     return (
       <div>
         <Grid item xs={12}>
-          <Navbar style={ classes.navBar } 
+          <Navbar style={ classes.navBar }
             isLoggedIn = {this.state.isLoggedIn}
             triggerLogout = {this.triggerLogout}
           />
@@ -138,7 +139,7 @@ class App extends Component {
                           return <SignIn
                             changeLoginStatus = {this.changeLoginStatus}
                             addUserInfo = {this.addUserInfo}
-                          />} 
+                          />}
                         else
                           return <Redirect to = "/user"/>
                         }
@@ -168,6 +169,18 @@ class App extends Component {
                       }
                     }
                   />
+                  <Route exact path='/settings' render = {
+                    () => {
+                      if (this.state.isLoggedIn)
+                        return <Settings user = {this.state.user} />
+                      else {
+                        if (!this.state.loggingOut)
+                          alert ('Cannot Access Priveleged URL, Please Sign In');
+                        else this.setState({loggingOut: false});
+                        return <Redirect to = "/sign-in"/>
+                      }
+                    }
+                  }/>
                   <Route exact path="*" component={NotFound} />
                 </Switch>
               </Grid>
