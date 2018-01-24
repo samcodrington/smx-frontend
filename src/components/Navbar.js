@@ -3,13 +3,18 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 
+import NavBarList from '../components/NavBarList';
+import SearchBar from '../components/SearchBar';
+
 import AppBar from 'material-ui/AppBar';
 import Toolbar from 'material-ui/Toolbar';
 import Typography from 'material-ui/Typography';
 import Button from 'material-ui/Button';
 import IconButton from 'material-ui/IconButton';
-import MenuIcon from 'material-ui-icons/Menu';
 import Drawer from 'material-ui/Drawer';
+
+import MenuIcon from 'material-ui-icons/Menu';
+import SearchIcon from 'material-ui-icons/Search';
 
 const style = {
   menuButton: {
@@ -18,12 +23,9 @@ const style = {
   },
   loginButton: {
     position: 'absolute',
-    right: '10px'
-  },
-  postButton: {
-    position: 'absolute',
-    right: '100px'
-  }
+    right: '10px',
+  } 
+
 }
 
 class Navbar extends Component {
@@ -50,8 +52,9 @@ class Navbar extends Component {
   }
 
   handleDrawerClose(event) {
-    this.setState({ open: false })
+    this.setState({ open: false });
   }
+
 
   handleClick(event){
     this.triggerLogout();
@@ -59,6 +62,8 @@ class Navbar extends Component {
 
 
   render() {
+    var isSearching = this.state.isSearching;
+    
     //Define Login/Logout Button
     let isLoggedIn = this.state.isLoggedIn;
     let logInOutButton = null;
@@ -74,18 +79,19 @@ class Navbar extends Component {
         </Button>
     }
 
-
     return(
       <div>
         <AppBar style={ this.props.style }>
           <Toolbar >
             <Drawer open={ this.state.open } onKeyDown={ this.handleDrawerClose } onClick={ this.handleDrawerClose }>
               <div>
+                <NavBarList />
                 <IconButton color="contrast" aria-label="Menu"  style={ style.menuButton }>
                   <MenuIcon />
                 </IconButton>
               </div>
             </Drawer>
+
             <IconButton color="contrast" aria-label="Menu" onClick={ this.handleDrawerOpen } style={ style.menuButton }> 
               <MenuIcon />
             </IconButton>
@@ -93,7 +99,10 @@ class Navbar extends Component {
             <Typography color="inherit" type="title">
               Toolbar
 
-            </Typography>  
+            </Typography>
+
+            <SearchBar style={style.flexButton} />
+
           </Toolbar>
         </AppBar>
       </div>
@@ -101,4 +110,11 @@ class Navbar extends Component {
   }
 }
 
+// <SearchBar searching={ isSearching } />
+
+//<IconButton color="contrast" aria-label="Search" onClick={ this.handleSearchOpen } style={ style.flexButton }> 
+//  <SearchIcon />
+//</IconButton>
+
 export default Navbar;
+
