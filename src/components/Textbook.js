@@ -3,6 +3,7 @@
 // React
 import React, { Component } from 'react';
 import { Redirect } from 'react-router';
+import { Link } from 'react-router-dom';
 
 // APIs
 import TextbookApi from '../api/TextbookApi';
@@ -25,6 +26,9 @@ const style = {
   },
   card: {
   	maxwidth: 200
+  },
+  link: {
+  	'text-decoration':'none'
   }
 }
 
@@ -32,6 +36,12 @@ class Textbook extends Component {
 	constructor(props) {
 		super(props);
 
+	}
+
+	createEmailLink(props) {
+		const author = props.author;
+		var emailLink = "mailto:?to=&body=AAA,&subject=Look what I found on QTextbook";
+		return emailLink;
 	}
 
 	render() {
@@ -49,9 +59,11 @@ class Textbook extends Component {
 	          title="Cover Art"
 	        />
 	        <CardActions>
-	        	<Button dense color="primary">
-	        	  Share
-	        	</Button>
+	        	<a href={ this.createEmailLink(this.props) } style={ style.link }>
+		        	<Button dense color="primary" >
+		        	  Share
+		        	</Button>
+	        	</a>
 	          <Button dense color="primary">
 	            Learn More
 	          </Button>
