@@ -34,6 +34,7 @@ class Settings extends Component {
     super(props);
     this.state = {
       formType: 'profile',
+      formChange: false,
       username: this.props.user.username,
       password: '',
       passwordOld: '',
@@ -54,6 +55,7 @@ class Settings extends Component {
   handleClick = (event,name) => {
     this.setState({
       formType: name,
+      formChange: false,
       username: this.props.user.username,
       nameFirst: this.props.user.nameFirst,
       nameLast: this.props.user.nameLast,
@@ -63,13 +65,13 @@ class Settings extends Component {
     };
 
   handleChange(event){
-    this.setState({[event.target.name]: event.target.value});
+    this.setState({[event.target.name]: event.target.value, formChange: true});
   }
 
   handleSubmit(event) {
     var dontSend=false
     event.preventDefault();
-
+    if (this.state.formChange){ //don't send a submission if the form hasn't been touched
     if (this.state.formType=="profile"){
       //do some basic error checking on entered textbook
       if (this.state.nameFirst==""){
@@ -95,39 +97,51 @@ class Settings extends Component {
     else if (this.state.formType=="account"){
       //ensure that passwordOld field matches current password and password matches
       //passwordNew. Also ensure that password was entered
-      if (this.state.username==""){
+      if (this.state.username==""){//cannot have blank username
         this.setState({userError: true})
         dontSend=true
       } else {this.setState({userError: false})}
 
-      if (this.state.password!="" && this.state.passwordOld!="" && this.state.passwordNew!=""){
+      //ensure that passwordOld field matches current password and password matches
+      //passwordNew. Also ensure that password was entered.
+      if (!(this.state.passwordOld=="" && this.state.password=="" && this.state.passwordNew=="")){//ignore if all fields blank
         if (this.state.passwordOld!=this.props.user.password){//password entered and incorrect
+          alert("password doesn't match original");
+          alert(this.props.user.password);
           this.setState({passwordOldError: true})
           dontSend=true
         } else {this.setState({passwordOldError: false})}
-        if (this.state.password!=this.state.passwordNew){//password don't match
+        if (this.state.password!=this.state.passwordNew || this.state.password==""){//password don't match
           this.setState({passwordError: true})
+          alert("new passwords don't match");
           dontSend=true
         } else {this.setState({passwordError: false})}
       }
       else {this.setState({password: this.props.user.password})}//pass unchanged password to backend
-
+      alert(dontSend);
       if (!dontSend){
         this.sendUser(2);
         }
     }
+    }
   }
 
   sendUser(useCase){
-    var password
+    var username,password;
     if (useCase==1){
       password=this.props.user.password;
     }
     else if (useCase==2){
+      if (this.state.username==this.props.user.username){//username will trigger unique error in backend if not forced to undefined for password update
+        username = undefined;
+      }
+      else {
+        username = this.state.username;
+      }
       password=this.state.password;
     }
     const user = {
-      username: this.state.username,
+      username: username,
       password: password,
       nameFirst: this.state.nameFirst,
       nameLast: this.state.nameLast,
@@ -218,7 +232,7 @@ class Settings extends Component {
         <Grid item xs={12} md={12}>
           <FormControl >
             <InputLabel>Old password</InputLabel>
-            <Input name='password' value={ this.state.passwordOld } type='password' onChange={ this.handleChange }/>
+            <Input name='passwordOld' value={ this.state.passwordOld } type='password' onChange={ this.handleChange }/>
           </FormControl>
         </Grid>
         <Grid item xs={12} md={12}>

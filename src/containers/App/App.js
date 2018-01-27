@@ -55,6 +55,7 @@ class App extends Component {
       user: {
         _id: u._id,
         username: u.username,
+        password: u.password,   //is this a problem??
         nameFirst: u.nameFirst,
         nameLast: u.nameLast,
         email: u.email,
