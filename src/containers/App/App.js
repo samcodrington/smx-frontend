@@ -23,7 +23,6 @@ class App extends Component {
     this.state = {
         isLoggedIn: false,
         user: null,
-        loggingOut: false,
         view: "home"
     };
   }
@@ -151,9 +150,7 @@ class App extends Component {
                       if (this.state.isLoggedIn)
                         return <UserProfile user = {this.state.user} />
                       else {
-                        if (!this.state.loggingOut)
-                          alert ('Cannot Access Priveleged URL, Please Sign In');
-                        else this.setState({loggingOut: false});
+                        alert ('Cannot Access Priveleged URL, Please Sign In');
                         return <Redirect to = "/sign-in"/>
                       }
                     }
