@@ -11,6 +11,10 @@ import AccountCircleIcon from 'material-ui-icons/AccountCircle';
 import DraftsIcon from 'material-ui-icons/Drafts';
 
 class NavBarList extends Component {
+	constructor(props){
+		super(props);
+		this.triggerLogout = this.props.triggerLogout.bind(this);
+	}
 
 	render() {
 		return(
@@ -41,7 +45,9 @@ class NavBarList extends Component {
 	          <ListItemText primary="Settings" />
 	        </ListItem>
 
-	        <ListItem button component={Link} to="/sign-in">
+					<ListItem button 
+						onClick = {this.triggerLogout}
+						>
 	          <ListItemText primary="Log Out" />
 	        </ListItem>
 

@@ -67,12 +67,7 @@ class Navbar extends Component {
     //Define Login/Logout Button
     let isLoggedIn = this.state.isLoggedIn;
     let logInOutButton = null;
-    if (isLoggedIn){
-      logInOutButton = 
-        <Button color="contrast" style={ style.flexButton } onClick = {this.handleClick} component={Link} to = "/">
-          Logout 
-        </Button>
-    } else {
+    if (!isLoggedIn){
       logInOutButton = 
         <Button color="contrast" style={ style.flexButton } component={Link} to="/sign-in">
           Login
@@ -85,7 +80,7 @@ class Navbar extends Component {
           <Toolbar >
             <Drawer open={ this.state.open } onKeyDown={ this.handleDrawerClose } onClick={ this.handleDrawerClose }>
               <div>
-                <NavBarList />
+                <NavBarList triggerLogout = {this.triggerLogout} />
                 <IconButton color="contrast" aria-label="Menu"  style={ style.menuButton }>
                   <MenuIcon />
                 </IconButton>
