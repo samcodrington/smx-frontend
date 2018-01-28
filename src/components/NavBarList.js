@@ -17,14 +17,14 @@ class NavBarList extends Component {
 			<div>
 				<List>
 
-	        <ListItem button component={Link} to="/sign-in">
+	        <ListItem button component={Link} to="/PostTextbook">
 	          <ListItemIcon>
 	            <DraftsIcon />
 	          </ListItemIcon>
 	          <ListItemText primary="Post" />
 	        </ListItem>
 
-	        <ListItem button component={Link} to="/sign-in">
+	        <ListItem button component={Link} to="/user">
 	          <ListItemIcon>
 	            <AccountCircleIcon />
 	          </ListItemIcon>
@@ -37,7 +37,7 @@ class NavBarList extends Component {
 
 	      <List>
 
-	        <ListItem button component={Link} to="/sign-in">
+	        <ListItem button component={Link} to="/settings">
 	          <ListItemText primary="Settings" />
 	        </ListItem>
 
