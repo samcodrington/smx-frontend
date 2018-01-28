@@ -25,7 +25,6 @@ const style = {
     position: 'absolute',
     right: '10px',
   } 
-
 }
 
 class Navbar extends Component {
