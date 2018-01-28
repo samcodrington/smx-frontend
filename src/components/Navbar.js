@@ -2,7 +2,7 @@
 
 // React
 import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, withRouter} from 'react-router-dom';
 
 // Components
 import NavBarList from '../components/NavBarList';
@@ -75,33 +75,59 @@ class Navbar extends Component {
     let isLoggedIn = this.state.isLoggedIn;
     let logInOutButton = null;
     if (!isLoggedIn){
+      var current_location = window.location.pathname;
+      var logLink;
+      var logText;
+      if(current_location === "/") {
+        logLink = "/sign-in";
+        logText = "Log In";
+      }
+      else {
+        logLink = "/";
+        logText = "Sign Up";
+      }
       logInOutButton = 
-        <Button color="contrast" style={ style.flexButton } component={Link} to="/sign-in">
-          Login
+        <Button raised color="primary" style={ style.searchButton } component={Link} to={logLink}>
+          {logText}
         </Button>
+    }
+
+    // search
+    let searchBar = null;
+    if(isLoggedIn) {
+      searchBar = 
+        <SearchBar style={style.searchButton} />
+    }
+
+    // menu
+    let menu = null;
+    if(isLoggedIn) {
+      menu = 
+        <div>
+          <Drawer open={ this.state.open } onKeyDown={ this.handleDrawerClose } onClick={ this.handleDrawerClose }>
+            <div>
+              <NavBarList triggerLogout = {this.triggerLogout} isLoggedIn = {this.state.isLoggedIn}/>
+            </div>
+          </Drawer>
+
+          <IconButton color="contrast" aria-label="Menu" onClick={ this.handleDrawerOpen } style={ style.menuButton }> 
+            <MenuIcon />
+          </IconButton>
+        </div>
     }
 
     return(
       <div>
         <AppBar style={ this.props.style }>
           <Toolbar >
-            <Drawer open={ this.state.open } onKeyDown={ this.handleDrawerClose } onClick={ this.handleDrawerClose }>
-              <div>
-                <NavBarList triggerLogout = {this.triggerLogout} isLoggedIn = {this.state.isLoggedIn}/>
-              </div>
-            </Drawer>
-
-            <IconButton color="contrast" aria-label="Menu" onClick={ this.handleDrawerOpen } style={ style.menuButton }> 
-              <MenuIcon />
-            </IconButton>
-
-
+            { menu }
 
             <Typography color="inherit" type="title">
               QTextbook
             </Typography>
 
-            <SearchBar style={style.searchButton} />
+            { searchBar }
+            { logInOutButton }
           </Toolbar>
         </AppBar>
       </div>
