@@ -4,7 +4,6 @@
 // React
 import React, { Component } from 'react';
 import { Route, Link } from 'react-router-dom';
-import Button from 'material-ui/Button';
 
 // Material UI
 import Button from 'material-ui/Button';
