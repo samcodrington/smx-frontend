@@ -32,6 +32,20 @@ function signIn(user) {
     });
 }
 
-const UserApi = { getUserById, createUser };
+function settings(user,useCase) {
+    return request({
+      method: 'POST',
+      url: '/users/settings',
+      data: {
+        user,
+        useCase
+      },
+      headers: {
+        'Access-Control-Allow-Origin': '*'
+      }
+    });
+}
+
+const UserApi = { getUserById, createUser, settings };
 
 export default UserApi;

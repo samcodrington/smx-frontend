@@ -19,8 +19,9 @@ import UserProfile from '../UserProfile/UserProfile';
 import SignUp from '../SignUp/SignUp';
 import SignIn from '../SignIn/SignIn';
 import Search from '../Search/Search';
+import Settings from '../Settings/Settings';
 import PostTextbook from '../PostTextbook/PostTextbook';
-import ViewTextbook from '../ViewTextbook/ViewTextbook'
+import ViewTextbook from '../ViewTextbook/ViewTextbook';
 
 // Components
 import Navbar from '../../components/Navbar';
@@ -61,6 +62,7 @@ class App extends Component {
       user: {
         _id: u._id,
         username: u.username,
+        password: u.password,   //is this a problem??
         nameFirst: u.nameFirst,
         nameLast: u.nameLast,
         email: u.email,
@@ -127,7 +129,7 @@ class App extends Component {
     return (
       <div>
         <Grid item xs={12}>
-          <Navbar style={ classes.navBar } 
+          <Navbar style={ classes.navBar }
             isLoggedIn = {this.state.isLoggedIn}
             triggerLogout = {this.triggerLogout}
             view = {this.state.view}
@@ -146,7 +148,7 @@ class App extends Component {
                           return <SignIn
                             changeLoginStatus = {this.changeLoginStatus}
                             addUserInfo = {this.addUserInfo}
-                          />} 
+                          />}
                         else
                           return <Redirect to = "/user"/>
                         }
@@ -175,6 +177,18 @@ class App extends Component {
                       }
                     }
                   />
+                  <Route exact path='/settings' render = {
+                    () => {
+                      if (this.state.isLoggedIn)
+                        return <Settings user = {this.state.user} />
+                      else {
+                        if (!this.state.loggingOut)
+                          alert ('Cannot Access Priveleged URL, Please Sign In');
+                        else this.setState({loggingOut: false});
+                        return <Redirect to = "/sign-in"/>
+                      }
+                    }
+                  }/>
                   <Route exact path="*" component={NotFound} />
                 </Switch>
               </Grid>

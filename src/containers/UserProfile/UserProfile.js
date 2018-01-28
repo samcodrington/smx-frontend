@@ -3,7 +3,8 @@
 
 // React
 import React, { Component } from 'react';
-import { Route } from 'react-router-dom';
+import { Route, Link } from 'react-router-dom';
+import Button from 'material-ui/Button';
 
 // Material UI
 import Button from 'material-ui/Button';
@@ -17,14 +18,16 @@ class UserProfile extends Component {
     this.state = {
       user: this.props.user
     }
+
+    this.handleSettings = this.handleSettings.bind(this);
   }
 
   componentDidMount() {
-    
+
   }
 
-  handleEditProfile(){
-
+  handleSettings(){
+      this.props.handleSettings();
   }
 
   render() {
@@ -38,7 +41,7 @@ class UserProfile extends Component {
       <div className='UserInfo'>
         <h1> User Profile </h1>
         <UserInfo user = {userInfo}/>
-        <Button type = 'submit' onClick = {this.handleEditProfile}> Edit Info </Button>
+        <Button type = 'submit'><Link to="/settings" style={{ textDecoration: 'none', color: 'black' }}>Settings</Link></Button>
       </div>
     );
   }
