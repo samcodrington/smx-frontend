@@ -92,8 +92,10 @@ class SearchBar extends Component {
     if(this.state.redirect === true) {
       this.setState({redirect: false});
       const query = this.state.searchText;
-      const url = "/search/" + query
-      return(<Redirect push to={url} />);
+      const url = "/search/" + query;
+      return(
+        <Redirect push to={url} />
+      );
 
     } else if(this.state.isSearching === true) {
       return(
