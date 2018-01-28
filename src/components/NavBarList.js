@@ -37,7 +37,7 @@ class NavBarList extends Component {
 			<div>
 				<List>
 
-	        <ListItem button component={Link} to="/PostTextbook">
+	        <ListItem button component={Link} to="/post-textbook">
 	          <ListItemIcon>
 	            <DraftsIcon />
 	          </ListItemIcon>
