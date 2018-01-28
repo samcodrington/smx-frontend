@@ -28,7 +28,11 @@ const style = {
   loginButton: {
     position: 'absolute',
     right: '10px',
-  } 
+  },
+  searchButton: {
+    position: 'absolute',
+    right: '10px'
+  }
 }
 
 class Navbar extends Component {
@@ -91,13 +95,13 @@ class Navbar extends Component {
               <MenuIcon />
             </IconButton>
 
-            {logInOutButton}
+
 
             <Typography color="inherit" type="title">
               QTextbook
             </Typography>
 
-            <SearchBar style={style.flexButton} />
+            <SearchBar style={style.searchButton} />
           </Toolbar>
         </AppBar>
       </div>
