@@ -123,14 +123,14 @@ class Search extends Component {
 
       // book title formatting (check for length)
       bookTitle = books[i].title
-      if(bookTitle.length > 20) {
-        bookTitle = bookTitle.substr(0,20) + "...";
+      if(bookTitle.length > 40) {
+        bookTitle = bookTitle.substr(0,40) + "...";
       }
 
       bookAuthor = books[i].author
       
       bookList.push(
-        <Grid item sm={3} md={4} lg={4} xl={4}>
+        <Grid item xs={12} sm={6} md={4} lg={4} xl={4}>
           <Textbook title={ bookTitle } author={ bookAuthor }/>
         </Grid>
       );
@@ -145,27 +145,6 @@ class Search extends Component {
         </Grid>
       </div>
     );
-    /*
-    return(
-      <div className='Search'>
-        <Typography type={'display1'}>Results for "{query}"</Typography>
-        <Grid container >
-          <Grid item md={3} lg={3} xl={3}>
-            <Textbook title="Da Vinci Code"/>
-          </Grid>
-          <Grid item md={3} lg={3} xl={3}>
-            <Textbook title="TEST"/>
-          </Grid>
-          <Grid item md={3} lg={3} xl={3}>
-            <Textbook title="TEST"/>
-          </Grid>
-          <Grid item md={3} lg={3} xl={3}>
-            <Textbook title="TEST"/>
-          </Grid>
-        </Grid>
-      </div>
-    );
-    */
   }
 
   handleQueryFail() {
@@ -186,9 +165,7 @@ class Search extends Component {
 
   render() {
     var query = this.props.match.params.query;
-    console.log(this.props);
-    var test = this.handleSubmit(query);
-    //alert(JSON.stringify(test));
+    this.handleSubmit(query);
     
     // handle no results
     if(this.state.textbookResults[0] === 'no results') {

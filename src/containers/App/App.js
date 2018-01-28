@@ -1,34 +1,41 @@
 
 // App.js
 
+// React
 import React, { Component } from 'react';
 import { Switch, Route, Redirect } from 'react-router-dom';
 
+// Material UI Components
 import { withTheme } from 'material-ui/styles';
 import Grid from 'material-ui/Grid';
 
+// APIs
+import AuthApi from '../../api/AuthApi';
+
+// Containers
 import About from '../About/About';
 import NotFound from '../NotFound/NotFound';
 import UserProfile from '../UserProfile/UserProfile';
 import SignUp from '../SignUp/SignUp';
 import SignIn from '../SignIn/SignIn';
 import Search from '../Search/Search';
-import Navbar from '../../components/Navbar'
-import PostTextbook from '../Textbook/PostTextbook'
-import Settings from '../Settings/Settings'
+import Settings from '../Settings/Settings';
+import PostTextbook from '../PostTextbook/PostTextbook';
+import ViewTextbook from '../ViewTextbook/ViewTextbook';
 
-import AuthApi from '../../api/AuthApi';
+// Components
+import Navbar from '../../components/Navbar';
+
+
 class App extends Component {
   constructor(props){
     super(props);
     this.state = {
         isLoggedIn: false,
         user: null,
-        loggingOut: false
+        view: "home"
     };
   }
-
-
 
   //callbacks for authentiation
   checkLoginStatus = () => {
@@ -125,6 +132,7 @@ class App extends Component {
           <Navbar style={ classes.navBar }
             isLoggedIn = {this.state.isLoggedIn}
             triggerLogout = {this.triggerLogout}
+            view = {this.state.view}
           />
         </Grid>
         <div style={ classes.root }>
@@ -151,17 +159,16 @@ class App extends Component {
                       if (this.state.isLoggedIn)
                         return <UserProfile user = {this.state.user} />
                       else {
-                        if (!this.state.loggingOut)
-                          alert ('Cannot Access Priveleged URL, Please Sign In');
-                        else this.setState({loggingOut: false});
+                        alert ('Cannot Access Priveleged URL, Please Sign In');
                         return <Redirect to = "/sign-in"/>
                       }
                     }
                   }/>
 
                   <Route exact path='/about' component={About} />
+                  <Route exact path='/textbook' component={ViewTextbook} />
                   <Route exact path='/search/:query' component={Search} />
-                  <Route exact path='/PostTextbook'
+                  <Route exact path='/post-textbook'
                     render = {
                       props => {
                         return <PostTextbook
