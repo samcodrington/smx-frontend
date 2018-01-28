@@ -16,8 +16,7 @@ function createUser(user) {
       url: '/users/create',
       data: user,
       headers: {
-        'Access-Control-Allow-Origin': '*',
-        'Content-Type': 'application/x-www-form-urlencoded'
+        'Access-Control-Allow-Origin': '*'
       }
     });
   }
@@ -28,12 +27,25 @@ function signIn(user) {
       url: '/users/sign_in',
       data: user,
       headers: {
-        'Access-Control-Allow-Origin': '*',
-        'Content-Type': 'application/x-www-form-urlencoded'
+        'Access-Control-Allow-Origin': '*'
       }
     });
 }
 
-const UserApi = { getUserById, createUser };
+function settings(user,useCase) {
+    return request({
+      method: 'POST',
+      url: '/users/settings',
+      data: {
+        user,
+        useCase
+      },
+      headers: {
+        'Access-Control-Allow-Origin': '*'
+      }
+    });
+}
+
+const UserApi = { getUserById, createUser, settings };
 
 export default UserApi;
