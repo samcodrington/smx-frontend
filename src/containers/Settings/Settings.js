@@ -1,6 +1,7 @@
 // Settings.js
 
 import React, { Component } from 'react';
+import { Switch, Route, Redirect } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { withStyles } from 'material-ui/styles';
 import List, { ListItem, ListItemText } from 'material-ui/List';
@@ -33,6 +34,7 @@ class Settings extends Component {
   constructor(props) {
     super(props);
     this.state = {
+      redirect: false,
       formType: 'profile',
       formChange: false,
       username: this.props.user.username,
@@ -170,7 +172,10 @@ class Settings extends Component {
     if (window.confirm('Are you sure you want to delete your account?')) {
       const response = UserApi
       .settings(user,3)
-      .then((response) => {alert("Settings updated successfully")})//need to update frontend user with new data
+      .then((response) => {
+        this.setState({redirect: true}); //user deleted successfully
+        alert("Settings updated successfully")
+      })//need to update frontend user with new data
       .catch((response) => {
           alert('Something went wrong: ' + response.status);
       });
@@ -181,6 +186,12 @@ class Settings extends Component {
 
 
   render() {
+    if (this.state.redirect){
+      this.setState({redirect: false});
+      return(
+        <Redirect push to="/"/>
+      );
+    }
     var formRender;
     if (this.state.formType=="profile"){
       formRender =
