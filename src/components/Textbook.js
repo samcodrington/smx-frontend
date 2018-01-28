@@ -19,7 +19,6 @@ import Paper from 'material-ui/Paper';
 // Icons
 import FavoriteIcon from 'material-ui-icons/Favorite';
 
-
 const style = {
   media: {
   	height: 200

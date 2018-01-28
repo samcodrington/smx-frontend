@@ -77,7 +77,7 @@ class ViewTextbook extends Component {
     			<Grid item xs={12} sm={6} md={6} style={style.infoContainer}>
     				<Grid container>
     					<Grid item xs={12} style={ style.infoHeader }>
-		    				<Typography type="headline" color="inherit">
+		    				<Typography type="title" color="inherit">
 						      Title
 						    </Typography>
 						    <Typography type="subheading" color="textSecondary">
