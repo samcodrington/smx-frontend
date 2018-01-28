@@ -80,7 +80,7 @@ class Navbar extends Component {
           <Toolbar >
             <Drawer open={ this.state.open } onKeyDown={ this.handleDrawerClose } onClick={ this.handleDrawerClose }>
               <div>
-                <NavBarList triggerLogout = {this.triggerLogout} />
+                <NavBarList triggerLogout = {this.triggerLogout} isLoggedIn = {this.state.isLoggedIn}/>
                 <IconButton color="contrast" aria-label="Menu"  style={ style.menuButton }>
                   <MenuIcon />
                 </IconButton>

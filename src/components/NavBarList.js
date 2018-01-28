@@ -14,9 +14,25 @@ class NavBarList extends Component {
 	constructor(props){
 		super(props);
 		this.triggerLogout = this.props.triggerLogout.bind(this);
+		this.state = {
+			isLoggedIn: this.props.isLoggedIn
+		}
 	}
 
+	componentWillReceiveProps(nextProps){
+    //Update isLoggedIn if it changes
+    if (nextProps.isLoggedIn != this.props.isLoggedIn)
+      this.setState({isLoggedIn: nextProps.isLoggedIn});
+  }
+
 	render() {
+		let logoutButton = null;
+		if (this.state.isLoggedIn){
+			logoutButton =
+				<ListItem button onClick = {this.triggerLogout}>
+	        <ListItemText primary="Log Out" />
+	      </ListItem>
+		}
 		return(
 			<div>
 				<List>
@@ -44,13 +60,8 @@ class NavBarList extends Component {
 	        <ListItem button component={Link} to="/settings">
 	          <ListItemText primary="Settings" />
 	        </ListItem>
-
-					<ListItem button 
-						onClick = {this.triggerLogout}
-						>
-	          <ListItemText primary="Log Out" />
-	        </ListItem>
-
+					
+				{logoutButton}
 	      </List>
 			</div>
 		);
