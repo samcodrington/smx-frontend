@@ -69,7 +69,7 @@ class Navbar extends Component {
     let logInOutButton = null;
     if (isLoggedIn){
       logInOutButton = 
-        <Button color="contrast" style={ style.flexButton } onClick = {this.handleClick} >
+        <Button color="contrast" style={ style.flexButton } onClick = {this.handleClick} component={Link} to = "/">
           Logout 
         </Button>
     } else {

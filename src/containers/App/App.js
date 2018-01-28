@@ -23,7 +23,8 @@ class App extends Component {
     this.state = {
         isLoggedIn: false,
         user: null,
-        loggingOut: false
+        loggingOut: false,
+        view: "home"
     };
   }
 
@@ -123,6 +124,7 @@ class App extends Component {
           <Navbar style={ classes.navBar } 
             isLoggedIn = {this.state.isLoggedIn}
             triggerLogout = {this.triggerLogout}
+            view = {this.state.view}
           />
         </Grid>
         <div style={ classes.root }>
