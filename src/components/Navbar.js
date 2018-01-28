@@ -1,11 +1,14 @@
 // Navbar.js
 
+// React
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 
+// Components
 import NavBarList from '../components/NavBarList';
 import SearchBar from '../components/SearchBar';
 
+// Material UI
 import AppBar from 'material-ui/AppBar';
 import Toolbar from 'material-ui/Toolbar';
 import Typography from 'material-ui/Typography';
@@ -13,6 +16,7 @@ import Button from 'material-ui/Button';
 import IconButton from 'material-ui/IconButton';
 import Drawer from 'material-ui/Drawer';
 
+// Icons
 import MenuIcon from 'material-ui-icons/Menu';
 import SearchIcon from 'material-ui-icons/Search';
 
@@ -80,23 +84,20 @@ class Navbar extends Component {
             <Drawer open={ this.state.open } onKeyDown={ this.handleDrawerClose } onClick={ this.handleDrawerClose }>
               <div>
                 <NavBarList triggerLogout = {this.triggerLogout} isLoggedIn = {this.state.isLoggedIn}/>
-                <IconButton color="contrast" aria-label="Menu"  style={ style.menuButton }>
-                  <MenuIcon />
-                </IconButton>
               </div>
             </Drawer>
 
             <IconButton color="contrast" aria-label="Menu" onClick={ this.handleDrawerOpen } style={ style.menuButton }> 
               <MenuIcon />
             </IconButton>
-            {logInOutButton}
-            <Typography color="inherit" type="title">
-              Toolbar
 
+            {logInOutButton}
+
+            <Typography color="inherit" type="title">
+              QTextbook
             </Typography>
 
             <SearchBar style={style.flexButton} />
-
           </Toolbar>
         </AppBar>
       </div>
