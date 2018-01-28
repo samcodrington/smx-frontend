@@ -1,12 +1,16 @@
 
 // UserProfile.js
 
+// React
 import React, { Component } from 'react';
 import { Route } from 'react-router-dom';
+
+// Material UI
 import Button from 'material-ui/Button';
 
-
+// Components
 import UserInfo from '../../components/Userinfo.js';
+
 class UserProfile extends Component {
   constructor(props) {
     super(props);

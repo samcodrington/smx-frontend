@@ -7,7 +7,7 @@ import { Link } from 'react-router-dom';
 
 // APIs
 import TextbookApi from '../api/TextbookApi';
-import logo from '../assets/images/book.png'
+import book from '../assets/images/book.png';
 
 // Material UI
 import Card, { CardHeader, CardActions, CardContent, CardMedia } from 'material-ui/Card';
@@ -26,6 +26,9 @@ const style = {
   },
   card: {
   	maxwidth: 200
+  },
+  header: {
+  	height: 100
   },
   link: {
   	'text-decoration':'none'
@@ -52,10 +55,11 @@ class Textbook extends Component {
 						title={this.props.title}
 						subheader={this.props.author}
 						noWrap
+						style={ style.header }
 					/>
 	        <CardMedia 
 	        	style={ style.media }
-	          image={logo}
+	          image={book}
 	          title="Cover Art"
 	        />
 	        <CardActions>
