@@ -46,6 +46,28 @@ function settings(user,useCase) {
     });
 }
 
-const UserApi = { getUserById, createUser, settings };
+//returns an array of textbook objects that the user has posted (owns)
+function getUserPostedTextbook(userID){
+  return request({
+    method: 'GET',
+    url: '/users/posted/' + userID,
+    headers: {
+      'Access-Control-Allow-Origin': '*'
+    }
+  });
+}
+
+//returns an array of textbook objects that the user has saved
+function getUserSavedTextbook(userID){
+  return request({
+    method: 'GET',
+    url: '/users/saved/' + userID,
+    headers: {
+      'Access-Control-Allow-Origin': '*'
+    }
+  });
+}
+
+const UserApi = { getUserById, createUser, settings, getUserPostedTextbook, getUserSavedTextbook };
 
 export default UserApi;
