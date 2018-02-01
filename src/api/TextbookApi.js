@@ -3,7 +3,7 @@
 import request from './BaseApi';
 
 
-
+//returns an array of texbook objects matching the search terms
 function searchTextbook(searchField) {
     return request({
       method: 'GET',
@@ -15,6 +15,7 @@ function searchTextbook(searchField) {
     });
   }
 
+  //posts a textbook associated with the user
   function postTextbook(textbook) {
       return request({
         method: 'POST',
@@ -27,7 +28,17 @@ function searchTextbook(searchField) {
       });
     }
 
+  //returns the textbook object which matches the textbook ID
+  function getOneTextbook(textbookID){
+    return request({
+      method: 'GET',
+      url: '/textbooks/get/' + textbookID,
+      headers: {
+        'Access-Control-Allow-Origin': '*'
+      }
+    });
+  }
 
-  const UserApi = { searchTextbook, postTextbook };
+  const UserApi = { searchTextbook, postTextbook, getOneTextbook};
 
   export default UserApi;
