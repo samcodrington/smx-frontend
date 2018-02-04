@@ -166,7 +166,7 @@ class App extends Component {
                   }/>
 
                   <Route exact path='/about' component={About} />
-                  <Route exact path='/textbook' component={ViewTextbook} />
+                  <Route exact path='/textbook/:bookID' component={ViewTextbook} />
                   <Route exact path='/search/:query' component={Search} />
                   <Route exact path='/post-textbook'
                     render = {
