@@ -67,7 +67,7 @@ class Textbook extends Component {
 		        	  Share
 		        	</Button>
 	        	</a>
-	          <Button dense color="primary" component={Link} to="/textbook">
+	          <Button dense color="primary" component={Link} to={ this.props.url }>
 	            Learn More
 	          </Button>
 	        </CardActions>
