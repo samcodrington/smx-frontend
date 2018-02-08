@@ -25,8 +25,19 @@ function searchTextbook(searchField) {
         }
       });
     }
+  function deleteUserTextbook(textbook){
+    return request({
+      method: 'DELETE',
+      url: '/textbooks/delete/' + textbook,
+      data: {textbook},
+      headers: {
+        'Access-Control-Allow-Origin': '*'
+      },
+      withCredentials: true
+    })
+  }
 
 
-  const UserApi = { searchTextbook, postTextbook };
+  const TextbookApi = { searchTextbook, postTextbook, deleteUserTextbook };
 
-  export default UserApi;
+  export default TextbookApi;
