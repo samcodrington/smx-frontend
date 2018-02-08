@@ -110,6 +110,7 @@ class Search extends Component {
     // props for textbook component
     var bookTitle;
     var bookAuthor;
+    var bookID;
 
     //limit results
     /*
@@ -127,14 +128,17 @@ class Search extends Component {
         bookTitle = bookTitle.substr(0,40) + "...";
       }
 
-      bookAuthor = books[i].author
+      bookAuthor = books[i].author;
+      bookID = "/textbook/" + books[i]._id;
+
       
       bookList.push(
         <Grid item xs={12} sm={6} md={4} lg={4} xl={4}>
-          <Textbook title={ bookTitle } author={ bookAuthor }/>
+          <Textbook title={ bookTitle } author={ bookAuthor } url={ bookID } />
         </Grid>
       );
     }
+
     return(
       <div className='Search'>
         <Grid container>

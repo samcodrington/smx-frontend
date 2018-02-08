@@ -1,11 +1,14 @@
 // Navbar.js
 
+// React
 import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, withRouter} from 'react-router-dom';
 
+// Components
 import NavBarList from '../components/NavBarList';
 import SearchBar from '../components/SearchBar';
 
+// Material UI
 import AppBar from 'material-ui/AppBar';
 import Toolbar from 'material-ui/Toolbar';
 import Typography from 'material-ui/Typography';
@@ -13,6 +16,7 @@ import Button from 'material-ui/Button';
 import IconButton from 'material-ui/IconButton';
 import Drawer from 'material-ui/Drawer';
 
+// Icons
 import MenuIcon from 'material-ui-icons/Menu';
 import SearchIcon from 'material-ui-icons/Search';
 
@@ -24,7 +28,11 @@ const style = {
   loginButton: {
     position: 'absolute',
     right: '10px',
-  } 
+  },
+  searchButton: {
+    position: 'absolute',
+    right: '10px'
+  }
 }
 
 class Navbar extends Component {
@@ -67,36 +75,59 @@ class Navbar extends Component {
     let isLoggedIn = this.state.isLoggedIn;
     let logInOutButton = null;
     if (!isLoggedIn){
+      var current_location = window.location.pathname;
+      var logLink;
+      var logText;
+      if(current_location === "/") {
+        logLink = "/sign-in";
+        logText = "Log In";
+      }
+      else {
+        logLink = "/";
+        logText = "Sign Up";
+      }
       logInOutButton = 
-        <Button color="contrast" style={ style.flexButton } component={Link} to="/sign-in">
-          Login
+        <Button raised color="primary" style={ style.searchButton } component={Link} to={logLink}>
+          {logText}
         </Button>
+    }
+
+    // search
+    let searchBar = null;
+    if(isLoggedIn) {
+      searchBar = 
+        <SearchBar style={style.searchButton} />
+    }
+
+    // menu
+    let menu = null;
+    if(isLoggedIn) {
+      menu = 
+        <div>
+          <Drawer open={ this.state.open } onKeyDown={ this.handleDrawerClose } onClick={ this.handleDrawerClose }>
+            <div>
+              <NavBarList triggerLogout = {this.triggerLogout} isLoggedIn = {this.state.isLoggedIn}/>
+            </div>
+          </Drawer>
+
+          <IconButton color="contrast" aria-label="Menu" onClick={ this.handleDrawerOpen } style={ style.menuButton }> 
+            <MenuIcon />
+          </IconButton>
+        </div>
     }
 
     return(
       <div>
         <AppBar style={ this.props.style }>
           <Toolbar >
-            <Drawer open={ this.state.open } onKeyDown={ this.handleDrawerClose } onClick={ this.handleDrawerClose }>
-              <div>
-                <NavBarList triggerLogout = {this.triggerLogout} isLoggedIn = {this.state.isLoggedIn}/>
-                <IconButton color="contrast" aria-label="Menu"  style={ style.menuButton }>
-                  <MenuIcon />
-                </IconButton>
-              </div>
-            </Drawer>
+            { menu }
 
-            <IconButton color="contrast" aria-label="Menu" onClick={ this.handleDrawerOpen } style={ style.menuButton }> 
-              <MenuIcon />
-            </IconButton>
-            {logInOutButton}
             <Typography color="inherit" type="title">
-              Toolbar
-
+              QTextbook
             </Typography>
 
-            <SearchBar style={style.flexButton} />
-
+            { searchBar }
+            { logInOutButton }
           </Toolbar>
         </AppBar>
       </div>
