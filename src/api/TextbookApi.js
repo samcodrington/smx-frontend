@@ -23,7 +23,8 @@ function searchTextbook(searchField) {
         data: {textbook},
         headers: {
           'Access-Control-Allow-Origin': '*'
-        }
+        },
+        withCredentials: true
       });
     }
 
