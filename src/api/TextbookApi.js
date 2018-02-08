@@ -29,7 +29,6 @@ function searchTextbook(searchField) {
     return request({
       method: 'DELETE',
       url: '/textbooks/delete/' + textbook,
-      data: {textbook},
       headers: {
         'Access-Control-Allow-Origin': '*'
       },
