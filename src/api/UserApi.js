@@ -79,6 +79,6 @@ function getUserSavedTextbook(userID){
   });
 }
 
-const UserApi = { getUserById, createUser, settings, getUserPostedTextbook, getUserSavedTextbook };
+const UserApi = { getUserById, createUser, createUserInfo, settings, getUserPostedTextbook, getUserSavedTextbook };
 
 export default UserApi;
