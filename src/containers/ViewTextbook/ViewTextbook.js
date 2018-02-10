@@ -16,6 +16,14 @@ import Hidden from 'material-ui/Hidden';
 import Card, { CardHeader, CardMedia, CardContent, CardActions } from 'material-ui/Card';
 import Slide from 'material-ui/transitions/Slide';
 import Button from 'material-ui/Button';
+import Divider from 'material-ui/Divider';
+import Chip from 'material-ui/Chip';
+import Dialog, {
+  DialogActions,
+  DialogContent,
+  DialogContentText,
+  DialogTitle,
+} from 'material-ui/Dialog';
 
 // Assets
 import book from '../../assets/images/book.png';
@@ -49,15 +57,28 @@ const style = {
 	},
 	infoButton: {
 		height: '5vh'
-	}
+	},
+  titleDivider: {
+    'margin-top': 10,
+    'margin-bottom': 20
+  }
 }
 
 class ViewTextbook extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      textbookResults: []
+      textbookResults: [],
+      contactOpen: false
     };
+  }
+
+  handleOpen() {
+
+  }
+
+  handleClose() {
+    
   }
 
   handleQuery(bookID) {
@@ -112,6 +133,12 @@ class ViewTextbook extends Component {
       console.log(bookData);
       const title = bookData["title"];
       const author = bookData["author"];
+      const isbn = bookData["isbn"];
+      const owner = bookData["owner"];
+      const publisher = bookData["publisher"];
+      const associated_program = bookData["associatedprogram"];
+      const tags = bookData["tags"];
+
       return (
         <div>
           <Paper className="ViewTextbook" elevation={20} style={ style.container }>
@@ -133,6 +160,7 @@ class ViewTextbook extends Component {
 
               <Grid item xs={12} sm={6} md={6} style={style.infoContainer}>
                 <Grid container>
+
                   <Grid item xs={12} style={ style.infoHeader }>
                     <Typography type="title" color="inherit">
                       {title}
@@ -140,7 +168,22 @@ class ViewTextbook extends Component {
                     <Typography type="subheading" color="textSecondary">
                       {author}
                     </Typography>
+                    <Divider style={ style.titleDivider } />
+                    <Typography type="body2" color="inherit">
+                      ISBN: {isbn}
+                    </Typography>
+                    <Typography type="body2" color="inherit">
+                      Publisher: {publisher}
+                    </Typography>
+                    <Typography type="body2" color="inherit">
+                      Program: {associated_program}
+                    </Typography>
+                    <Divider style={ style.titleDivider } />
+                    <Typography type="body2" color="inherit">
+                      Tags: <Chip label={tags} />
+                    </Typography>
                   </Grid>
+
                   <Grid item xs={12} style={ style.infoBody }>
                     <Typography type="body1" color="inherit">
                     
