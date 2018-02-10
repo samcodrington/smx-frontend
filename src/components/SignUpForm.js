@@ -28,7 +28,11 @@ class SignInForm extends Component {
     this.state = {
       username: '',
       password: '',
-      confirm: ''
+      confirm: '',
+      usernameError: false,
+      usernameTakenError: false,
+      passwordError: false,
+      confirmError: false
     };
 
     this.handleChange = this.handleChange.bind(this);
@@ -43,12 +47,22 @@ class SignInForm extends Component {
   }
 
   handleSubmit(event) {
+    var error = false;
     event.preventDefault();
+    if (this.state.username==""){
+      this.setState({usernameError: true});
+      error = true;
+    } else {this.setState({usernameError: false}); }
+    if (this.state.password.length<8){
+      this.setState({passwordError: true});
+      error = true;
+    } else {this.setState({passwordError: false}); }
     if(this.state.password !== this.state.confirm) {
-      alert('Passwords do not match!');
-    } else if(this.state.password.length < 8) {
-      alert('Password must be longer than 8 characters!');
-    } else {
+      this.setState({confirmError: true});
+      error = true;
+    } else {this.setState({confirmError: false});}
+    //no error in form, proceed with signup
+    if (!error){
       const user = {
         username: this.state.username,
         password: this.state.password
@@ -59,7 +73,8 @@ class SignInForm extends Component {
         )
         .then((response) => {
           if(response==-1){
-            alert("username taken, please enter a new username")
+            //alert("username taken, please enter a new username")
+            this.setState({usernameTakenError: true});
           }
           else {
           alert('You\'ve created an account! Name: ' + this.state.username);
@@ -85,23 +100,27 @@ class SignInForm extends Component {
             </Grid>
 
             <Grid item xs={12}>
-              <FormControl >
+              <FormControl error={this.state.usernameError || this.state.usernameTakenError}>
                 <InputLabel>Username</InputLabel>
                 <Input name='username' value={ this.state.username } type='text' onChange={ this.handleChange }/>
+                {this.state.usernameError && <FormHelperText id="name-error-text">Please enter a username</FormHelperText>}
+                {this.state.usernameTakenError && <FormHelperText id="name-error-text">Sorry, that username is taken</FormHelperText>}
               </FormControl>
             </Grid>
 
             <Grid item xs={12}>
-              <FormControl >
+              <FormControl error={this.state.passwordError}>
                 <InputLabel>Password</InputLabel>
                 <Input name='password' value={ this.state.password } type='password' onChange={ this.handleChange }/>
+                {this.state.passwordError && <FormHelperText id="name-error-text">your password must be at least 8 characters</FormHelperText>}
               </FormControl>
             </Grid>
 
             <Grid item xs={12}>
-              <FormControl >
+              <FormControl error={this.state.confirmError}>
                 <InputLabel>Confirm Password</InputLabel>
                 <Input name='confirm' value={ this.state.confirm } type='password' onChange={ this.handleChange }/>
+                {this.state.confirmError && <FormHelperText id="name-error-text">passwords do not match</FormHelperText>}
               </FormControl>
             </Grid>
 
