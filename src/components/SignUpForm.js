@@ -58,8 +58,14 @@ class SignInForm extends Component {
           user
         )
         .then((response) => {
+          if(response==-1){
+            alert("username taken, please enter a new username")
+          }
+          else {
           alert('You\'ve created an account! Name: ' + this.state.username);
+          alert(response);
           event.preventDefault();
+          }
         })
         .catch((response) => {
           console.log(response);
