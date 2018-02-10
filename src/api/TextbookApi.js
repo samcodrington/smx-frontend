@@ -11,7 +11,8 @@ function searchTextbook(searchField) {
       headers: {
         'Access-Control-Allow-Origin': '*',
         'searchField': searchField
-      }
+      },
+      withCredentials: true
     });
   }
 
@@ -22,7 +23,8 @@ function searchTextbook(searchField) {
         data: {textbook},
         headers: {
           'Access-Control-Allow-Origin': '*'
-        }
+        },
+        withCredentials: true
       });
     }
   function deleteUserTextbook(textbook){
