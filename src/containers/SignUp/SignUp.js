@@ -6,6 +6,7 @@ import React, { Component } from 'react';
 import Grid from 'material-ui/Grid';
 
 import SignUpForm from '../../components/SignUpForm';
+import SignUpInfoForm from '../../components/SignUpInfoForm';
 
 class SignUp extends Component {
   constructor(props) {
