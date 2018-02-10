@@ -132,6 +132,8 @@ class ViewTextbook extends Component {
 
   handleQuerySuccess() {
     const bookData = this.state.textbookResults;
+    const email = this.state.ownerEmail["email"];
+
     //const title = bookData["title"];
     if(bookData["_id"] != undefined){
       console.log(bookData);
@@ -157,7 +159,7 @@ class ViewTextbook extends Component {
                 <b>Name:</b> {owner}
               </DialogContentText>
               <DialogContentText id="alert-dialog-description">
-                <b>Email:</b> TBD
+                <b>Email:</b> {email}
               </DialogContentText>
             </DialogContent>
             <DialogActions>
