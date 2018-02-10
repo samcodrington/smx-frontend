@@ -11,7 +11,8 @@ function searchTextbook(searchField) {
       headers: {
         'Access-Control-Allow-Origin': '*',
         'searchField': searchField
-      }
+      },
+      withCredentials: true
     });
   }
 
