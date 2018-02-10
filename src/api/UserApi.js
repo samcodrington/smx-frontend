@@ -21,6 +21,17 @@ function createUser(user) {
     });
   }
 
+  function createUserInfo(user) {
+      return request({
+        method: 'POST',
+        url: '/users/createInfo',
+        data: user,
+        headers: {
+          'Access-Control-Allow-Origin': '*'
+        }
+      });
+    }
+
 function signIn(user) {
     return request({
       method: 'POST',
