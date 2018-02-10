@@ -69,6 +69,7 @@ class ViewTextbook extends Component {
     super(props);
     this.state = {
       textbookResults: [],
+      ownerEmail: '',
       contactOpen: false
     };
     this.handleOpen = this.handleOpen.bind(this);
@@ -89,9 +90,10 @@ class ViewTextbook extends Component {
       .then((response) => {
         //check if their are results
         if (response != '-1') {
-          if(JSON.stringify(response) != JSON.stringify(this.state.textbookResults)) {
+          if(JSON.stringify(response[0]) != JSON.stringify(this.state.textbookResults)) {
             this.setState({
-              textbookResults: response
+              textbookResults: response[0],//the first object returned is the textbook results
+              ownerEmail: response[1]//the second object returned is the email of the owner
             });
           }
         }
@@ -174,7 +176,7 @@ class ViewTextbook extends Component {
                 <Grid item xs={6} style={style.media}>
                   <Card style={ style.picture }>
                     <Paper elevation={12}>
-                      <CardMedia 
+                      <CardMedia
                         style={ style.picture }
                         image={book}
                         title="Cover Art"
@@ -212,7 +214,7 @@ class ViewTextbook extends Component {
 
                   <Grid item xs={12} style={ style.infoBody }>
                     <Typography type="body1" color="inherit">
-                    
+
                     </Typography>
                   </Grid>
 
@@ -256,7 +258,7 @@ class ViewTextbook extends Component {
       );
     }
 
-    
+
   }
 }
 
