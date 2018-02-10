@@ -71,14 +71,16 @@ class ViewTextbook extends Component {
       textbookResults: [],
       contactOpen: false
     };
+    this.handleOpen = this.handleOpen.bind(this);
+    this.handleClose = this.handleClose.bind(this);
   }
 
   handleOpen() {
-
+    this.setState({contactOpen: true});
   }
 
   handleClose() {
-    
+    this.setState({contactOpen: false});
   }
 
   handleQuery(bookID) {
@@ -141,6 +143,30 @@ class ViewTextbook extends Component {
 
       return (
         <div>
+          <Dialog
+            open={this.state.contactOpen}
+            onClose={this.handleClose}
+            aria-labelledby="alert-dialog-title"
+            aria-describedby="alert-dialog-description"
+          >
+            <DialogTitle id="alert-dialog-title">{"Contact Information:"}</DialogTitle>
+            <DialogContent>
+              <DialogContentText id="alert-dialog-description">
+                <b>Name:</b> {owner}
+              </DialogContentText>
+              <DialogContentText id="alert-dialog-description">
+                <b>Email:</b> TBD
+              </DialogContentText>
+            </DialogContent>
+            <DialogActions>
+              <Button onClick={this.handleClose} color="primary">
+                Save for Later
+              </Button>
+              <Button onClick={this.handleClose} color="primary" autoFocus>
+                Close
+              </Button>
+            </DialogActions>
+          </Dialog>
           <Paper className="ViewTextbook" elevation={20} style={ style.container }>
             <Grid container spacing={0}>
 
@@ -191,7 +217,7 @@ class ViewTextbook extends Component {
                   </Grid>
 
                   <Grid item xs={12} style={ style.infoButton }>
-                    <Button raised color="primary" fullWidth={true} style={ style.contactButton }>
+                    <Button raised color="primary" fullWidth={true} style={ style.contactButton } onClick={this.handleOpen}>
                       Purchase Book
                     </Button>
                   </Grid>
