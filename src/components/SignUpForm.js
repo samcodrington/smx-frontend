@@ -112,7 +112,7 @@ class SignInForm extends Component {
               <FormControl error={this.state.passwordError}>
                 <InputLabel>Password</InputLabel>
                 <Input name='password' value={ this.state.password } type='password' onChange={ this.handleChange }/>
-                {this.state.passwordError && <FormHelperText id="name-error-text">your password must be at least 8 characters</FormHelperText>}
+                {this.state.passwordError && <FormHelperText id="name-error-text">please enter at least 8 characters</FormHelperText>}
               </FormControl>
             </Grid>
 
