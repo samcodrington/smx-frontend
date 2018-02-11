@@ -107,9 +107,17 @@ class ManageTextbooks extends Component {
       );
     }
 
+    if(lengthBooks == 0) {
+    	bookList.push(
+        <Grid item xs={12} sm={6} md={4} lg={4} xl={4}>
+          It doesn't look like you have any books... Post one!
+        </Grid>
+      );
+    }
+
     return(
       <div className='Manage'>
-        <Grid container>
+      	<Grid container>
           <Grid item sm={12} md={12} lg={12} xl={12}>
             <Typography type={'display1'}>Manage your posts:</Typography>
           </Grid>
