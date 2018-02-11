@@ -37,6 +37,9 @@ const style = {
 class Textbook extends Component {
 	constructor(props) {
 		super(props);
+		this.state = {
+			deleted: false
+		}
 		this.deletePost = this.deletePost.bind(this);
 	}
 
@@ -61,7 +64,7 @@ class Textbook extends Component {
 	      //check if their are results
 	      console.log(response);
 	      if (response != '-1') {
-	      	console.log("Success");
+	      	this.setState({deleted: true});
 	      }
 	      else {
 	        alert("Failed to delete textbook");
@@ -73,6 +76,10 @@ class Textbook extends Component {
 	}
 
 	render() {
+		if(this.state.deleted === true) {
+			return(<div></div>);
+		}
+
 		var deleteButton;
 		if(this.props.delete === true) {
 			deleteButton = 
