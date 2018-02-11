@@ -162,8 +162,8 @@ class PostTextbook extends Component {
       }
     }
     return (
-      {if (donePosting)}
-        <Redirect to />}
+      {if (this.state.postedID !== null)}
+        <Redirect to = "/textbook/" {+ this.state.postedID} />}
       <div className='PostTextbook' style={ classes.root }>
         <Grid container spacing={8}>
           <Grid item xs={12}>
