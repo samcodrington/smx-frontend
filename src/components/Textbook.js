@@ -68,11 +68,15 @@ class Textbook extends Component {
 
 
 	handleOpen() {
-    	this.setState({confirmDeleteOpen: true});
+		if(this.state.confirmDeleteOpen != true){
+			this.setState({confirmDeleteOpen: true});
+		}
   	}
 
   	handleClose() {
-    	this.setState({confirmDeleteOpen: false});
+  		if(this.state.confirmDeleteOpen != false){
+    		this.setState({confirmDeleteOpen: false});
+    	}
   	}
 
 	handleDelete(textbookID) {
