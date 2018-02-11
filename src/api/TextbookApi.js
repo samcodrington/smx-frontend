@@ -11,7 +11,8 @@ function searchTextbook(searchField) {
       headers: {
         'Access-Control-Allow-Origin': '*',
         'searchField': searchField
-      }
+      },
+      withCredentials: true
     });
   }
 
@@ -27,6 +28,16 @@ function searchTextbook(searchField) {
         withCredentials: true
       });
     }
+  function deleteUserTextbook(textbook){
+    return request({
+      method: 'DELETE',
+      url: '/textbooks/delete/' + textbook,
+      headers: {
+        'Access-Control-Allow-Origin': '*'
+      },
+      withCredentials: true
+    })
+  }
 
   //returns the textbook object which matches the textbook ID
   function getOneTextbook(textbookID){
@@ -39,6 +50,8 @@ function searchTextbook(searchField) {
     });
   }
 
-  const UserApi = { searchTextbook, postTextbook, getOneTextbook};
 
-  export default UserApi;
+  const TextbookApi = { searchTextbook, postTextbook, deleteUserTextbook, getOneTextbook };
+  
+
+  export default TextbookApi;
