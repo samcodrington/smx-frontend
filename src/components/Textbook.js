@@ -15,6 +15,12 @@ import Button from 'material-ui/Button';
 import Typography from 'material-ui/Typography';
 import IconButton from 'material-ui/IconButton';
 import Paper from 'material-ui/Paper';
+import Dialog, {
+  DialogActions,
+  DialogContent,
+  DialogContentText,
+  DialogTitle,
+} from 'material-ui/Dialog';
 
 // Icons
 import FavoriteIcon from 'material-ui-icons/Favorite';
