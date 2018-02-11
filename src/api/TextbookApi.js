@@ -28,6 +28,8 @@ function searchTextbook(searchField) {
         withCredentials: true
       });
     }
+
+  // requires textbook id
   function deleteUserTextbook(textbook){
     return request({
       method: 'DELETE',
