@@ -35,7 +35,7 @@ class App extends Component {
         user: null,
         view: "signup"
     };
-  } 
+  }
 
   addUserInfo = (u) => {
     console.debug('User: ', u);
@@ -99,10 +99,10 @@ class App extends Component {
         },
         overflow: 'scroll' //remove internal scrollbar
       }
-    }    
+    }
     return (
       <div>
-        <Authenticator 
+        <Authenticator
           isLoggedIn = {this.state.isLoggedIn}
           view = {this.state.view}
           authAction = {this.state.authAction}
@@ -161,7 +161,10 @@ class App extends Component {
                   <Route exact path='/settings' render = {
                     () => {
                       if (this.state.isLoggedIn)
-                        return <Settings user = {this.state.user} />
+                        return <Settings
+                        user = {this.state.user}
+                        addUserInfo = {this.addUserInfo}
+                        />
                       else {
                         if (!this.state.loggingOut)
                           alert ('Cannot Access Priveleged URL, Please Sign In');
