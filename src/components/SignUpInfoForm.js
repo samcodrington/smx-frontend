@@ -47,7 +47,7 @@ class SignUpInfoForm extends Component {
     this.setState({[name]: value});
   }
 
-  //returns a 1 if email is valid
+  //returns a 0 if email is valid
   ensureEmailValid = function(email){
     //string is valid if it is in the form string@string.string
     var at = email.indexOf("@");
@@ -56,10 +56,10 @@ class SignUpInfoForm extends Component {
     //ensure only one occurence of @ sign
     //ensure a period (for web domain occcurs after @ sign)
     if (at == atLast && periodLast > atLast){
-      return 1;
+      return 0;
     }
     else {
-      return 0;
+      return 1;
     }
   };
 
@@ -86,7 +86,7 @@ class SignUpInfoForm extends Component {
     //all information is valid - submit to backend
     if (!error){
       const user = {  //create user object
-        id: this.props._id,//grab _id of created user
+        _id: this.props.userID,//grab _id of created user
         nameFirst: this.state.nameFirst,
         nameLast: this.state.nameLast,
         email: this.state.email,
@@ -101,8 +101,8 @@ class SignUpInfoForm extends Component {
             alert("error adding information to database");
           }
           else {
-          alert(JSON.stringify(response));
           alert('You\'ve created an account! Name: ' + this.state.nameFirst);    //update user object and redirect to profile page
+          this.props.accountCreationSuccess();
           event.preventDefault();
           }
         })
