@@ -4,11 +4,10 @@ import { withRouter } from 'react-router'
 
 import AuthApi from '../../api/AuthApi';
 
-const privelegedURLs = ["/textbook", "/search", "/post-textbook", "/settings", "/user"];
+const privelegedURLs = ["/textbook", "/search", "/post-textbook", "/settings", "/user", "/manage-textbooks"];
 
 class Authenticator extends Component{
     static propTypes = {
-        //match: PropTypes.object.isRequired,
         location: PropTypes.object.isRequired,
         history: PropTypes.object.isRequired
       };
@@ -82,10 +81,7 @@ class Authenticator extends Component{
         });
     }
 
-    render() {
-        console.log("Rendering authenticator");
-                return null;
-    }
+    render() {return null;}
   
 } 
 const AuthenticatorWithRouter = withRouter(Authenticator);

@@ -19,6 +19,7 @@ class UserProfile extends Component {
       email: this.props.user.email,
       school: this.props.user.school
     }
+    
     return (
       <div className='UserInfo'>
         <UserInfo user = {userInfo}/>

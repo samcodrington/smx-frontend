@@ -2,6 +2,7 @@
 
 // React
 import React, { Component } from 'react';
+import {Redirect} from 'react-router-dom';
 
 // Material UI
 import Grid from 'material-ui/Grid';
@@ -47,7 +48,8 @@ class PostTextbook extends Component {
       description: '',
       nameError: false,
       authorError: false,
-      priceError: false
+      priceError: false,
+      postedID: null
     };
 
     this.handleSelection = this.handleSelection.bind(this);
@@ -68,7 +70,6 @@ class PostTextbook extends Component {
   }
 
   handleSubmit(event) {
-    alert(this.props.user);
     var dontSend=false
     event.preventDefault();
     //do some basic error checking on entered textbook
@@ -100,7 +101,10 @@ class PostTextbook extends Component {
     }
     const response = TextbookApi
     .postTextbook(textbook)
-    .then((response) => {alert("You Successfully posted a textbook")})
+    .then((response) => {
+      alert("You Successfully posted a textbook")
+      this.setState({postedID: true});
+    })
     .catch((response) => {
         alert('Something went wrong: ' + response.status);
     });
@@ -149,6 +153,7 @@ class PostTextbook extends Component {
           handleSubmit = {this.handleSubmit}
         />;
       }
+    
     const classes = {
       root: {
         //backgroundColor: theme.palette.background.default,
@@ -157,24 +162,34 @@ class PostTextbook extends Component {
         overflow: 'hidden',
       }
     }
+    var redirect = null;
+    if(this.state.postedID !== null)
+      redirect = <Redirect to = "manage-textbooks" />
+    
+      
+    //Redirect Handler
     return (
-      <div className='PostTextbook' style={ classes.root }>
-        <Grid container spacing={8}>
-          <Grid item xs={12}>
-            <Paper className="UserInfo" elevation={5} style={ styles.paperContainer }>
-              <AppBar position="static">
-                <Tabs value={this.state.tabval} onChange={this.handleChange} fullWidth centered>
-                  <Tab label="Textbook" onClick={(event) => this.handleSelection(event, 0)}/>
-                  <Tab label="Collection" onClick={(event) => this.handleSelection(event, 1)}/>
-                </Tabs>
-              </AppBar>
-              <Grid container style={ styles.infoContainer } justify={"center"}>
-                {switchFormRender}
-              </Grid>
-            </Paper>
+      <div>
+        {redirect}
+        <div className='PostTextbook' style={ classes.root }>
+          <Grid container spacing={8}>
+            <Grid item xs={12}>
+              <Paper className="UserInfo" elevation={5} style={ styles.paperContainer }>
+                <AppBar position="static">
+                  <Tabs value={this.state.tabval} onChange={this.handleChange} fullWidth centered>
+                    <Tab label="Textbook" onClick={(event) => this.handleSelection(event, 0)}/>
+                    <Tab label="Collection" onClick={(event) => this.handleSelection(event, 1)}/>
+                  </Tabs>
+                </AppBar>
+                <Grid container style={ styles.infoContainer } justify={"center"}>
+                  {switchFormRender}
+                </Grid>
+              </Paper>
+            </Grid>
           </Grid>
-        </Grid>
+        </div>
       </div>
+      
     );
   }
 }
