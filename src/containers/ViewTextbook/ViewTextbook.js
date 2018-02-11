@@ -41,7 +41,10 @@ const style = {
 	media: {
 		'background-color': '#E8EAF6',
 		height: '80vh',
-		padding: 60
+		'padding-left': '10%',
+    'padding-right': '10%',
+    'padding-top': '5%',
+    'padding-bottom': '5%',
 	},
 	picture: {
 		height: 'calc(80vh - 120px)'
@@ -132,9 +135,18 @@ class ViewTextbook extends Component {
     );
   }
 
+  handleImage(thumbnail, book) {
+    if(thumbnail != undefined && thumbnail != null && thumbnail != "") {
+      return thumbnail;
+    } else {
+      return book;
+    }
+  }
+
   handleQuerySuccess() {
     const bookData = this.state.textbookResults;
     const email = this.state.ownerEmail["email"];
+    const thumbnail = this.state.thumbnail;
 
     //const title = bookData["title"];
     if(bookData["_id"] != undefined){
@@ -182,7 +194,7 @@ class ViewTextbook extends Component {
                     <Paper elevation={12}>
                       <CardMedia
                         style={ style.picture }
-                        image={book}
+                        image={ this.handleImage(thumbnail, book)}
                         title="Cover Art"
                       />
                     </Paper>
