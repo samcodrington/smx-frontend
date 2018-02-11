@@ -13,7 +13,10 @@ import AppBar from 'material-ui/AppBar';
 
 // APIs
 import TextbookApi from '../../api/TextbookApi';
-import UserApi from '../../api/UserbookApi';
+import UserApi from '../../api/UserApi';
+
+// Components
+import Textbook from '../../components/Textbook';
 
 const styles = {
   paperContainer: {
@@ -30,48 +33,134 @@ const styles = {
 class ManageTextbooks extends Component {
 	constructor(props) {
 		super(props);
-
+		this.state = {
+			textbookResults: []
+		};
 	}
 
 	handleQuery(userID) {
-	  const response = UserApi.getOneTextbook(
+	  const response = UserApi.getUserPostedTextbook(
 	      userID)
 	    .then((response) => {
 	      //check if their are results
 	      if (response != '-1') {
-	        if(JSON.stringify(response[0]) != JSON.stringify(this.state.textbookResults)) {
+	      	console.log(response);
+	        if(JSON.stringify(response) != JSON.stringify(this.state.textbookResults)) {
 	          this.setState({
-	            textbookResults: response[0]//the first object returned is the textbook results
+	            textbookResults: response//the first object returned is the textbook results
 	            //ownerEmail: response[1],//the second object returned is the email of the owner
 	            //thumbnail: response[2]//the third object returned is the thumbnail of the textbook
 	          });
 	        }
 	      }
 	      else {
-	        if(this.state.textbookResults[0] != 'no results'){
+	        if(this.state.textbookResults != 'no results'){
 	          this.setState({
-	            textbookResults: ['no results']
+	            textbookResults: 'no results'
 	          });//current default message when no results returned
 	        }
 	      }
 	    }).catch((response) => {
-	        if(this.state.textbookResults[0] != 'error'){
+	        if(this.state.textbookResults != 'error'){
 	          this.setState({
-	            textbookResults: ['error']
+	            textbookResults: 'error'
 	          });
 	        }
 	  });
 	  return response;
 	}
 
-	render() {
-		return(
-			<div>
+	handleQuerySuccess(query) {
+    var bookList = []
+    var books = this.state.textbookResults;
+    var lengthBooks = books.length;
 
-			</div>
-		);
-	}
+    // props for textbook component
+    var bookTitle;
+    var bookAuthor;
+    var bookID;
+
+    //limit results
+    /*
+    if(lengthBooks > 12) {
+      lengthBooks = 12;
+    }
+    */
+
+    for(var i=0; i < lengthBooks; i++) {
+      console.log(books[i])
+
+      // book title formatting (check for length)
+      bookTitle = books[i].title
+      if(bookTitle.length > 40) {
+        bookTitle = bookTitle.substr(0,40) + "...";
+      }
+
+      bookAuthor = books[i].author;
+      bookID = "/textbook/" + books[i]._id;
+
+      
+      bookList.push(
+        <Grid item xs={12} sm={6} md={4} lg={4} xl={4}>
+          <Textbook title={ bookTitle } author={ bookAuthor } url={ bookID } delete={true}/>
+        </Grid>
+      );
+    }
+
+    return(
+      <div className='Manage'>
+        <Grid container>
+          <Grid item sm={12} md={12} lg={12} xl={12}>
+            <Typography type={'display1'}>Manage your posts:</Typography>
+          </Grid>
+          {bookList}
+        </Grid>
+      </div>
+    );
+  }
+
+  handleQueryFail() {
+    return(
+      <div>
+        <Typography component='h2'>Could not communicate with server</Typography>
+      </div>
+    );
+  }
+
+  handleNoResults() {
+    return(
+      <div>
+        <Typography component='h2'>No Results</Typography>
+      </div>
+    );
+  }
+
+  render() {
+  	if(this.props.user != null) {
+  		var uID = this.props.user["_id"];
+  		this.handleQuery(uID);
+  		
+  		// handle no results
+  		if(this.state.textbookResults === 'no results') {
+  		  return(
+  		    this.handleNoResults()
+  		  );
+  		// handle query failure
+  		} else if(this.state.textbookResults === 'error') {
+  		  return(
+  		    this.handleQueryFail()
+  		  );
+  		} else {
+  		  return(
+  		    this.handleQuerySuccess(uID)
+  		  );
+  		}
+  	} else {
+  		return(
+  		  this.handleQueryFail()
+  		);
+  	}
+  }
 }
-
 export default ManageTextbooks;
 

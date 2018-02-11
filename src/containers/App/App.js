@@ -22,6 +22,7 @@ import Search from '../Search/Search';
 import Settings from '../Settings/Settings';
 import PostTextbook from '../PostTextbook/PostTextbook';
 import ViewTextbook from '../ViewTextbook/ViewTextbook';
+import ManageTextbooks from '../ManageTextbooks/ManageTextbooks';
 
 // Components
 import Navbar from '../../components/Navbar';
@@ -172,6 +173,15 @@ class App extends Component {
                     render = {
                       props => {
                         return <PostTextbook
+                          user = {this.state.user}
+                        />
+                      }
+                    }
+                  />
+                  <Route exact path='/manage-textbooks'
+                    render = {
+                      props => {
+                        return <ManageTextbooks
                           user = {this.state.user}
                         />
                       }
