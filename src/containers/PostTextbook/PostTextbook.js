@@ -162,27 +162,34 @@ class PostTextbook extends Component {
         overflow: 'hidden',
       }
     }
-
+    var redirect = null;
+    if(this.state.postedID !== null)
+      redirect = <Redirect to = "manage-textbooks" />
+    
+      
     //Redirect Handler
     return (
-      
-      <div className='PostTextbook' style={ classes.root }>
-        <Grid container spacing={8}>
-          <Grid item xs={12}>
-            <Paper className="UserInfo" elevation={5} style={ styles.paperContainer }>
-              <AppBar position="static">
-                <Tabs value={this.state.tabval} onChange={this.handleChange} fullWidth centered>
-                  <Tab label="Textbook" onClick={(event) => this.handleSelection(event, 0)}/>
-                  <Tab label="Collection" onClick={(event) => this.handleSelection(event, 1)}/>
-                </Tabs>
-              </AppBar>
-              <Grid container style={ styles.infoContainer } justify={"center"}>
-                {switchFormRender}
-              </Grid>
-            </Paper>
+      <div>
+        {redirect}
+        <div className='PostTextbook' style={ classes.root }>
+          <Grid container spacing={8}>
+            <Grid item xs={12}>
+              <Paper className="UserInfo" elevation={5} style={ styles.paperContainer }>
+                <AppBar position="static">
+                  <Tabs value={this.state.tabval} onChange={this.handleChange} fullWidth centered>
+                    <Tab label="Textbook" onClick={(event) => this.handleSelection(event, 0)}/>
+                    <Tab label="Collection" onClick={(event) => this.handleSelection(event, 1)}/>
+                  </Tabs>
+                </AppBar>
+                <Grid container style={ styles.infoContainer } justify={"center"}>
+                  {switchFormRender}
+                </Grid>
+              </Paper>
+            </Grid>
           </Grid>
-        </Grid>
+        </div>
       </div>
+      
     );
   }
 }

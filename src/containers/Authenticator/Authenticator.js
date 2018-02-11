@@ -4,7 +4,7 @@ import { withRouter } from 'react-router'
 
 import AuthApi from '../../api/AuthApi';
 
-const privelegedURLs = ["/textbook", "/search", "/post-textbook", "/settings", "/user"];
+const privelegedURLs = ["/textbook", "/search", "/post-textbook", "/settings", "/user", "/manage-textbooks"];
 
 class Authenticator extends Component{
     static propTypes = {
