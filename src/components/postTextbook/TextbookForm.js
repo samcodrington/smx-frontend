@@ -8,6 +8,7 @@ import Paper from 'material-ui/Paper';
 import TextField from 'material-ui/TextField';
 import Grid from 'material-ui/Grid';
 import Button from 'material-ui/Button';
+import Hidden from 'material-ui/Hidden';
 
 const style = {
   paper: {
@@ -15,7 +16,7 @@ const style = {
     padding: 20
   },
   button: {
-    marginTop: 10
+    marginTop: 80
   },
   left: {
     textAlign: 'left'
@@ -25,6 +26,9 @@ const style = {
   },
   center: {
     textAlign: 'center'
+  },
+  spacer: {
+    height: 10
   }
 }
 
@@ -129,8 +133,13 @@ class TextbookForm extends Component {
               />
           </Grid>
 
+          <Hidden xsDown >
+            <Grid item xs={12} style={style.spacer}>
+            </Grid>
+          </Hidden>
+
           <Grid item xs={12}>
-            <Button raised color='primary' style={ style.button } onClick={ this.handleSubmit}>Submit</Button>
+            <Button raised color='primary' fullWidth={true} style={ style.button } onClick={ this.handleSubmit}>Post Textbook</Button>
           </Grid>
 
         </Grid>

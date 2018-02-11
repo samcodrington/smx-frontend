@@ -32,6 +32,9 @@ const style = {
   searchButton: {
     position: 'absolute',
     right: '10px'
+  },
+  icon: {
+    color: "white"
   }
 }
 
@@ -111,7 +114,7 @@ class Navbar extends Component {
           </Drawer>
 
           <IconButton color="contrast" aria-label="Menu" onClick={ this.handleDrawerOpen } style={ style.menuButton }> 
-            <MenuIcon />
+            <MenuIcon style={style.icon}/>
           </IconButton>
         </div>
     }
