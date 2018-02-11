@@ -176,7 +176,10 @@ class Settings extends Component {
     }
     const response = UserApi
     .settings(user,useCase)
-    .then((response) => {alert("Settings updated successfully")})//need to update frontend user with new data
+    .then((response) => {
+      this.props.addUserInfo(response);//update frontend user with new data
+      alert("Settings updated successfully");
+    })
     .catch((response) => {
         alert('Something went wrong: ' + response.status);
     });

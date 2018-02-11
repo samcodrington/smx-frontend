@@ -52,7 +52,7 @@ class SignUpInfoForm extends Component {
     //string is valid if it is in the form string@string.string
     var at = email.indexOf("@");
     var atLast = email.lastIndexOf("@");
-    var periodLast = email.indexOf(".");
+    var periodLast = email.lastIndexOf(".");
     //ensure only one occurence of @ sign
     //ensure a period (for web domain occcurs after @ sign)
     if (at == atLast && periodLast > atLast){
@@ -101,7 +101,7 @@ class SignUpInfoForm extends Component {
             alert("error adding information to database");
           }
           else {
-          alert('You\'ve created an account! Name: ' + this.state.nameFirst);    //update user object and redirect to profile page
+          //alert('You\'ve created an account! Name: ' + this.state.nameFirst);    //update user object and redirect to profile page
           this.props.accountCreationSuccess();
           event.preventDefault();
           }
