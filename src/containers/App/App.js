@@ -3,14 +3,12 @@
 
 // React
 import React, { Component } from 'react';
-import { Switch, Route, Redirect } from 'react-router-dom';
+import { Switch, Route, Redirect} from 'react-router-dom';
+
 
 // Material UI Components
 import { withTheme } from 'material-ui/styles';
 import Grid from 'material-ui/Grid';
-
-// APIs
-import AuthApi from '../../api/AuthApi';
 
 // Containers
 import About from '../About/About';
@@ -22,6 +20,7 @@ import Search from '../Search/Search';
 import Settings from '../Settings/Settings';
 import PostTextbook from '../PostTextbook/PostTextbook';
 import ViewTextbook from '../ViewTextbook/ViewTextbook';
+import Authenticator from '../Authenticator/Authenticator';
 
 // Components
 import Navbar from '../../components/Navbar';
@@ -32,29 +31,11 @@ class App extends Component {
     super(props);
     this.state = {
         isLoggedIn: false,
+        authAction: null,
         user: null,
-        view: "home"
+        view: "signup"
     };
-  }
-
-  //callbacks for authentiation
-  checkLoginStatus = () => {
-    AuthApi.verify()
-    .then((response) => {
-      if (this.state.isLoggedIn == false)
-        this.changeLoginStatus(true);
-    })
-    .catch((error) => {
-      if (this.state.isLoggedIn == true)
-        this.changeLoginStatus(false);
-    });
-  }
-
-  changeLoginStatus = (login) =>{
-    this.setState({isLoggedIn: login});
-    if (!login)
-      this.setState({user:null});
-  }
+  } 
 
   addUserInfo = (u) => {
     console.debug('User: ', u);
@@ -73,22 +54,15 @@ class App extends Component {
     })
   }
 
-  triggerLogout = () => {
-    //alert("Logout Triggered");
-    AuthApi.logout().then((response)=>{
-      this.setState({loggingOut: true});
-      this.changeLoginStatus(false);
-      //TODO clear cookie
+  //Authenticator Methods
+  resetAuthAction = ()  => { this.setState({authAction: null});  }
+  triggerLogout = ()    => { this.setState({authAction: "logout"});  }
+  checkLoginStatus = () => { this.setState({authAction: "verify"}); }
 
-    }).catch((response)=>{
-      console.log(response);
-      //TODO handle bad logout
-      alert('Something went wrong: ' + response.status);
-    });
-  }
-  componentDidMount(){
-    if (this.state.isLoggedIn)
-      AuthApi.verify();
+  changeLoginStatus = (login) =>{
+    this.setState({isLoggedIn: login});
+    if (!login)
+      this.setState({user:null});
   }
 
 
@@ -125,14 +99,21 @@ class App extends Component {
         },
         overflow: 'scroll' //remove internal scrollbar
       }
-    }
+    }    
     return (
       <div>
+        <Authenticator 
+          isLoggedIn = {this.state.isLoggedIn}
+          view = {this.state.view}
+          authAction = {this.state.authAction}
+          resetAuthAction = {this.resetAuthAction}
+          changeLoginStatus = {this.changeLoginStatus}
+        />
         <Grid item xs={12}>
           <Navbar style={ classes.navBar }
             isLoggedIn = {this.state.isLoggedIn}
             triggerLogout = {this.triggerLogout}
-            view = {this.state.view}
+            //view = {this.state.view} check that this is unused
           />
         </Grid>
         <div style={ classes.root }>
