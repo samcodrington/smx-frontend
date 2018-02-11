@@ -103,7 +103,7 @@ class PostTextbook extends Component {
     .postTextbook(textbook)
     .then((response) => {
       //alert("You Successfully posted a textbook")})
-      this.setState({donePosting: true});
+      this.setState({postedID: true});
     })
     .catch((response) => {
         alert('Something went wrong: ' + response.status);
@@ -153,6 +153,7 @@ class PostTextbook extends Component {
           handleSubmit = {this.handleSubmit}
         />;
       }
+    
     const classes = {
       root: {
         //backgroundColor: theme.palette.background.default,
@@ -161,9 +162,10 @@ class PostTextbook extends Component {
         overflow: 'hidden',
       }
     }
+
+    //Redirect Handler
     return (
-      {if (this.state.postedID !== null)}
-        <Redirect to = "/textbook/" {+ this.state.postedID} />}
+      
       <div className='PostTextbook' style={ classes.root }>
         <Grid container spacing={8}>
           <Grid item xs={12}>
