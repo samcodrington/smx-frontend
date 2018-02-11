@@ -42,7 +42,10 @@ class Textbook extends Component {
 
 	createEmailLink(props) {
 		const author = props.author;
-		var emailLink = "mailto:?to=&body=AAA,&subject=Look what I found on QTextbook";
+		const link = "https://" + window.location.host + props.url;
+		const subject = "Look what I found on QTextbook";
+		const body = "Check out this textbook I found on QTextbook: "+ link;
+		var emailLink = "mailto:?to=&body="+ body +",&subject=" + subject;
 		return emailLink;
 	}
 
