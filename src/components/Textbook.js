@@ -37,7 +37,10 @@ const style = {
 class Textbook extends Component {
 	constructor(props) {
 		super(props);
-
+		this.state = {
+			deleted: false
+		}
+		this.deletePost = this.deletePost.bind(this);
 	}
 
 	createEmailLink(props) {
@@ -49,7 +52,41 @@ class Textbook extends Component {
 		return emailLink;
 	}
 
+	deletePost() {
+		var textbookID = this.props.url.substring(10);
+		this.handleDelete(textbookID);
+	}
+
+	handleDelete(textbookID) {
+	  const response = TextbookApi.deleteUserTextbook(
+	      textbookID)
+	    .then((response) => {
+	      //check if their are results
+	      console.log(response);
+	      if (response != '-1') {
+	      	this.setState({deleted: true});
+	      }
+	      else {
+	        alert("Failed to delete textbook");
+	      }
+	    }).catch((response) => {
+	        alert("Failed to communicate with server");
+	  });
+	  return response;
+	}
+
 	render() {
+		if(this.state.deleted === true) {
+			return(<div></div>);
+		}
+
+		var deleteButton;
+		if(this.props.delete === true) {
+			deleteButton = 
+		        	<Button dense color="primary" onClick={ () => this.deletePost() } >
+		        	  Delete Post
+		        	</Button>
+		}
 		return(
 			<div>
 				<Card style={ style.card }>
@@ -73,6 +110,9 @@ class Textbook extends Component {
 	          <Button dense color="primary" component={Link} to={ this.props.url }>
 	            Learn More
 	          </Button>
+
+	          {deleteButton}
+
 	        </CardActions>
 	      </Card>
 			</div>

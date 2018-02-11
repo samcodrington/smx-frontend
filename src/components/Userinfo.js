@@ -100,7 +100,7 @@ class UserInfo extends Component{
             <Grid item xs={12} style={ style.infoButton }>
               <Grid container>
                 <Grid item xs={6} sm={6} md={6} >
-                  <Button raised color="primary" fullWidth={true} style={ style.contactButton } component={Link} to="/post-textbook">
+                  <Button raised color="primary" fullWidth={true} style={ style.contactButton } component={Link} to="/manage-textbooks">
                     Manage Books
                   </Button>
                 </Grid>
