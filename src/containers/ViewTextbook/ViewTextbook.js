@@ -259,8 +259,6 @@ class ViewTextbook extends Component {
         this.handleQuerySuccess()
       );
     }
-
-
   }
 }
 
