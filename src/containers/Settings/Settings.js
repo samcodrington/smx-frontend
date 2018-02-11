@@ -19,7 +19,6 @@ import Paper from 'material-ui/Paper';
 import Tabs, { Tab } from 'material-ui/Tabs';
 import AppBar from 'material-ui/AppBar';
 
-
 // APIs
 import UserApi from '../../api/UserApi'
 
