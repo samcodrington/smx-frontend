@@ -2,6 +2,7 @@
 
 // React
 import React, { Component } from 'react';
+import {Redirect} from 'react-router-dom';
 
 // Material UI
 import Grid from 'material-ui/Grid';
@@ -47,7 +48,8 @@ class PostTextbook extends Component {
       description: '',
       nameError: false,
       authorError: false,
-      priceError: false
+      priceError: false,
+      postedID: null
     };
 
     this.handleSelection = this.handleSelection.bind(this);
@@ -68,7 +70,6 @@ class PostTextbook extends Component {
   }
 
   handleSubmit(event) {
-    alert(this.props.user);
     var dontSend=false
     event.preventDefault();
     //do some basic error checking on entered textbook
@@ -100,7 +101,10 @@ class PostTextbook extends Component {
     }
     const response = TextbookApi
     .postTextbook(textbook)
-    .then((response) => {alert("You Successfully posted a textbook")})
+    .then((response) => {
+      //alert("You Successfully posted a textbook")})
+      this.setState({donePosting: true});
+    })
     .catch((response) => {
         alert('Something went wrong: ' + response.status);
     });
@@ -158,6 +162,8 @@ class PostTextbook extends Component {
       }
     }
     return (
+      {if (donePosting)}
+        <Redirect to />}
       <div className='PostTextbook' style={ classes.root }>
         <Grid container spacing={8}>
           <Grid item xs={12}>
