@@ -35,7 +35,7 @@ class App extends Component {
         user: null,
         view: "signup"
     };
-  } 
+  }
 
   addUserInfo = (u) => {
     console.debug('User: ', u);
@@ -99,10 +99,10 @@ class App extends Component {
         },
         overflow: 'scroll' //remove internal scrollbar
       }
-    }    
+    }
     return (
       <div>
-        <Authenticator 
+        <Authenticator
           isLoggedIn = {this.state.isLoggedIn}
           view = {this.state.view}
           authAction = {this.state.authAction}
@@ -121,7 +121,21 @@ class App extends Component {
             <div style={ classes.appFrame }>
               <Grid item xs={12} style={ classes.content }>
                 <Switch>
-                  <Route exact path="/" component={SignUp} />
+                  <Route exact path="/"
+                    render = {
+                        props => {
+                          if (this.state.isLoggedIn == false){
+                            return <SignUp
+                              changeLoginStatus = {this.changeLoginStatus}
+                              addUserInfo = {this.addUserInfo}
+                              />
+                          }
+                          else {
+                            return <Redirect to = "/user"/>
+                          }
+                        }
+                    }
+                  />
                   <Route exact path="/sign-in"
                     render = {
                       props => {
@@ -161,7 +175,10 @@ class App extends Component {
                   <Route exact path='/settings' render = {
                     () => {
                       if (this.state.isLoggedIn)
-                        return <Settings user = {this.state.user} />
+                        return <Settings
+                        user = {this.state.user}
+                        addUserInfo = {this.addUserInfo}
+                        />
                       else {
                         if (!this.state.loggingOut)
                           alert ('Cannot Access Priveleged URL, Please Sign In');

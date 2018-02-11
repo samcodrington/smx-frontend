@@ -77,7 +77,7 @@ class SignInForm extends Component {
             this.setState({usernameTakenError: true});
           }
           else {
-          this.props.submissionSuccess(response);//pass userID to container
+          this.props.submissionSuccess(response,this.state.username,this.state.password);//pass userID to container
           event.preventDefault();
           }
         })

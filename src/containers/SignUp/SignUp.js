@@ -9,13 +9,17 @@ import Grid from 'material-ui/Grid';
 import SignUpForm from '../../components/SignUpForm';
 import SignUpInfoForm from '../../components/SignUpInfoForm';
 
+import authApi from '../../api/AuthApi';
+
+
 class SignUp extends Component {
   constructor(props) {
     super(props);
     this.state = {
       createdUser: false,
-      redirect: false,
-      userID: ""
+      userID: '',
+      username: '',
+      password: ''
     };
 
     this.submissionSuccess = this.submissionSuccess.bind(this);
@@ -23,18 +27,37 @@ class SignUp extends Component {
   }
   //function triggered when SignUpForm filled in correctly
   //displays to the user the SignUpInfoForm
-  submissionSuccess(userID){
+  submissionSuccess(userID,username,password){
     this.setState({
       createdUser: true,
-      userID: userID
+      userID: userID,
+      username: username,
+      password: password
     });
   }
   //function triggered when SignUpInfoForm filled in correctly
   //redirects the user to there profile page
   accountCreationSuccess(){
-    this.setState({
-      redirect: true
-    });
+    const user = {
+        username: this.state.username,
+        password: this.state.password
+      };
+      const response = authApi
+        .login(
+          user.username, user.password
+        )
+        .then((response) => {
+          //alert('You\'re signed in, ' + this.state.username);
+          console.log("Headers: " + JSON.stringify(response.headers));
+          this.props.addUserInfo(response);
+          this.props.changeLoginStatus(true);  //triggers a component change from app.js
+        })
+        .catch((response) => {
+          console.log(response);
+          alert('Something went wrong: ' + response.status);
+        }
+      );
+    //trigger login attempt here
   }
 
   render() {
@@ -48,9 +71,6 @@ class SignUp extends Component {
           userID = {this.state.userID}
           accountCreationSuccess = {this.accountCreationSuccess}
         />;
-    if (this.state.redirect){
-      return (<Redirect push to='/user' />);
-    } else {
     return(
       <div>
         <Grid container spacing={8} alignContent={'center'} alignItems={'center'} justify={'center'}>
@@ -60,7 +80,6 @@ class SignUp extends Component {
         </Grid>
       </div>
     );
-    }
   }
 
 }
