@@ -121,7 +121,21 @@ class App extends Component {
             <div style={ classes.appFrame }>
               <Grid item xs={12} style={ classes.content }>
                 <Switch>
-                  <Route exact path="/" component={SignUp} />
+                  <Route exact path="/"
+                    render = {
+                        props => {
+                          if (this.state.isLoggedIn == false){
+                            return <SignUp
+                              changeLoginStatus = {this.changeLoginStatus}
+                              addUserInfo = {this.addUserInfo}
+                              />
+                          }
+                          else {
+                            return <Redirect to = "/user"/>
+                          }
+                        }
+                    }
+                  />
                   <Route exact path="/sign-in"
                     render = {
                       props => {
