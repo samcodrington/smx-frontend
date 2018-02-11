@@ -102,7 +102,7 @@ class PostTextbook extends Component {
     const response = TextbookApi
     .postTextbook(textbook)
     .then((response) => {
-      //alert("You Successfully posted a textbook")})
+      alert("You Successfully posted a textbook")
       this.setState({postedID: true});
     })
     .catch((response) => {
