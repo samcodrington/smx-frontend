@@ -70,6 +70,7 @@ class ViewTextbook extends Component {
     this.state = {
       textbookResults: [],
       ownerEmail: '',
+      thumbnail: '',
       contactOpen: false
     };
     this.handleOpen = this.handleOpen.bind(this);
@@ -93,8 +94,10 @@ class ViewTextbook extends Component {
           if(JSON.stringify(response[0]) != JSON.stringify(this.state.textbookResults)) {
             this.setState({
               textbookResults: response[0],//the first object returned is the textbook results
-              ownerEmail: response[1]//the second object returned is the email of the owner
+              ownerEmail: response[1],//the second object returned is the email of the owner
+              thumbnail: response[2]//the third object returned is the thumbnail of the textbook
             });
+            alert(JSON.stringify(response[1]));
           }
         }
         else {
