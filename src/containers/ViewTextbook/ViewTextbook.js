@@ -97,7 +97,6 @@ class ViewTextbook extends Component {
               ownerEmail: response[1],//the second object returned is the email of the owner
               thumbnail: response[2]//the third object returned is the thumbnail of the textbook
             });
-            alert(JSON.stringify(response[1]));
           }
         }
         else {
