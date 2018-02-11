@@ -82,10 +82,7 @@ class Authenticator extends Component{
         });
     }
 
-    render() {
-        console.log("Rendering authenticator");
-                return null;
-    }
+    render() {return null;}
   
 } 
 const AuthenticatorWithRouter = withRouter(Authenticator);

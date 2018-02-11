@@ -69,7 +69,7 @@ class SignInForm extends Component {
         })
         .catch((response) => {
           console.log(response);
-          alert('Something went wrong: ' + response.status);
+          alert('Something went wrong: ' + response.body);
         }
       );
     }
