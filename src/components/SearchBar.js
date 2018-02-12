@@ -12,6 +12,7 @@ import IconButton from 'material-ui/IconButton';
 import TextField from 'material-ui/TextField';
 import Input, { InputLabel, InputAdornment } from 'material-ui/Input';
 import Paper from 'material-ui/Paper';
+import * as colors from 'material-ui/colors';
 
 // Icons
 import SearchIcon from 'material-ui-icons/Search';
@@ -29,6 +30,9 @@ const style = {
     position: 'relative',
     width: '100%',
     margin: 'auto'
+  },
+  icon: {
+    color: "white"
   }
 }
 
@@ -127,8 +131,8 @@ class SearchBar extends Component {
     }
     else {
       return(
-        <IconButton color="contrast" aria-label="Search" onClick={ this.handleSearchOpen } style={ this.props.style }> 
-          <SearchIcon />
+        <IconButton color="contrast" variant="raised" aria-label="Search" onClick={ this.handleSearchOpen } style={ this.props.style }> 
+          <SearchIcon style={style.icon}/>
         </IconButton>
       );
     }

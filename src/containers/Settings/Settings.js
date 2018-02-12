@@ -1,8 +1,11 @@
 // Settings.js
 
+// React
 import React, { Component } from 'react';
 import { Switch, Route, Redirect } from 'react-router-dom';
 import PropTypes from 'prop-types';
+
+// Material UI
 import { withStyles } from 'material-ui/styles';
 import List, { ListItem, ListItemText } from 'material-ui/List';
 import ListSubheader from 'material-ui/List/ListSubheader';
@@ -12,7 +15,11 @@ import Input, { InputLabel } from 'material-ui/Input';
 import { FormControl, FormHelperText } from 'material-ui/Form';
 import Typography from 'material-ui/Typography';
 import Button from 'material-ui/Button';
+import Paper from 'material-ui/Paper';
+import Tabs, { Tab } from 'material-ui/Tabs';
+import AppBar from 'material-ui/AppBar';
 
+// APIs
 import UserApi from '../../api/UserApi'
 
 const styles = {
@@ -27,6 +34,20 @@ const styles = {
     position: 'absolute',
     left: '0px',
     top: '50px'
+  },
+  paperContainer: {
+    height: '70vh',
+    margin: 'auto',
+    width: '80%',
+    'z-index': 50
+  },
+  infoContainer: {
+    'padding': 20
+  },
+  tab: {
+    width: '95%',
+    margin: 'auto',
+    'z-index': 100
   }
 };
 
@@ -44,7 +65,8 @@ class Settings extends Component {
       nameFirst: this.props.user.nameFirst,
       nameLast: this.props.user.nameLast,
       email: this.props.user.email,
-      school: this.props.user.school
+      school: this.props.user.school,
+      tabval: 0
     }
 
     this.handleClick = this.handleClick.bind(this);
@@ -54,9 +76,10 @@ class Settings extends Component {
   }
 
   //reset any potential changes if handleSubmit hasn't been clicked
-  handleClick = (event,name) => {
+  handleClick = (event,name,tab) => {
     this.setState({
       formType: name,
+      tabval: tab,
       formChange: false,
       username: this.props.user.username,
       nameFirst: this.props.user.nameFirst,
@@ -153,7 +176,10 @@ class Settings extends Component {
     }
     const response = UserApi
     .settings(user,useCase)
-    .then((response) => {alert("Settings updated successfully")})//need to update frontend user with new data
+    .then((response) => {
+      this.props.addUserInfo(response);//update frontend user with new data
+      alert("Settings updated successfully");
+    })
     .catch((response) => {
         alert('Something went wrong: ' + response.status);
     });
@@ -170,11 +196,14 @@ class Settings extends Component {
       _id: this.props.user._id
     }
     if (window.confirm('Are you sure you want to delete your account?')) {
+      //this.setState({redirect: true}); //user deleted successfully
+      this.props.triggerLogout();//need to trigger logout before deleting the user from the database
       const response = UserApi
       .settings(user,3)
       .then((response) => {
-        this.setState({redirect: true}); //user deleted successfully
-        alert("Settings updated successfully")
+        //this.setState({redirect: true}); //user deleted successfully
+        //this.props.changeLoginStatus(false);
+        //alert("Settings updated successfully")
       })//need to update frontend user with new data
       .catch((response) => {
           alert('Something went wrong: ' + response.status);
@@ -268,20 +297,19 @@ class Settings extends Component {
     }
     return (
       <div className='Settings'>
-        <Grid container spacing={8} aligncontent={'center'} alignItems={'center'} justify={'center'}>
-          <Grid xs={12} md={4} style={styles.container}>
-          <List styles={styles.root}  subheader={<ListSubheader>Personal Settings</ListSubheader>}>
-            <ListItem button onClick={(event) => this.handleClick(event, "profile")}>
-              <ListItemText primary="Profile" />
-            </ListItem>
-            <Divider />
-            <ListItem button onClick={(event) => this.handleClick(event, "account")}>
-              <ListItemText primary="Account" />
-            </ListItem>
-          </List>
-          </Grid>
-          <Grid xs={12} md={8}>
-            {formRender}
+        <Grid container spacing={8}>
+          <Grid item xs={12}>
+            <Paper className="UserInfo" elevation={5} style={ styles.paperContainer }>
+              <AppBar position="static">
+                <Tabs value={this.state.tabval} onChange={this.handleChange} fullWidth centered>
+                  <Tab label="Profile" onClick={(event) => this.handleClick(event, "profile",0)}/>
+                  <Tab label="Account" onClick={(event) => this.handleClick(event, "account",1)}/>
+                </Tabs>
+              </AppBar>
+              <Grid container style={ styles.infoContainer } justify={"center"}>
+                {formRender}
+              </Grid>
+            </Paper>
           </Grid>
         </Grid>
       </div>

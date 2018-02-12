@@ -1,16 +1,36 @@
 // PostTextbook.js
-import React, { Component } from 'react';
 
+// React
+import React, { Component } from 'react';
+import {Redirect} from 'react-router-dom';
+
+// Material UI
 import Grid from 'material-ui/Grid';
 import { withTheme } from 'material-ui/styles';
-
-import TextbookApi from '../../api/TextbookApi';
 import Typography from 'material-ui/Typography';
+import Paper from 'material-ui/Paper';
+import Tabs, { Tab } from 'material-ui/Tabs';
+import AppBar from 'material-ui/AppBar';
 
-//import local components
+// Components
 import CategoryForm from '../../components/postTextbook/CategoryForm';
 import CollectionForm from '../../components/postTextbook/CollectionForm';
 import TextbookForm from '../../components/postTextbook/TextbookForm';
+
+// APIs
+import TextbookApi from '../../api/TextbookApi';
+
+const styles = {
+  paperContainer: {
+    height: '80vh',
+    margin: 'auto',
+    width: '80%',
+    'z-index': 50
+  },
+  infoContainer: {
+    'padding': 20
+  }
+}
 
 class PostTextbook extends Component {
   constructor(props) {
@@ -18,6 +38,7 @@ class PostTextbook extends Component {
     console.log(props.user);
     this.state = {
       selectionValue: '',
+      tabval: 0,
       title: '',
       publisher: '',
       author: '',
@@ -27,7 +48,8 @@ class PostTextbook extends Component {
       description: '',
       nameError: false,
       authorError: false,
-      priceError: false
+      priceError: false,
+      postedTextbook: null
     };
 
     this.handleSelection = this.handleSelection.bind(this);
@@ -48,7 +70,6 @@ class PostTextbook extends Component {
   }
 
   handleSubmit(event) {
-    alert(this.props.user);
     var dontSend=false
     event.preventDefault();
     //do some basic error checking on entered textbook
@@ -80,24 +101,25 @@ class PostTextbook extends Component {
     }
     const response = TextbookApi
     .postTextbook(textbook)
-    .then((response) => {alert("You Successfully posted a textbook")})
+    .then((response) => {
+      alert("You Successfully posted a textbook")
+      this.setState({postedTextbook: true});
+    })
     .catch((response) => {
         alert('Something went wrong: ' + response.status);
     });
   }
 
-  handleSelection(value) {
+  handleSelection(event, tab) {
     this.setState({
-    selectionValue: value
+    tabval: tab
     });
+    console.log(this.state.selectionValue);
   }
 
   render() {
     var switchFormRender;
-      if (this.state.selectionValue==""){
-        //render nothing
-      }
-      else if (this.state.selectionValue=="Textbook"){
+      if (this.state.tabval==0){
         switchFormRender = <TextbookForm
           title = {this.state.title}
           publisher = {this.state.publisher}
@@ -113,7 +135,6 @@ class PostTextbook extends Component {
           handleSubmit = {this.handleSubmit}
         />;
       }
-
       else {
         switchFormRender = <CollectionForm
           title = {this.state.title}
@@ -132,6 +153,7 @@ class PostTextbook extends Component {
           handleSubmit = {this.handleSubmit}
         />;
       }
+
     const classes = {
       root: {
         //backgroundColor: theme.palette.background.default,
@@ -140,17 +162,34 @@ class PostTextbook extends Component {
         overflow: 'hidden',
       }
     }
+    var redirect = null;
+    if(this.state.postedTextbook !== null)
+      redirect = <Redirect to = "manage-textbooks" />
+
+
+    //Redirect Handler
     return (
-      <div className='PostTextbook' style={ classes.root }>
-        <Grid container spacing={8} alignContent={'center'} alignItems={'center'} justify={'center'}>
-          <Grid item xs={12} md={12} align={'center'}>
-            <CategoryForm selectionValue={this.state.selectionValue} handleSelection={this.handleSelection}/>
+      <div>
+        {redirect}
+        <div className='PostTextbook' style={ classes.root }>
+          <Grid container spacing={8}>
+            <Grid item xs={12}>
+              <Paper className="UserInfo" elevation={5} style={ styles.paperContainer }>
+                <AppBar position="static">
+                  <Tabs value={this.state.tabval} onChange={this.handleChange} fullWidth centered>
+                    <Tab label="Textbook" onClick={(event) => this.handleSelection(event, 0)}/>
+                    <Tab label="Collection" onClick={(event) => this.handleSelection(event, 1)}/>
+                  </Tabs>
+                </AppBar>
+                <Grid container style={ styles.infoContainer } justify={"center"}>
+                  {switchFormRender}
+                </Grid>
+              </Paper>
+            </Grid>
           </Grid>
-          <Grid item xs={12} md={12}>
-            {switchFormRender}
-          </Grid>
-        </Grid>
+        </div>
       </div>
+
     );
   }
 }
