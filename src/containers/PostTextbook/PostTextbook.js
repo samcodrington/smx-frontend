@@ -49,7 +49,7 @@ class PostTextbook extends Component {
       nameError: false,
       authorError: false,
       priceError: false,
-      postedID: null
+      postedTextbook: null
     };
 
     this.handleSelection = this.handleSelection.bind(this);
@@ -103,7 +103,7 @@ class PostTextbook extends Component {
     .postTextbook(textbook)
     .then((response) => {
       alert("You Successfully posted a textbook")
-      this.setState({postedID: true});
+      this.setState({postedTextbook: true});
     })
     .catch((response) => {
         alert('Something went wrong: ' + response.status);
