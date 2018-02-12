@@ -22,7 +22,7 @@ import TextbookApi from '../../api/TextbookApi';
 
 const styles = {
   paperContainer: {
-    height: '70vh',
+    height: '80vh',
     margin: 'auto',
     width: '80%',
     'z-index': 50
@@ -153,7 +153,7 @@ class PostTextbook extends Component {
           handleSubmit = {this.handleSubmit}
         />;
       }
-    
+
     const classes = {
       root: {
         //backgroundColor: theme.palette.background.default,
@@ -163,10 +163,10 @@ class PostTextbook extends Component {
       }
     }
     var redirect = null;
-    if(this.state.postedID !== null)
+    if(this.state.postedTextbook !== null)
       redirect = <Redirect to = "manage-textbooks" />
-    
-      
+
+
     //Redirect Handler
     return (
       <div>
@@ -189,7 +189,7 @@ class PostTextbook extends Component {
           </Grid>
         </div>
       </div>
-      
+
     );
   }
 }
