@@ -196,11 +196,14 @@ class Settings extends Component {
       _id: this.props.user._id
     }
     if (window.confirm('Are you sure you want to delete your account?')) {
+      //this.setState({redirect: true}); //user deleted successfully
+      this.props.triggerLogout();//need to trigger logout before deleting the user from the database
       const response = UserApi
       .settings(user,3)
       .then((response) => {
-        this.setState({redirect: true}); //user deleted successfully
-        alert("Settings updated successfully")
+        //this.setState({redirect: true}); //user deleted successfully
+        //this.props.changeLoginStatus(false);
+        //alert("Settings updated successfully")
       })//need to update frontend user with new data
       .catch((response) => {
           alert('Something went wrong: ' + response.status);
