@@ -178,10 +178,11 @@ class App extends Component {
                         return <Settings
                         user = {this.state.user}
                         addUserInfo = {this.addUserInfo}
+                        triggerLogout = {this.triggerLogout}
                         />
                       else {
-                        if (!this.state.loggingOut)
-                          alert ('Cannot Access Priveleged URL, Please Sign In');
+                        if (!this.state.loggingOut){}
+                          //alert ('Cannot Access Priveleged URL, Please Sign In');
                         else this.setState({loggingOut: false});
                         return <Redirect to = "/sign-in"/>
                       }
