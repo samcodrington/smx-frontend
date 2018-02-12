@@ -69,7 +69,8 @@ class SignInForm extends Component {
         })
         .catch((response) => {
           console.log(response);
-          alert('Something went wrong: ' + response.body);
+          alert('Something went wrong: ' + response.data.body);
+          this.setState({username: '', password: ''});
         }
       );
     }
