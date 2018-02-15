@@ -155,6 +155,7 @@ class ViewTextbook extends Component {
       const author = bookData["author"];
       const isbn = bookData["isbn"];
       const owner = bookData["owner"];
+      const price = bookData["price"];
       const publisher = bookData["publisher"];
       const associated_program = bookData["associatedprogram"];
       const tags = bookData["tags"];
@@ -171,6 +172,9 @@ class ViewTextbook extends Component {
             <DialogContent>
               <DialogContentText id="alert-dialog-description">
                 <b>Email:</b> {email}
+                </DialogContentText>
+                <DialogContentText id="alert-dialog-description">
+                <b>Price: $</b> {price}
               </DialogContentText>
             </DialogContent>
             <DialogActions>
